@@ -55,8 +55,8 @@
 													echo "$destfname" ;
 													destfnamelc="${destfname,,}" ;
 													echo "$destfnamelc" ;
-													mv fnamelc destfnamelc
-													#mv "${Gateway[$i]}-${TRAVIS_OS_NAME}-$GOOS-$GOARCH.exe" "${Gateway[$i]}-${TRAVIS_OS_NAME}.exe"
+													mv fnamelc destfnamelc ;
+													mv "${"${Gateway[$i]}-${TRAVIS_OS_NAME}-$GOOS-$GOARCH.exe",,}" "${"${Gateway[$i]}-${TRAVIS_OS_NAME}.exe",,}"
 												fi
 										zip -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" *;
 										echo "alert 4" ;
