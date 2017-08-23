@@ -47,13 +47,13 @@
 							rm -r bin src vendor pkg ;
 										cd "${Gateway[$i]}-${TRAVIS_OS_NAME}";
 												if [ "${TRAVIS_OS_NAME}" == "windows" ] ;then
-													fname = "${Gateway[$i]}-${TRAVIS_OS_NAME}-$GOOS-$GOARCH.exe" ;
+													fname="${Gateway[$i]}-${TRAVIS_OS_NAME}-$GOOS-$GOARCH.exe" ;
 													echo "$fname" ;
-													fnamelc = "${fname,,}" ;
+													fnamelc="${fname,,}" ;
 													echo "fnamelc" ;													
-													destfname = "${Gateway[$i]}-${TRAVIS_OS_NAME}.exe" ;
+													destfname="${Gateway[$i]}-${TRAVIS_OS_NAME}.exe" ;
 													echo "destfname" ;
-													destfnamelc = "${destfname,,}" ;
+													destfnamelc="${destfname,,}" ;
 													echo "destfnamelc" ;
 													mv fnamelc destfnamelc
 													#mv "${Gateway[$i]}-${TRAVIS_OS_NAME}-$GOOS-$GOARCH.exe" "${Gateway[$i]}-${TRAVIS_OS_NAME}.exe"
