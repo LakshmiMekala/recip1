@@ -50,11 +50,11 @@
 													fname="${Gateway[$i]}-${TRAVIS_OS_NAME}-$GOOS-$GOARCH.exe" ;
 													echo "$fname" ;
 													fnamelc="${fname,,}" ;
-													echo "fnamelc" ;													
+													echo "$fnamelc" ;													
 													destfname="${Gateway[$i]}-${TRAVIS_OS_NAME}.exe" ;
-													echo "destfname" ;
+													echo "$destfname" ;
 													destfnamelc="${destfname,,}" ;
-													echo "destfnamelc" ;
+													echo "$destfnamelc" ;
 													mv fnamelc destfnamelc
 													#mv "${Gateway[$i]}-${TRAVIS_OS_NAME}-$GOOS-$GOARCH.exe" "${Gateway[$i]}-${TRAVIS_OS_NAME}.exe"
 												fi
