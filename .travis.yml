@@ -5,7 +5,7 @@ before_install:
  
 os: 
   - linux
-#  - osx
+  - osx
   - windows
 
 install:

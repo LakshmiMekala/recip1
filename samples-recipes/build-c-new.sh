@@ -29,11 +29,12 @@
 	function create_gateway()
 	{
 		echo "Creating gateway"
-		Gateway=({"envoy-invoker-mashling","inline-gateway","KafkaTrigger-To-KafkaActivity-mashling","KafkaTrigger-To-RestActivity-mashling","RestTrigger-To-KafkaActivity-mashling"})	
+		Gateway=({"RestTrigger-To-KafkaActivity-mashling","rest-conditional-gateway"})	
 			# get length of an array		
 			tLen="${#Gateway[@]}"
 				for (( i=0; i<"${tLen}"; i++ ));
 				do
+					#converting gateway name to lower case
 					Gateway="${Gateway[$i],,}" ;
 					echo "$Gateway-${TRAVIS_OS_NAME}";
 					
@@ -49,51 +50,25 @@
 							rm -r bin src vendor pkg ;
 										cd "$Gateway-${TRAVIS_OS_NAME}";
 												if [ "${TRAVIS_OS_NAME}" == "windows" ] ;then
-													#fname="$Gateway-${TRAVIS_OS_NAME}-$GOOS-$GOARCH" ;
-													#echo "$fname" ;
-													#fnamelc="${fname,,}" ;
-													#echo "$fnamelc" ;													
-													#destfname="$Gateway-${TRAVIS_OS_NAME}" ;
-													#echo "$destfname" ;
-													#destfnamelc="${destfname,,}" ;
-													#echo "$destfnamelc" ;
-													#mv fnamelc.exe destfnamelc.exe ;
 													mv "$Gateway-${TRAVIS_OS_NAME}-$GOOS-$GOARCH.exe" "$Gateway-${TRAVIS_OS_NAME}.exe"
 												fi
 										zip -r "$Gateway-${TRAVIS_OS_NAME}" *;
-										echo "alert 4" ;
-										ls ;
 										cp "$Gateway-${TRAVIS_OS_NAME}.zip" ../../"$Gateway-${TRAVIS_OS_NAME}" ;
-										echo "alert 17" ;		
 										cd .. ;
-							ls ;
-							echo "alert 3" ;
-							echo "4" ;
 							rm -r "$Gateway-${TRAVIS_OS_NAME}" ;
-							ls;
-							echo "alert 4" ;
-							ls;
 							cd ..;
-					echo "alert 10" ;
-					ls ;
 					# For linux binary, recipe name is gateway name.
 						if [ "${TRAVIS_OS_NAME}" == "linux" ] ; then	
 							mv "$Gateway-${TRAVIS_OS_NAME}" "$Gateway" ;
-							echo "alert 11";
-							ls ;
 							cp -r "$Gateway" ../latest
 						else
 					#For mac and windows recipe name will be updated in gateway folder itself
 							pwd
 							cp "$Gateway-${TRAVIS_OS_NAME}"/"$Gateway-${TRAVIS_OS_NAME}.zip" "$Gateway" ;
 							cd "$Gateway" ;
-							echo "123" ;
-							ls ;
 							cd ..;
 							cp -r "$Gateway-${TRAVIS_OS_NAME}"/"$Gateway-${TRAVIS_OS_NAME}.zip" ../latest/"$Gateway" ;
 							rm  -r "$Gateway-${TRAVIS_OS_NAME}" ;
-							echo "Test account" ;
-							ls;	
 						fi
 				done
 				cd .. ;
