@@ -29,7 +29,7 @@
 	function create_gateway()
 	{
 		echo "Creating gateway"
-		Gateway=({"envoy-invoker-mashling","inline-gateway","KafkaTrigger-To-KafkaActivity-mashling","KafkaTrigger-To-RestActivity-mashling","RestTrigger-To-KafkaActivity-mashling"})	
+		Gateway=({"envoy-invoker-mashling","RestTrigger-To-KafkaActivity-mashling"})	
 			# get length of an array		
 			tLen="${#Gateway[@]}"
 				for (( i=0; i<"${tLen}"; i++ ));
@@ -112,7 +112,11 @@
     git config user.email "lmekala@tibco.com";
 	git config user.name "LakshmiMekala"
 	
+	
+	git add .;  	
+	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
+	git push --set-upstream origin recipe;
 	git checkout master;
-	git add .; 
+	git checkout branch recip1/samples-recipes/builds/latest ;
 	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
 	git push --set-upstream origin master;
