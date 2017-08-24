@@ -29,46 +29,69 @@
 	function create_gateway()
 	{
 		echo "Creating gateway"
-		GatewayJson=({"RestTrigger-To-KafkaActivity-mashling","rest-conditional-gateway"})	
+		Gateway=({"envoy-invoker-mashling","inline-gateway","KafkaTrigger-To-KafkaActivity-mashling","KafkaTrigger-To-RestActivity-mashling","RestTrigger-To-KafkaActivity-mashling"})	
 			# get length of an array		
-			tLen="${#GatewayJson[@]}"
+			tLen="${#Gateway[@]}"
 				for (( i=0; i<"${tLen}"; i++ ));
 				do
-					#converting gateway name to lower case name
-					Gateway="${GatewayJson[$i],,}" ;
-					echo "$Gateway-${TRAVIS_OS_NAME}";
-					
+					echo "${Gateway[$i]}-${TRAVIS_OS_NAME}";
 				# creating gateway	
-					mashling create -f ../../../../mashling-cli/samples/"${GatewayJson[$i]}".json "$Gateway-${TRAVIS_OS_NAME}";
-							cd "$Gateway-${TRAVIS_OS_NAME}"  ;
-							mv bin "$Gateway-${TRAVIS_OS_NAME}" ;
+					mashling create -f ../../../../mashling-cli/samples/"${Gateway[$i]}".json "${Gateway[$i]}-${TRAVIS_OS_NAME}";
+							cd "${Gateway[$i]}-${TRAVIS_OS_NAME}"  ;
+							mv bin "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
 							mashling build ;
-							cp -r bin/flogo.json ../"$Gateway-${TRAVIS_OS_NAME}" ;
-							cp -r bin/flogo.json "$Gateway-${TRAVIS_OS_NAME}" ;
-							mv  mashling.json "$Gateway.mashling.json"
-							cp -r "$Gateway.mashling.json" "$Gateway-${TRAVIS_OS_NAME}" ;
+							cp -r bin/flogo.json ../"${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
+							cp -r bin/flogo.json "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
+							mv  mashling.json "${Gateway[$i]}.mashling.json"
+							cp -r "${Gateway[$i]}.mashling.json" "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
 							rm -r bin src vendor pkg ;
-										cd "$Gateway-${TRAVIS_OS_NAME}";
+										cd "${Gateway[$i]}-${TRAVIS_OS_NAME}";
 												if [ "${TRAVIS_OS_NAME}" == "windows" ] ;then
-													mv "$Gateway-${TRAVIS_OS_NAME}-$GOOS-$GOARCH.exe" "$Gateway-${TRAVIS_OS_NAME}.exe"
+													fname="${Gateway[$i]}-${TRAVIS_OS_NAME}-$GOOS-$GOARCH.exe" ;
+													echo "$fname" ;
+													fnamelc="${fname,,}" ;
+													echo "$fnamelc" ;													
+													destfname="${Gateway[$i]}-${TRAVIS_OS_NAME}.exe" ;
+													echo "$destfname" ;
+													destfnamelc="${destfname,,}" ;
+													echo "$destfnamelc" ;
+													mv $fnamelc $destfnamelc ;
+													#mv "${"${Gateway[$i]}-${TRAVIS_OS_NAME}-$GOOS-$GOARCH.exe",,}" "${"${Gateway[$i]}-${TRAVIS_OS_NAME}.exe",,}"
 												fi
-										zip -r "$Gateway-${TRAVIS_OS_NAME}" *;
-										cp "$Gateway-${TRAVIS_OS_NAME}.zip" ../../"$Gateway-${TRAVIS_OS_NAME}" ;
+										zip -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" *;
+										echo "alert 4" ;
+										ls ;
+										cp "${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" ../../"${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
+										echo "alert 17" ;		
 										cd .. ;
-							rm -r "$Gateway-${TRAVIS_OS_NAME}" ;
+							ls ;
+							echo "alert 3" ;
+							echo "4" ;
+							rm -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
+							ls;
+							echo "alert 4" ;
+							ls;
 							cd ..;
+					echo "alert 10" ;
+					ls ;
 					# For linux binary, recipe name is gateway name.
 						if [ "${TRAVIS_OS_NAME}" == "linux" ] ; then	
-							mv "$Gateway-${TRAVIS_OS_NAME}" "$Gateway" ;
-							cp -r "$Gateway" ../latest
+							mv "${Gateway[$i]}-${TRAVIS_OS_NAME}" "${Gateway[$i]}" ;
+							echo "alert 11";
+							ls ;
+							cp -r "${Gateway[$i]}" ../latest
 						else
 					#For mac and windows recipe name will be updated in gateway folder itself
 							pwd
-							cp "$Gateway-${TRAVIS_OS_NAME}"/"$Gateway-${TRAVIS_OS_NAME}.zip" "$Gateway" ;
-							cd "$Gateway" ;
+							cp "${Gateway[$i]}-${TRAVIS_OS_NAME}"/"${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" "${Gateway[$i]}" ;
+							cd "${Gateway[$i]}" ;
+							echo "123" ;
+							ls ;
 							cd ..;
-							cp -r "$Gateway-${TRAVIS_OS_NAME}"/"$Gateway-${TRAVIS_OS_NAME}.zip" ../latest/"$Gateway" ;
-							rm  -r "$Gateway-${TRAVIS_OS_NAME}" ;
+							cp -r "${Gateway[$i]}-${TRAVIS_OS_NAME}"/"${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" ../latest/"${Gateway[$i]}" ;
+							rm  -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
+							echo "Test account" ;
+							ls;	
 						fi
 				done
 				cd .. ;
