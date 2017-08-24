@@ -18,8 +18,10 @@ install:
   - pwd
   - cd ../../TIBCOSoftware
   - git clone https://github.com/LakshmiMekala/recip1.git
-  - git checkout recipe
-  - pushd recip1/samples-recipes
+  - cd recip1
+#  - git clone recipe https://github.com/LakshmiMekala/recip1.git
+  - git checkout -b recipe origin/recipe
+  - pushd samples-recipes
   - ls
 script:
    - chmod ugo+x ./build-c-new.sh 
