@@ -117,6 +117,10 @@
 	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
 	git push --set-upstream origin recipe;
 	git checkout master;
-	git checkout branch recip1/samples-recipes/builds/latest ;
+	echo "alert 2" ;
+	git checkout branch samples-recipes/builds/latest ;
+	echo "alert 3" ;
 	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
+	echo "alert 4" ;
 	git push --set-upstream origin master;
+	echo "alert 5" ;
