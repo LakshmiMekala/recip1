@@ -34,7 +34,7 @@
 			tLen="${#Gateway[@]}"
 				for (( i=0; i<"${tLen}"; i++ ));
 				do
-					Gateway="${Gateway,,}" ;
+					Gateway="${Gateway[$i],,}" ;
 					echo "$Gateway-${TRAVIS_OS_NAME}";
 					
 				# creating gateway	
