@@ -38,7 +38,7 @@
 					echo "$Gateway-${TRAVIS_OS_NAME}";
 					
 				# creating gateway	
-					mashling create -f ../../../../mashling-cli/samples/"$Gateway".json "$Gateway-${TRAVIS_OS_NAME}";
+					mashling create -f ../../../../mashling-cli/samples/"${Gateway[$i]}".json "$Gateway-${TRAVIS_OS_NAME}";
 							cd "$Gateway-${TRAVIS_OS_NAME}"  ;
 							mv bin "$Gateway-${TRAVIS_OS_NAME}" ;
 							mashling build ;
