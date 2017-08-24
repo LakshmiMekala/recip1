@@ -29,17 +29,17 @@
 	function create_gateway()
 	{
 		echo "Creating gateway"
-		Gateway=({"RestTrigger-To-KafkaActivity-mashling","rest-conditional-gateway"})	
+		GatewayJson=({"RestTrigger-To-KafkaActivity-mashling","rest-conditional-gateway"})	
 			# get length of an array		
-			tLen="${#Gateway[@]}"
+			tLen="${#GatewayJson[@]}"
 				for (( i=0; i<"${tLen}"; i++ ));
 				do
 					#converting gateway name to lower case
-					Gateway="${Gateway[$i],,}" ;
+					Gateway="${GatewayJson[$i],,}" ;
 					echo "$Gateway-${TRAVIS_OS_NAME}";
 					
 				# creating gateway	
-					mashling create -f ../../../../mashling-cli/samples/"${Gateway[$i]}".json "$Gateway-${TRAVIS_OS_NAME}";
+					mashling create -f ../../../../mashling-cli/samples/"${GatewayJson[$i]}".json "$Gateway-${TRAVIS_OS_NAME}";
 							cd "$Gateway-${TRAVIS_OS_NAME}"  ;
 							mv bin "$Gateway-${TRAVIS_OS_NAME}" ;
 							mashling build ;
