@@ -34,7 +34,7 @@
 			tLen="${#GatewayJson[@]}"
 				for (( i=0; i<"${tLen}"; i++ ));
 				do
-					#converting gateway name to lower case
+					#converting gateway name to lower case name
 					Gateway="${GatewayJson[$i],,}" ;
 					echo "$Gateway-${TRAVIS_OS_NAME}";
 					
