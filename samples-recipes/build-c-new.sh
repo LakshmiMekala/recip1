@@ -113,6 +113,8 @@
 	git config user.name "LakshmiMekala"
 	
 <<<<<<< HEAD
+	ls ;
+	pwd ;
 	git add .; 
 	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
 	git push --set-upstream origin recipe;
