@@ -5,8 +5,8 @@ before_install:
  
 os: 
   - linux
-  - osx
-  - windows
+#  - osx
+#  - windows
 
 install:
   - go get github.com/constabulary/gb/...

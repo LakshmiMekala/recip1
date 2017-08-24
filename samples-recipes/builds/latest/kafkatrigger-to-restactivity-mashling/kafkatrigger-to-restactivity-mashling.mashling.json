@@ -1,6 +1,6 @@
 {
 	"gateway": {
-		"name": "kafkatrigger-to-restactivity-mashling-linux",
+		"name": "KafkaTrigger-To-RestActivity-mashling-linux",
 		"version": "1.0.0",
 		"description": "This is the first microgateway app",
 		"configurations": [

@@ -112,7 +112,10 @@
     git config user.email "lmekala@tibco.com";
 	git config user.name "LakshmiMekala"
 	
-	git checkout master;
 	git add .; 
+	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
+	git push --set-upstream origin recipe;
+	git checkout master;
+	git checkout recipe samples-recipes/builds/latest ;
 	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
 	git push --set-upstream origin master;
