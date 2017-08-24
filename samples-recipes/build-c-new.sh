@@ -123,10 +123,13 @@
 #	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
 
 	git checkout recipe;
-	git add .;  	
+	git add .;  
+	echo "alert -1" ;
 	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
+	echo "alert 0" ;
 	git push --set-upstream origin recipe;
-	git checkout master;
+	echo "alert 1" ;
+	git checkout origin/master;
 	echo "alert 2" ;
 	git checkout branch -- latest ;
 	git add latest ;
