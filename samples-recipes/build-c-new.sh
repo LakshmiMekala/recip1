@@ -35,41 +35,41 @@
 				for (( i=0; i<"${tLen}"; i++ ));
 				do
 					Gateway="${Gateway,,}" ;
-					echo "${Gateway}-${TRAVIS_OS_NAME}";
+					echo "$Gateway-${TRAVIS_OS_NAME}";
 					
 				# creating gateway	
-					mashling create -f ../../../../mashling-cli/samples/"${Gateway}".json "${Gateway}-${TRAVIS_OS_NAME}";
-							cd "${Gateway}-${TRAVIS_OS_NAME}"  ;
-							mv bin "${Gateway}-${TRAVIS_OS_NAME}" ;
+					mashling create -f ../../../../mashling-cli/samples/"$Gateway".json "$Gateway-${TRAVIS_OS_NAME}";
+							cd "$Gateway-${TRAVIS_OS_NAME}"  ;
+							mv bin "$Gateway-${TRAVIS_OS_NAME}" ;
 							mashling build ;
-							cp -r bin/flogo.json ../"${Gateway}-${TRAVIS_OS_NAME}" ;
-							cp -r bin/flogo.json "${Gateway}-${TRAVIS_OS_NAME}" ;
-							mv  mashling.json "${Gateway}.mashling.json"
-							cp -r "${Gateway}.mashling.json" "${Gateway}-${TRAVIS_OS_NAME}" ;
+							cp -r bin/flogo.json ../"$Gateway-${TRAVIS_OS_NAME}" ;
+							cp -r bin/flogo.json "$Gateway-${TRAVIS_OS_NAME}" ;
+							mv  mashling.json "$Gateway.mashling.json"
+							cp -r "$Gateway.mashling.json" "$Gateway-${TRAVIS_OS_NAME}" ;
 							rm -r bin src vendor pkg ;
-										cd "${Gateway}-${TRAVIS_OS_NAME}";
+										cd "$Gateway-${TRAVIS_OS_NAME}";
 												if [ "${TRAVIS_OS_NAME}" == "windows" ] ;then
-													#fname="${Gateway}-${TRAVIS_OS_NAME}-$GOOS-$GOARCH" ;
+													#fname="$Gateway-${TRAVIS_OS_NAME}-$GOOS-$GOARCH" ;
 													#echo "$fname" ;
 													#fnamelc="${fname,,}" ;
 													#echo "$fnamelc" ;													
-													#destfname="${Gateway}-${TRAVIS_OS_NAME}" ;
+													#destfname="$Gateway-${TRAVIS_OS_NAME}" ;
 													#echo "$destfname" ;
 													#destfnamelc="${destfname,,}" ;
 													#echo "$destfnamelc" ;
 													#mv fnamelc.exe destfnamelc.exe ;
-													mv "${Gateway}-${TRAVIS_OS_NAME}-$GOOS-$GOARCH.exe" "${Gateway}-${TRAVIS_OS_NAME}.exe"
+													mv "$Gateway-${TRAVIS_OS_NAME}-$GOOS-$GOARCH.exe" "$Gateway-${TRAVIS_OS_NAME}.exe"
 												fi
-										zip -r "${Gateway}-${TRAVIS_OS_NAME}" *;
+										zip -r "$Gateway-${TRAVIS_OS_NAME}" *;
 										echo "alert 4" ;
 										ls ;
-										cp "${Gateway}-${TRAVIS_OS_NAME}.zip" ../../"${Gateway}-${TRAVIS_OS_NAME}" ;
+										cp "$Gateway-${TRAVIS_OS_NAME}.zip" ../../"$Gateway-${TRAVIS_OS_NAME}" ;
 										echo "alert 17" ;		
 										cd .. ;
 							ls ;
 							echo "alert 3" ;
 							echo "4" ;
-							rm -r "${Gateway}-${TRAVIS_OS_NAME}" ;
+							rm -r "$Gateway-${TRAVIS_OS_NAME}" ;
 							ls;
 							echo "alert 4" ;
 							ls;
@@ -78,20 +78,20 @@
 					ls ;
 					# For linux binary, recipe name is gateway name.
 						if [ "${TRAVIS_OS_NAME}" == "linux" ] ; then	
-							mv "${Gateway}-${TRAVIS_OS_NAME}" "${Gateway}" ;
+							mv "$Gateway-${TRAVIS_OS_NAME}" "$Gateway" ;
 							echo "alert 11";
 							ls ;
-							cp -r "${Gateway}" ../latest
+							cp -r "$Gateway" ../latest
 						else
 					#For mac and windows recipe name will be updated in gateway folder itself
 							pwd
-							cp "${Gateway}-${TRAVIS_OS_NAME}"/"${Gateway}-${TRAVIS_OS_NAME}.zip" "${Gateway}" ;
-							cd "${Gateway}" ;
+							cp "$Gateway-${TRAVIS_OS_NAME}"/"$Gateway-${TRAVIS_OS_NAME}.zip" "$Gateway" ;
+							cd "$Gateway" ;
 							echo "123" ;
 							ls ;
 							cd ..;
-							cp -r "${Gateway}-${TRAVIS_OS_NAME}"/"${Gateway}-${TRAVIS_OS_NAME}.zip" ../latest/"${Gateway}" ;
-							rm  -r "${Gateway}-${TRAVIS_OS_NAME}" ;
+							cp -r "$Gateway-${TRAVIS_OS_NAME}"/"$Gateway-${TRAVIS_OS_NAME}.zip" ../latest/"$Gateway" ;
+							rm  -r "$Gateway-${TRAVIS_OS_NAME}" ;
 							echo "Test account" ;
 							ls;	
 						fi
