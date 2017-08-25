@@ -128,6 +128,8 @@
 	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
 	echo "alert 0" ;
 	git push --set-upstream origin recipe;
+	echo "alert A 1" ;
+	git stash
 	echo "alert 1" ;
 	git checkout origin/master;
 	echo "alert 2" ;
