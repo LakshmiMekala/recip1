@@ -122,22 +122,21 @@
 #	git checkout recipe samples-recipes/builds/latest ;
 #	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
 
-	git checkout recipe;
+#	git checkout recipe;
 	git add .;  
 	echo "alert -1" ;
 	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
 	echo "alert 0" ;
-	git push --set-upstream origin recipe;
+	git push -u origin recipe;
 	echo "alert A 1" ;
 	git stash
 	echo "alert 1" ;
-	git checkout origin/master;
+	git checkout master;
 	echo "alert 2" ;
 	git checkout recipe -- latest ;
 	git add latest ;
 	echo "alert 3" ;
 	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
 	echo "alert 4" ;
-
-	git push --set-upstream origin master;
+	git push -u origin master;
 	echo "alert 5" ;
