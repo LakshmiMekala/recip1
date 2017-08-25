@@ -131,7 +131,7 @@
 	echo "alert 1" ;
 	git checkout origin/master;
 	echo "alert 2" ;
-	git checkout branch -- latest ;
+	git checkout recipe -- latest ;
 	git add latest ;
 	echo "alert 3" ;
 	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
