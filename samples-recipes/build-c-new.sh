@@ -29,7 +29,7 @@
 	function create_gateway()
 	{
 		echo "Creating gateway"
-		Gateway=({"envoy-invoker-mashling","RestTrigger-To-KafkaActivity-mashling"})	
+		Gateway=({"envoy-invoker-mashling","inline-gateway","kafka-conditional-gateway","kafka-reference-gateway","KafkaTrigger-To-KafkaActivity-mashling","KafkaTrigger-To-RestActivity-mashling","reference-gateway","RestTrigger-To-KafkaActivity-mashling","rest-conditional-gateway"})	
 			# get length of an array		
 			tLen="${#Gateway[@]}"
 				for (( i=0; i<"${tLen}"; i++ ));
@@ -56,42 +56,24 @@
 													destfnamelc="${destfname,,}" ;
 													echo "$destfnamelc" ;
 													mv $fnamelc $destfnamelc ;
-													#mv "${"${Gateway[$i]}-${TRAVIS_OS_NAME}-$GOOS-$GOARCH.exe",,}" "${"${Gateway[$i]}-${TRAVIS_OS_NAME}.exe",,}"
 												fi
 										zip -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" *;
-										echo "alert 4" ;
-										ls ;
-										cp "${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" ../../"${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
-										echo "alert 17" ;		
+										cp "${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" ../../"${Gateway[$i]}-${TRAVIS_OS_NAME}" ;		
 										cd .. ;
-							ls ;
-							echo "alert 3" ;
-							echo "4" ;
 							rm -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
-							ls;
-							echo "alert 4" ;
-							ls;
 							cd ..;
-					echo "alert 10" ;
-					ls ;
 					# For linux binary, recipe name is gateway name.
 						if [ "${TRAVIS_OS_NAME}" == "linux" ] ; then	
 							mv "${Gateway[$i]}-${TRAVIS_OS_NAME}" "${Gateway[$i]}" ;
-							echo "alert 11";
-							ls ;
 							cp -r "${Gateway[$i]}" ../latest
 						else
 					#For mac and windows recipe name will be updated in gateway folder itself
 							pwd
 							cp "${Gateway[$i]}-${TRAVIS_OS_NAME}"/"${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" "${Gateway[$i]}" ;
 							cd "${Gateway[$i]}" ;
-							echo "123" ;
-							ls ;
 							cd ..;
 							cp -r "${Gateway[$i]}-${TRAVIS_OS_NAME}"/"${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" ../latest/"${Gateway[$i]}" ;
 							rm  -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
-							echo "Test account" ;
-							ls;	
 						fi
 				done
 				cd .. ;
@@ -115,14 +97,6 @@
 
 	ls ;
 	pwd ;
-#	git add .; 
-#	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
-#	git push --set-upstream origin recipe;
-#	git checkout master;
-#	git checkout recipe samples-recipes/builds/latest ;
-#	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
-
-#	git checkout recipe;
 	git add .;  
 	echo "alert -1" ;
 	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
