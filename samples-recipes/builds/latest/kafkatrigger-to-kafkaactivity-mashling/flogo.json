@@ -1,5 +1,5 @@
 {
-	"name": "kafkatrigger-to-kafkaactivity-mashling-linux",
+	"name": "KafkaTrigger-To-KafkaActivity-mashling-linux",
 	"type": "flogo:app",
 	"version": "1.0.0",
 	"description": "This is the first microgateway app",
