@@ -18,6 +18,9 @@ install:
    - echo $TRAVIS_REPO_SLUG
    - echo $TRAVIS_COMMIT
    - echo $TRAVIS_TAG
+   - mkdir -p "$TRAVIS_REPO_SLUG-$TRAVIS_BUILD_NUMBER"
+   - cd "$TRAVIS_REPO_SLUG-$TRAVIS_BUILD_NUMBER"
+   - pwd
 #  - go get github.com/TIBCOSoftware/flogo-cli/...
 #  - go get -u github.com/TIBCOSoftware/flogo-cli/...
 #  - go get github.com/TIBCOSoftware/mashling-cli/...
