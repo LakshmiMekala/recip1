@@ -28,10 +28,4 @@ script:
    - popd
 
 after_script:
-  - "[ -f \"${HOME}/.netrc\" ] && rm -f ${HOME}/.netrc" 
-  
-notifications:
-  email:
-    - lmekala@tibco.com
-    - nthota@tibco.com
-    - ykalidin@tibco.com
+  - "[ -f \"${HOME}/.netrc\" ] && rm -f ${HOME}/.netrc"
