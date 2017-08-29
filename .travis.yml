@@ -9,15 +9,15 @@ os:
 #  - windows
 
 install:
-  - go get github.com/constabulary/gb/...
-  - go get -u github.com/constabulary/gb/...
-  - echo $TRAVIS_BUILD_ID
-  - echo $TRAVIS_BUILD_NUMBER
-  - echo $TRAVIS_JOB_ID
-  - echo $TRAVIS_JOB_NUMBER
-  - echo $TRAVIS_REPO_SLUG
-  - echo $TRAVIS_COMMIT
-  - echo $TRAVIS_TAG
+   - go get github.com/constabulary/gb/...
+   - go get -u github.com/constabulary/gb/...
+   - echo $TRAVIS_BUILD_ID
+   - echo $TRAVIS_BUILD_NUMBER
+   - echo $TRAVIS_JOB_ID
+   - echo $TRAVIS_JOB_NUMBER
+   - echo $TRAVIS_REPO_SLUG
+   - echo $TRAVIS_COMMIT
+   - echo $TRAVIS_TAG
 #  - go get github.com/TIBCOSoftware/flogo-cli/...
 #  - go get -u github.com/TIBCOSoftware/flogo-cli/...
 #  - go get github.com/TIBCOSoftware/mashling-cli/...
