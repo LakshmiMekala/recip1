@@ -5,12 +5,12 @@ before_install:
  
 os: 
   - linux
-#  - osx
+  - osx
 #  - windows
 
-install:
-  - go get github.com/constabulary/gb/...
-  - go get -u github.com/constabulary/gb/...
+script:
+#  - go get github.com/constabulary/gb/...
+#  - go get -u github.com/constabulary/gb/...
   - echo $TRAVIS_BUILD_ID
   - echo $TRAVIS_BUILD_NUMBER
   - echo $TRAVIS_JOB_ID
