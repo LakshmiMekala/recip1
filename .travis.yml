@@ -23,9 +23,15 @@ install:
   - pushd samples-recipes
   - ls
 script:
-   - chmod ugo+x ./build-c-v1.sh 
-   - ./build-c-v1.sh
+   - chmod ugo+x ./build-c-new.sh 
+   - ./build-c-new.sh
    - popd
 
 after_script:
   - "[ -f \"${HOME}/.netrc\" ] && rm -f ${HOME}/.netrc" 
+  
+notifications:
+  email:
+    - lmekala@tibco.com
+    - nthota@tibco.com
+    - ykalidin@tibco.com
