@@ -6,39 +6,27 @@ before_install:
 os: 
   - linux
   - osx
-#  - windows
+  - windows
 
 install:
-   - go get github.com/constabulary/gb/...
-   - go get -u github.com/constabulary/gb/...
-   - echo $TRAVIS_BUILD_ID
-   - echo $TRAVIS_BUILD_NUMBER
-   - echo $TRAVIS_JOB_ID
-   - echo $TRAVIS_JOB_NUMBER
-   - echo $TRAVIS_REPO_SLUG
-   - echo $TRAVIS_COMMIT
-   - echo $TRAVIS_TAG
-   - mkdir -p "$TRAVIS_REPO_SLUG-$TRAVIS_BUILD_NUMBER"
-   - cd "$TRAVIS_REPO_SLUG-$TRAVIS_BUILD_NUMBER"
-   - pwd
+  - go get github.com/constabulary/gb/...
+  - go get -u github.com/constabulary/gb/...
 #  - go get github.com/TIBCOSoftware/flogo-cli/...
-#  - go get -u github.com/TIBCOSoftware/flogo-cli/...
-#  - go get github.com/TIBCOSoftware/mashling-cli/...
-#  - go get -u github.com/TIBCOSoftware/mashling-cli/...
-#  - pwd
-#  - cd ../../TIBCOSoftware
-#  - git clone https://github.com/LakshmiMekala/recip1.git
-#  - cd recip1
+  - go get -u github.com/TIBCOSoftware/flogo-cli/...
+  - go get github.com/TIBCOSoftware/mashling-cli/...
+  - go get -u github.com/TIBCOSoftware/mashling-cli/...
+  - pwd
+  - cd ../../TIBCOSoftware
+  - git clone https://github.com/LakshmiMekala/recip1.git
+  - cd recip1
 #  - git clone recipe https://github.com/LakshmiMekala/recip1.git
-#  - git checkout -b recipe origin/recipe
-#  - pushd samples-recipes
-#  - ls
-#script:
-   - go get github.com/TIBCOSoftware/flogo-cli/...
-#   - chmod ugo+x ./build-c-new.sh 
-#   - ./build-c-new.sh
-#   - popd
+  - git checkout -b recipe origin/recipe
+  - pushd samples-recipes
+  - ls
+script:
+   - chmod ugo+x ./build-c-v1.sh 
+   - ./build-c-v1.sh
+   - popd
 
 after_script:
   - "[ -f \"${HOME}/.netrc\" ] && rm -f ${HOME}/.netrc" 
-
