@@ -1,26 +1,30 @@
 #!/bin/bash
+	
+	name="${TRAVIS_REPO_SLUG}" ;
+	namefolder=${name:14} ;
+	
 	function multi_os ()
 	{
 		cd builds ;
 		if [ -n "${TRAVIS_TAG}" ]; then
 			echo Creating build with release version:"${TRAVIS_TAG}";
-				if [ -d "${TRAVIS_TAG}" ]; then			
-					cd "${TRAVIS_TAG}";
+				if [ -d "$namefolder-${TRAVIS_TAG}" ]; then			
+					cd "$namefolder-${TRAVIS_TAG}";
 					create_gateway;
 				else
-					mkdir "${TRAVIS_TAG}";
-					cd "${TRAVIS_TAG}";
+					mkdir "$namefolder-${TRAVIS_TAG}";
+					cd "$namefolder-${TRAVIS_TAG}";
 					create_gateway;				
 				fi
 		 fi	
 		if [ -z "${TRAVIS_TAG}" ]; then
 			echo Creating build with travis build number:"${TRAVIS_BUILD_NUMBER}" ;
-				if [ -d "${TRAVIS_BUILD_NUMBER}" ]; then			
-					cd "${TRAVIS_BUILD_NUMBER}";
+				if [ -d "$namefolder-${TRAVIS_BUILD_NUMBER}" ]; then			
+					cd "$namefolder-${TRAVIS_BUILD_NUMBER}";
 					create_gateway;
 				else
-					mkdir "${TRAVIS_BUILD_NUMBER}";
-					cd "${TRAVIS_BUILD_NUMBER}";
+					mkdir "$namefolder-${TRAVIS_BUILD_NUMBER}";
+					cd "$namefolder-${TRAVIS_BUILD_NUMBER}";
 					create_gateway;				
 				fi
 		fi
