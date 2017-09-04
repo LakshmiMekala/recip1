@@ -41,6 +41,8 @@
 					echo "${Gateway[$i]}-${TRAVIS_OS_NAME}";
 				# creating gateway	
 					mashling create -f ../../../../mashling-cli/samples/"${Gateway[$i]}".json "${Gateway[$i]}-${TRAVIS_OS_NAME}";
+						# If directory exists proceed to next steps	
+							if [-d "${Gateway[$i]}-${TRAVIS_OS_NAME}"]
 							cd "${Gateway[$i]}-${TRAVIS_OS_NAME}"  ;
 							mv bin "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
 							mashling build ;
@@ -66,18 +68,19 @@
 										cd .. ;
 							rm -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
 							cd ..;
-					# For linux binary, recipe name is gateway name.
-						if [ "${TRAVIS_OS_NAME}" == "linux" ] ; then	
-							mv "${Gateway[$i]}-${TRAVIS_OS_NAME}" "${Gateway[$i]}" ;
-							cp -r "${Gateway[$i]}" ../latest
-						else
-					#For mac and windows recipe name will be updated in gateway folder itself
-							pwd
-							cp "${Gateway[$i]}-${TRAVIS_OS_NAME}"/"${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" "${Gateway[$i]}" ;
-							cd "${Gateway[$i]}" ;
-							cd ..;
-							cp -r "${Gateway[$i]}-${TRAVIS_OS_NAME}"/"${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" ../latest/"${Gateway[$i]}" ;
-							rm  -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
+							# For linux binary, recipe name is gateway name.
+								if [ "${TRAVIS_OS_NAME}" == "linux" ] ; then	
+									mv "${Gateway[$i]}-${TRAVIS_OS_NAME}" "${Gateway[$i]}" ;
+									cp -r "${Gateway[$i]}" ../latest
+								else
+							#For mac and windows recipe name will be updated in gateway folder itself
+									pwd
+									cp "${Gateway[$i]}-${TRAVIS_OS_NAME}"/"${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" "${Gateway[$i]}" ;
+									cd "${Gateway[$i]}" ;
+									cd ..;
+									cp -r "${Gateway[$i]}-${TRAVIS_OS_NAME}"/"${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" ../latest/"${Gateway[$i]}" ;
+									rm  -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
+								fi	
 						fi
 				done
 				cd .. ;

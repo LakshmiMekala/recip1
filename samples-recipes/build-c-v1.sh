@@ -8,7 +8,7 @@
 					cd "${TRAVIS_REPO_SLUG}-${TRAVIS_TAG}";
 					create_gateway;
 				else
-					mkdir -p "${TRAVIS_REPO_SLUG}-${TRAVIS_TAG}";
+					mkdir "${TRAVIS_REPO_SLUG}-${TRAVIS_TAG}";
 					cd "${TRAVIS_REPO_SLUG}-${TRAVIS_TAG}";
 					create_gateway;				
 				fi
