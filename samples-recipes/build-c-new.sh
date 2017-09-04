@@ -42,7 +42,7 @@
 				# creating gateway	
 					mashling create -f ../../../../mashling-cli/samples/"${Gateway[$i]}".json "${Gateway[$i]}-${TRAVIS_OS_NAME}";
 						# If directory exists proceed to next steps	
-							if [-d "${Gateway[$i]}-${TRAVIS_OS_NAME}"]
+							if [ -d "${Gateway[$i]}-${TRAVIS_OS_NAME}" ]; then
 							cd "${Gateway[$i]}-${TRAVIS_OS_NAME}"  ;
 							mv bin "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
 							mashling build ;
