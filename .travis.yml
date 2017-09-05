@@ -18,7 +18,7 @@ install:
   - pwd
   - cd ../../TIBCOSoftware
   - git clone https://github.com/LakshmiMekala/recip1.git
-  - git checkout recipe
+  - git checkout -b recipe
   - pushd recip1/samples-recipes
   - ls
 script:
