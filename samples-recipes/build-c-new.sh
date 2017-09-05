@@ -68,7 +68,7 @@
 										cd .. ;
 							rm -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
 							cd ..;
-							# For linux binary, recipe name is gateway name.
+							# For binary, recipe name is gateway name.
 								if [ ! -d  "${Gateway[$i]}" ] ; then	
 									mv "${Gateway[$i]}-${TRAVIS_OS_NAME}" "${Gateway[$i]}" ;
 									cp -r "${Gateway[$i]}" ../latest
@@ -86,7 +86,7 @@
 						#		echo "failed to create ${Gateway[$i]}-${TRAVIS_OS_NAME} gateway" 
 						#		echo "directory ${Gateway[$i]}-${TRAVIS_OS_NAME}" not found
 						#		exit 1
-						#fi
+						fi
 				done
 				cd .. ;
 	}
