@@ -93,11 +93,11 @@
 									fi
 								fi
 						# Exit if directory not found
-						else
-								echo "failed to create ${Gateway[$i]}-${TRAVIS_OS_NAME} gateway" 
-								echo "directory ${Gateway[$i]}-${TRAVIS_OS_NAME}" not found
-								exit 1
-						fi
+					#	else
+					#			echo "failed to create ${Gateway[$i]}-${TRAVIS_OS_NAME} gateway" 
+					#			echo "directory ${Gateway[$i]}-${TRAVIS_OS_NAME}" not found
+					#			exit 1
+					#	fi
 				done
 				cd .. ;
 	}
