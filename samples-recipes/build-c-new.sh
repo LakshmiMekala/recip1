@@ -69,35 +69,24 @@
 							rm -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
 							cd ..;
 							# For linux binary, recipe name is gateway name.
-								if [ "${TRAVIS_OS_NAME}" == "linux" ] ; then	
+								if [ ! -d  "${Gateway[$i]}" ] ; then	
 									mv "${Gateway[$i]}-${TRAVIS_OS_NAME}" "${Gateway[$i]}" ;
 									cp -r "${Gateway[$i]}" ../latest
 								else
 							#For mac and windows recipe name will be updated in gateway folder itself
 									pwd
-									# If gateway directory exists
-									if [ -d "${Gateway[$i]}" ]; then
-										cp "${Gateway[$i]}-${TRAVIS_OS_NAME}"/"${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" "${Gateway[$i]}" ;
-										cd "${Gateway[$i]}" ;
-										cd ..;
-										cp -r "${Gateway[$i]}-${TRAVIS_OS_NAME}"/"${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" ../latest/"${Gateway[$i]}" ;
-										rm  -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
-									# If gateway directory donot exists	
-									else
-										mkdir "${Gateway[$i]}" ;
-										cp "${Gateway[$i]}-${TRAVIS_OS_NAME}" "${Gateway[$i]}" ;
-										cd "${Gateway[$i]}" ;
-										cd .. ;
-										cp -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ../latest/"${Gateway[$i]}" ;
-										rm  -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;	
-									fi
+									cp "${Gateway[$i]}-${TRAVIS_OS_NAME}"/"${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" "${Gateway[$i]}" ;
+									cd "${Gateway[$i]}" ;
+									cd ..;
+									cp -r "${Gateway[$i]}-${TRAVIS_OS_NAME}"/"${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" ../latest/"${Gateway[$i]}" ;
+									rm  -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
 								fi
 						# Exit if directory not found
-					#	else
-					#			echo "failed to create ${Gateway[$i]}-${TRAVIS_OS_NAME} gateway" 
-					#			echo "directory ${Gateway[$i]}-${TRAVIS_OS_NAME}" not found
-					#			exit 1
-					#	fi
+						else
+								echo "failed to create ${Gateway[$i]}-${TRAVIS_OS_NAME} gateway" 
+								echo "directory ${Gateway[$i]}-${TRAVIS_OS_NAME}" not found
+								exit 1
+						fi
 				done
 				cd .. ;
 	}
