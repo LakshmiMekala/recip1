@@ -81,6 +81,7 @@
 									cp -r "${Gateway[$i]}-${TRAVIS_OS_NAME}"/"${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" ../latest/"${Gateway[$i]}" ;
 									rm  -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
 								fi
+						fi
 				done
 				cd .. ;
 	}
