@@ -85,10 +85,10 @@
 									# If gateway directory donot exists	
 									else
 										mkdir "${Gateway[$i]}" ;
-										cp "${Gateway[$i]}-${TRAVIS_OS_NAME}"/"${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" "${Gateway[$i]}" ;
+										cp "${Gateway[$i]}-${TRAVIS_OS_NAME}" "${Gateway[$i]}" ;
 										cd "${Gateway[$i]}" ;
 										cd .. ;
-										cp -r "${Gateway[$i]}-${TRAVIS_OS_NAME}"/"${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" ../latest/"${Gateway[$i]}" ;
+										cp -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ../latest/"${Gateway[$i]}" ;
 										rm  -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;	
 									fi
 								fi
