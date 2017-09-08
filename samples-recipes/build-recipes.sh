@@ -96,9 +96,12 @@
 	if [ "${TRAVIS_OS_NAME}" == "windows" ] ;then
 		export GOOS=windows
 		export GOARCH=amd64
+		multi_os ;
+	else
+		multi_os ;	
 	fi
    # Calling function to create recipes binaries 
-    multi_os ;
+  #  multi_os ;
 
     git config user.email "lmekala@tibco.com";
 	git config user.name "LakshmiMekala"
