@@ -5,7 +5,7 @@
 	
 	function multi_os ()
 	{
-		cd ${TRAVIS_BRANCH} ;
+		cd "${TRAVIS_BRANCH}" ;
 		if [ -n "${TRAVIS_TAG}" ]; then
 			echo Creating build with release version:"${TRAVIS_TAG}";
 				if [ -d "$namefolder-${TRAVIS_TAG}" ]; then			
@@ -100,18 +100,13 @@
 				cd .. ;
 	}
 			
-	if [ "${TRAVIS_OS_NAME}" == "osx" ] ;then
-		multi_os ;
-	fi     	
-	if [ "${TRAVIS_OS_NAME}" == "linux" ] ;then
-		multi_os ;
-	fi
 	if [ "${TRAVIS_OS_NAME}" == "windows" ] ;then
 		export GOOS=windows
 		export GOARCH=amd64
-		multi_os ;
 	fi
-   
+   # Calling function to create recipes binaries 
+   multi_os ;
+
     git config user.email "lmekala@tibco.com";
 	git config user.name "LakshmiMekala"
 	
