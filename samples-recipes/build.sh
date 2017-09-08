@@ -37,10 +37,6 @@ cd builds/latest/reference-gateway ;
         fi      	
 	fi
 
-	cd ${GOPATH}/src/github.com/TIBCOSoftware/recip1/samples-recipes//builds/latest
-	git config user.email "lmekala@tibco.com";
-	git config user.name "LakshmiMekala"
-
-
-git add . ;
-git commit -m "first commit" ;
+	cd ${GOPATH}/src/github.com/TIBCOSoftware/recip1/samples-recipes/builds/latest/reference-gateway ;
+	ls ;
+	pwd ;
