@@ -22,8 +22,8 @@ install:
   - ls
   
 script:
-   - chmod ugo+x ./build-c-new.sh 
-   - ./build-c-new.sh
+   - chmod ugo+x ./build-recipes.sh 
+   - ./build-recipes.sh
    - popd
 after_script:
   - "[ -f \"${HOME}/.netrc\" ] && rm -f ${HOME}/.netrc"
