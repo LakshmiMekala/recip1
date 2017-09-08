@@ -3,6 +3,7 @@
 pwd ;
 #cd mashling-cicd/sample-recipes/builds/latest/reference-gateway ;
 cd builds/latest/reference-gateway ;
+cp -r reference-gateway-"${TRAVIS_OS_NAME}".zip ${GOPATH} ;
 chmod 777 reference-gateway-"${TRAVIS_OS_NAME}".zip ;
 unzip -o reference-gateway-"${TRAVIS_OS_NAME}".zip ;
 
@@ -29,3 +30,10 @@ unzip -o reference-gateway-"${TRAVIS_OS_NAME}".zip ;
 	        echo "GET Method Test case 2 passed"
         fi      	
 	fi
+
+	git config user.email "lmekala@tibco.com";
+	git config user.name "LakshmiMekala"
+
+
+git add . ;
+git commit -m "first commit" ;
