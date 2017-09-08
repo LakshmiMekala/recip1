@@ -73,7 +73,6 @@
 													echo "$destfname" ;
 													destfnamelc="${destfname,,}" ;
 													echo "$destfnamelc" ;
-												#    mv "${Gateway[$i]}" "${Gateway[$i]}-${TRAVIS_OS_NAME}";
 													mv $fnamelc $destfnamelc ;
 												fi
 										zip -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" *;
