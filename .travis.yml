@@ -3,9 +3,9 @@ language :
 before_install:
   - "echo -e \"machine github.com\n  login ${GITHUB_USER_TOKEN}\" >> ~/.netrc" 
 os: 
-#  - linux
-  - osx
-  - windows
+  - linux
+#  - osx
+#  - windows
 install:
   - go get github.com/constabulary/gb/...
   - go get -u github.com/constabulary/gb/...
@@ -14,10 +14,10 @@ install:
   - go get -u github.com/TIBCOSoftware/mashling-cli/...
   - pwd
   - cd ../../TIBCOSoftware
-  - git clone https://github.com/LakshmiMekala/recip1.git
-  - cd recip1
+#  - git clone https://github.com/LakshmiMekala/recip1.git
+#  - cd recip1
 #   - git clone recipe https://github.com/LakshmiMekala/recip1.git
-  - git checkout -b recipe origin/recipe
+#  - git checkout -b recipe origin/recipe
   - pushd samples-recipes
   - ls
   
