@@ -1,5 +1,6 @@
 #!/bin/bash
 
+pwd ;
 cd mashling-cicd/sample-recipes/builds/latest/reference-gateway ;
 chmod 777 reference-gateway-"${TRAVIS_OS_NAME}".zip ;
 unzip -o reference-gateway-"${TRAVIS_OS_NAME}".zip ;
