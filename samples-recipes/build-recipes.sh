@@ -69,7 +69,7 @@
 										zip -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" *;
 										cp "${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" ../../"${Gateway[$i]}" ;		
 										cd .. ;
-							rm -r "${Gateway[$i]}" ;
+							rm -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
 							cd ..;
 							# For binary, recipe name is gateway name.
 							#	if [ ! -d  "${Gateway[$i]}" ] ; then	
