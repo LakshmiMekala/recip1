@@ -6,9 +6,10 @@ cd builds/latest/reference-gateway ;
 	if [ "${TRAVIS_OS_NAME}" != windows ]; then
 		cp -r reference-gateway-"${TRAVIS_OS_NAME}".zip ${GOPATH} ;
 		cd ${GOPATH}
+		pwd ;
 		chmod 777 reference-gateway-"${TRAVIS_OS_NAME}".zip ;
 		unzip -o reference-gateway-"${TRAVIS_OS_NAME}".zip ;
-
+		ls ;
 	#if [ "${TRAVIS_OS_NAME}" != windows ]; then
 		#./reference-gateway-"${TRAVIS_OS_NAME}" & HTTP_STATUS=$(curl -i -X PUT -d '{"name":"CAT"}' http://localhost:9096/pets | grep -c 'HTTP/1.1 200 OK' )
 		#if [ $HTTP_STATUS -eq 1 ]; then
