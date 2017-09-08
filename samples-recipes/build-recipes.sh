@@ -51,6 +51,7 @@
 							mv  mashling.json "${Gateway[$i]}.mashling.json"
 							cp -r "${Gateway[$i]}.mashling.json" "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
 							rm -r bin src vendor pkg ;
+							# Changing directory to  bin folder
 										cd "${Gateway[$i]}-${TRAVIS_OS_NAME}";
 												if [ "${TRAVIS_OS_NAME}" == "windows" ] ;then
 													fname="${Gateway[$i]}-$GOOS-$GOARCH.exe" ;
