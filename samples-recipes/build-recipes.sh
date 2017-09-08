@@ -51,7 +51,7 @@
 							mv  mashling.json "${Gateway[$i]}.mashling.json"
 							cp -r "${Gateway[$i]}.mashling.json" "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
 							rm -r bin src vendor pkg ;
-							# Changing directory to  bin folder
+							# Changing directory to  binary containing folder
 										cd "${Gateway[$i]}-${TRAVIS_OS_NAME}";
 												if [ "${TRAVIS_OS_NAME}" == "windows" ] ;then
 													fname="${Gateway[$i]}-$GOOS-$GOARCH.exe" ;
@@ -71,17 +71,10 @@
 										cd .. ;
 							rm -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
 							cd ..;
-							# For binary, recipe name is gateway name.
-							#	if [ ! -d  "${Gateway[$i]}" ] ; then	
-							#		mv "${Gateway[$i]}-${TRAVIS_OS_NAME}" "${Gateway[$i]}" ;
-							#		cp -r "${Gateway[$i]}" ../latest
-							#	else
-							#For mac and windows recipe name will be updated in gateway folder itself
 									pwd
 									echo "test 1" ;
 									ls ;
 									echo "test 2" ;
-									#cp "${Gateway[$i]}-${TRAVIS_OS_NAME}"/"${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" "${Gateway[$i]}" ;
 									cd "${Gateway[$i]}" ;
 									pwd;
 									echo "test 3" ;
@@ -140,5 +133,5 @@
 	echo "alert 3" ;
 #	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
 	echo "alert 4" ;
-	git push -u origin master;
+#	git push -u origin master;
 	echo "alert 5" ;
