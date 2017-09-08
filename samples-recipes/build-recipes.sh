@@ -5,7 +5,7 @@
 	
 	function multi_os ()
 	{
-		cd builds ;
+		cd ${TRAVIS_BRANCH} ;
 		if [ -n "${TRAVIS_TAG}" ]; then
 			echo Creating build with release version:"${TRAVIS_TAG}";
 				if [ -d "$namefolder-${TRAVIS_TAG}" ]; then			
@@ -90,10 +90,10 @@
 									cd ..;
 									ls ;
 									echo "test 5" ;
-									cp -r "${Gateway[$i]}"/"${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" ../latest/"${Gateway[$i]}" ;
+									cp -r "${Gateway[$i]}" ../latest ;
 									ls ;
 									echo "test 6" ;
-									rm  -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
+							#		rm  -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
 									ls ;
 									echo "test 7" ;
 							#	fi
