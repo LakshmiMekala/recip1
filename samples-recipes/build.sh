@@ -3,11 +3,12 @@
 pwd ;
 #cd mashling-cicd/sample-recipes/builds/latest/reference-gateway ;
 cd builds/latest/reference-gateway ;
-cp -r reference-gateway-"${TRAVIS_OS_NAME}".zip ${GOPATH} ;
-chmod 777 reference-gateway-"${TRAVIS_OS_NAME}".zip ;
-unzip -o reference-gateway-"${TRAVIS_OS_NAME}".zip ;
-
 	if [ "${TRAVIS_OS_NAME}" != windows ]; then
+		cp -r reference-gateway-"${TRAVIS_OS_NAME}".zip ${GOPATH} ;
+		chmod 777 reference-gateway-"${TRAVIS_OS_NAME}".zip ;
+		unzip -o reference-gateway-"${TRAVIS_OS_NAME}".zip ;
+
+	#if [ "${TRAVIS_OS_NAME}" != windows ]; then
 		#./reference-gateway-"${TRAVIS_OS_NAME}" & HTTP_STATUS=$(curl -i -X PUT -d '{"name":"CAT"}' http://localhost:9096/pets | grep -c 'HTTP/1.1 200 OK' )
 		#if [ $HTTP_STATUS -eq 1 ]; then
 		#	echo  success message "$HTTP_STATUS" ;
