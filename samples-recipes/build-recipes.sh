@@ -133,5 +133,5 @@
 	echo "alert 3" ;
 #	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
 	echo "alert 4" ;
-#	git push -u origin master;
+	git push -u origin master;
 	echo "alert 5" ;
