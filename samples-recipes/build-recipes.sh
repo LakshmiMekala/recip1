@@ -33,8 +33,8 @@
 	function create_gateway()
 	{
 		echo "Creating gateway"
-		Gateway=({"envoy-invoker-mashling","inline-gateway"})
-        #Gateway=({"envoy-invoker-mashling","inline-gateway","kafka-conditional-gateway","kafka-reference-gateway","KafkaTrigger-To-KafkaActivity-mashling","KafkaTrigger-To-RestActivity-mashling","reference-gateway","RestTrigger-To-KafkaActivity-mashling","rest-conditional-gateway"})		
+		#Gateway=({"envoy-invoker-mashling","inline-gateway"})
+        Gateway=({"envoy-invoker-mashling","inline-gateway","kafka-conditional-gateway","kafka-reference-gateway","KafkaTrigger-To-KafkaActivity-mashling","KafkaTrigger-To-RestActivity-mashling","reference-gateway","RestTrigger-To-KafkaActivity-mashling","rest-conditional-gateway"})		
 			# get length of an array		
 			tLen="${#Gateway[@]}"
 				for (( i=0; i<"${tLen}"; i++ ));
@@ -65,7 +65,16 @@
 													echo "$destfnamelc" ;
 													mv $fnamelc $destfnamelc ;
 												else
-												    mv "${Gateway[$i]}" "${Gateway[$i]}-${TRAVIS_OS_NAME}";
+												    fname="${Gateway[$i]}" ;
+													echo "$fname" ;
+													fnamelc="${fname,,}" ;
+													echo "$fnamelc" ;													
+													destfname="${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
+													echo "$destfname" ;
+													destfnamelc="${destfname,,}" ;
+													echo "$destfnamelc" ;
+												#    mv "${Gateway[$i]}" "${Gateway[$i]}-${TRAVIS_OS_NAME}";
+													mv $fnamelc $destfnamelc ;
 												fi
 										zip -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" *;
 										cp "${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" ../../"${Gateway[$i]}" ;		
