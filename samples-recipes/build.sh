@@ -5,6 +5,7 @@ pwd ;
 cd builds/latest/reference-gateway ;
 	if [ "${TRAVIS_OS_NAME}" != windows ]; then
 		cp -r reference-gateway-"${TRAVIS_OS_NAME}".zip ${GOPATH} ;
+		cd ${GOPATH}
 		chmod 777 reference-gateway-"${TRAVIS_OS_NAME}".zip ;
 		unzip -o reference-gateway-"${TRAVIS_OS_NAME}".zip ;
 
@@ -15,6 +16,8 @@ cd builds/latest/reference-gateway ;
 		#	echo "PUT Method passed"
 		#fi
 		
+
+		# Function to check get response from CURL
 		function URL {
 		./reference-gateway-"${TRAVIS_OS_NAME}" & RESPONSE=$(curl -so /dev/null -w "%{http_code}\n" ${1})
 		if [[ $RESPONSE = 200 ]]; then
@@ -25,6 +28,7 @@ cd builds/latest/reference-gateway ;
 		}    
 		URL http://localhost:9096/pets/40
 
+		# Using CURL to validate binray
 		./reference-gateway-"${TRAVIS_OS_NAME}".exe & HTTP_STATUS=$(curl -i -X GET  http://localhost:9096/pets/2 | grep -c 'HTTP/1.1 200 OK' )
         if [ $HTTP_STATUS -eq 1 ]; then
 	        echo  success message "$HTTP_STATUS" ;
