@@ -5,7 +5,7 @@
 	
 	function multi_os ()
 	{
-		cd "${TRAVIS_BRANCH}" ;
+		cd builds ;
 		if [ -n "${TRAVIS_TAG}" ]; then
 			echo Creating build with release version:"${TRAVIS_TAG}";
 				if [ -d "$namefolder-${TRAVIS_TAG}" ]; then			
@@ -33,7 +33,8 @@
 	function create_gateway()
 	{
 		echo "Creating gateway"
-		Gateway=({"envoy-invoker-mashling","inline-gateway"})	
+		Gateway=({"envoy-invoker-mashling","inline-gateway"})
+        #Gateway=({"envoy-invoker-mashling","inline-gateway","kafka-conditional-gateway","kafka-reference-gateway","KafkaTrigger-To-KafkaActivity-mashling","KafkaTrigger-To-RestActivity-mashling","reference-gateway","RestTrigger-To-KafkaActivity-mashling","rest-conditional-gateway"})		
 			# get length of an array		
 			tLen="${#Gateway[@]}"
 				for (( i=0; i<"${tLen}"; i++ ));
@@ -71,25 +72,8 @@
 										cd .. ;
 							rm -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
 							cd ..;
-									pwd
-									echo "test 1" ;
-									ls ;
-									echo "test 2" ;
-									cd "${Gateway[$i]}" ;
-									pwd;
-									echo "test 3" ;
-									ls ;
-									echo "test 4" ;
-									cd ..;
-									ls ;
-									echo "test 5" ;
-									cp -r "${Gateway[$i]}" ../latest ;
-									ls ;
-									echo "test 6" ;
-							#		rm  -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
-									ls ;
-									echo "test 7" ;
-							#	fi
+                            # Copying gateway into latest folder
+							cp -r "${Gateway[$i]}" ../latest ;
 						# Exit if directory not found
 						else
 								echo "failed to create ${Gateway[$i]}-${TRAVIS_OS_NAME} gateway" 
@@ -105,7 +89,7 @@
 		export GOARCH=amd64
 	fi
    # Calling function to create recipes binaries 
-   multi_os ;
+    multi_os ;
 
     git config user.email "lmekala@tibco.com";
 	git config user.name "LakshmiMekala"
@@ -128,5 +112,5 @@
 	echo "alert 3" ;
 #	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
 	echo "alert 4" ;
-	git push -u origin master;
+#	git push -u origin master;
 	echo "alert 5" ;
