@@ -103,7 +103,7 @@
     git config user.email "lmekala@tibco.com";
 	git config user.name "LakshmiMekala"
 	
-
+	cd .. ;
 	ls ;
 	pwd ;
 	git add .;  
@@ -123,3 +123,4 @@
 	echo "alert 4" ;
 #	git push -u origin master;
 	echo "alert 5" ;
+   
