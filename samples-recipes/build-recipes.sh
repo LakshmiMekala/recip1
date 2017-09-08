@@ -78,11 +78,24 @@
 							#	else
 							#For mac and windows recipe name will be updated in gateway folder itself
 									pwd
-									cp "${Gateway[$i]}-${TRAVIS_OS_NAME}"/"${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" "${Gateway[$i]}" ;
+									echo "test 1" ;
+									ls ;
+									echo "test 2" ;
+									#cp "${Gateway[$i]}-${TRAVIS_OS_NAME}"/"${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" "${Gateway[$i]}" ;
 									cd "${Gateway[$i]}" ;
+									pwd;
+									echo "test 3" ;
+									ls ;
+									echo "test 4" ;
 									cd ..;
-									cp -r "${Gateway[$i]}-${TRAVIS_OS_NAME}"/"${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" ../latest/"${Gateway[$i]}" ;
+									ls ;
+									echo "test 5" ;
+									cp -r "${Gateway[$i]}"/"${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" ../latest/"${Gateway[$i]}" ;
+									ls ;
+									echo "test 6" ;
 									rm  -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
+									ls ;
+									echo "test 7" ;
 							#	fi
 						# Exit if directory not found
 						else
