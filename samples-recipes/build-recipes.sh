@@ -34,8 +34,8 @@
 	{
 		echo "Creating gateway"
 		#Gateway=({"envoy-invoker-mashling","inline-gateway"})
-        #Gateway=({"envoy-invoker-mashling","inline-gateway","kafka-conditional-gateway","kafka-reference-gateway","KafkaTrigger-To-KafkaActivity-mashling","KafkaTrigger-To-RestActivity-mashling","reference-gateway","RestTrigger-To-KafkaActivity-mashling","rest-conditional-gateway"})		
-		Gateway=({"envoy-invoker-mashling","reference-gateway"})		
+        Gateway=({"envoy-invoker-mashling","inline-gateway","kafka-conditional-gateway","kafka-reference-gateway","KafkaTrigger-To-KafkaActivity-mashling","KafkaTrigger-To-RestActivity-mashling","reference-gateway","RestTrigger-To-KafkaActivity-mashling","rest-conditional-gateway"})		
+		#Gateway=({"envoy-invoker-mashling","reference-gateway"})		
 			# get length of an array		
 			tLen="${#Gateway[@]}"
 				for (( i=0; i<"${tLen}"; i++ ));
@@ -100,13 +100,15 @@
 	else
 		multi_os ;	
 	fi
+
+	cd .. ;
    # Calling function to create recipes binaries 
   #  multi_os ;
 
     git config user.email "lmekala@tibco.com";
 	git config user.name "LakshmiMekala"
 	
-	cd .. ;
+	
 	ls ;
 	pwd ;
 	git add .;  
