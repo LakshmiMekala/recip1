@@ -65,16 +65,14 @@
 													destfnamelc="${destfname,,}" ;
 													echo "$destfnamelc" ;
 													mv $fnamelc $destfnamelc ;
-												else
+												elif [ "${TRAVIS_OS_NAME}" == "linux" ] ;then
 												    fname="${Gateway[$i]}" ;
-													echo "$fname" ;
-													fnamelc="${fname,,}" ;
-													echo "$fnamelc" ;													
+													fnamelc="${fname,,}" ;											
 													destfname="${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
-													echo "$destfname" ;
 													destfnamelc="${destfname,,}" ;
-													echo "$destfnamelc" ;
 													mv $fnamelc $destfnamelc ;
+                                                else
+                                                    mv "${Gateway[$i]}" "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
 												fi
 										zip -r "${Gateway[$i]}-${TRAVIS_OS_NAME}" *;
 										cp "${Gateway[$i]}-${TRAVIS_OS_NAME}.zip" ../../"${Gateway[$i]}" ;		
