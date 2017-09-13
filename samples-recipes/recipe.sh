@@ -36,7 +36,7 @@
 		#Extracting publish binaries from recipe_registry.sjon
         publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[0].publish') ;
         echo "test 1" ;
-		echo $publish="KafkaTrigger-To-KafkaPublsher, KafkaTrigger-To-RestInvoker, RestTrigger-To-KafkaPublisher" ;
+		echo $publish #="KafkaTrigger-To-KafkaPublsher, KafkaTrigger-To-RestInvoker, RestTrigger-To-KafkaPublisher" ;
         echo "test 2" ;
 		#Removing spaces from publish
         publish=$(echo $publish | tr -d ' ') ;
