@@ -41,14 +41,18 @@
 		#Removing spaces from publish
         publish=$(echo $publish | tr -d ' ') ;
         echo "test 3" ;
+		#Removing double quotes from publish
 		publish=$(echo $publish | tr -d '"') ;
         echo "test 3A" ;
+		# separating string using comma and reading publish into Gateway
 		IFS=\, read -a Gateway <<<"$publish" ;
 		echo "test 4" ;
         set | grep ^IFS= ;
 		echo "test 5" ;
+		#separating arrays ny line
         IFS=$' \t\n' ;
 		echo "test 6" ;
+		#fetching Gateway
         set | grep ^Gateway=\\\|^publish= ;
 		echo "test 7" ;
 
