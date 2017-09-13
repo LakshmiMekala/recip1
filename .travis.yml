@@ -4,8 +4,8 @@ before_install:
   - "echo -e \"machine github.com\n  login ${GITHUB_USER_TOKEN}\" >> ~/.netrc" 
 os: 
   - linux
-  - osx
-  - windows
+#  - osx
+#  - windows
 install:
   - go get github.com/constabulary/gb/...
   - go get -u github.com/constabulary/gb/...
@@ -22,10 +22,11 @@ install:
   - ls
   
 script:
-   - chmod ugo+x ./build-recipes.sh  ./build.sh recipe.sh
+   - chmod ugo+x ./build-recipes.sh  ./build.sh ./recipe.sh ./rec.sh
 #   - ./build-recipes.sh
 #   - chmod ugo+x ./build.sh 
-   - ./recipe.sh
+#   - ./recipe.sh
+   - ./rec.sh
 #   - ./build.sh
    - popd
 after_script:

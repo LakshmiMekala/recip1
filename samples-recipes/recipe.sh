@@ -37,7 +37,7 @@
 		brew install jq
 	#	fi
         echo "test 0" ;
-		#Extracting publish binaries from recipe_registry.sjon
+		#Extracting publish binaries from recipe_registry.json
         publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[0].publish') ;
         echo "test 1" ;
 		echo $publish #="KafkaTrigger-To-KafkaPublsher, KafkaTrigger-To-RestInvoker, RestTrigger-To-KafkaPublisher" ;
