@@ -41,6 +41,8 @@
 		#Removing spaces from publish
         publish=$(echo $publish | tr -d ' ') ;
         echo "test 3" ;
+		publish=$(echo $publish | tr -d '"') ;
+        echo "test 3A" ;
 		IFS=\, read -a Gateway <<<"$publish" ;
 		echo "test 4" ;
         set | grep ^IFS= ;
