@@ -51,10 +51,10 @@
 			if [[ "$url" == http* ]] ; then
                     echo "$url" ;
                     echo "alert 2" ;
-                    publish=jq -r 'to_entries[] | "\(.key)\t\(.value.publish)"' ../../../../mashling-recipes/recipe_registry.json | ;
+                    jq -r 'to_entries[] | "\(.key)\t\(.value.publish)"' ../../../../mashling-recipes/recipe_registry.json |
                     echo "$publish";            
                 else
-                    publish=jq -r 'to_entries[] | "\(.key)\t\(.value.publish)"' ../../../../mashling-recipes/recipe_registry.json | ;
+                    jq -r 'to_entries[] | "\(.key)\t\(.value.publish)"' ../../../../mashling-recipes/recipe_registry.json |
                     echo "alert 3" ;
                     echo "$publish";                              
                 fi
