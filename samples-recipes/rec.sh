@@ -41,7 +41,7 @@
 
 		array_length=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
 		echo "$array_length" ;
-		    for (( j=0; j<${array_length[@]}; j++ ))
+		    for (( j=0; j<${#array_length[@]}; j++ ))
                 do
                 url=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[j].url') ;
                 if [[ "$url" == \http* ]] ; then
