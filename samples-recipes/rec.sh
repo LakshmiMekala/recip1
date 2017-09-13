@@ -40,21 +40,21 @@
 		#Extracting publish binaries from recipe_registry.json
 
 		array_length=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
-		echo "$array_length" ;
+		echo "length of array = $array_length" ;
         tLenA="${#array_length[@]}" ;
 		    for (( j = 0; j < "${tLenA}"; j++ ))
                 do
                 echo "value of j=$j" ;
-                url=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[$j].url') ;
+                url=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[1].url') ;
                 echo "$url";
                 echo "alert 0" ;
                 if [[ "$url" == \http* ]] ; then
                     echo $url ;
                     echo "alert 2" ;
-                    publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[$j].publish') ;
+                    publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[1].publish') ;
                     echo $publish;            
                 else
-                    publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[$j].publish') ;
+                    publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[1].publish') ;
                     echo $publish;  
                     echo "alert 3" ;          
                 fi
