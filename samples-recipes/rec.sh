@@ -41,10 +41,12 @@
 
 		array_length=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
 		echo "$array_length" ;
-		    for (( j = 0; j < ${#array_length[@]}; j++ ))
+        tLenA="${#Gateway[@]}"
+		    for (( j = 0; j < "${tLenA}"; j++ ))
                 do
+                echo "value of j=$j" ;
                 url=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[$j].url') ;
-                echo $url;
+                echo "$url";
                 echo "alert 0" ;
                 if [[ "$url" == \http* ]] ; then
                     echo $url ;
@@ -59,7 +61,7 @@
                 done
     #    publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[0].publish') ;
         echo "test 1" ;
-		echo $publish 
+		echo "$publish" ;
         echo "test 2" ;
 		#Removing spaces from publish
         publish=$(echo $publish | tr -d ' ') ;
