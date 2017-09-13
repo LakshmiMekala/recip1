@@ -5,13 +5,10 @@ before_install:
 os: 
   - linux
   - osx
-#  - windows
+  - windows
 install:
-  - ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
-	-	brew install jq
   - go get github.com/constabulary/gb/...
   - go get -u github.com/constabulary/gb/...
-  - go get -u github.com/TIBCOSoftware/flogo-cli/...
   - go get github.com/TIBCOSoftware/mashling/...
   - pwd
   - cd ../../TIBCOSoftware
