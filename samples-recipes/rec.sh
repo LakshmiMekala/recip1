@@ -50,7 +50,7 @@
                 echo "$url";
                 echo "alert 0" ;
                 if [[ "$url" == http* ]] ; then
-                    echo $url" ;
+                    echo "$url" ;
                     echo "alert 2" ;
                     publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[1].publish') ;
                     echo "$publish";            
