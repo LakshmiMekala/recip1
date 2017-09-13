@@ -26,8 +26,8 @@ script:
    - chmod ugo+x ./build-recipes.sh  ./build.sh recipe.sh
 #   - ./build-recipes.sh
 #   - chmod ugo+x ./build.sh 
-   - recipe.sh
-   - ./build.sh
+   - ./recipe.sh
+#   - ./build.sh
    - popd
 after_script:
   - "[ -f \"${HOME}/.netrc\" ] && rm -f ${HOME}/.netrc"
