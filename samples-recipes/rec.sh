@@ -41,7 +41,7 @@
 
 		array_length=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
 		echo "$array_length" ;
-        tLenA="${#Gateway[@]}"
+        tLenA="${#array_length[@]}" ;
 		    for (( j = 0; j < "${tLenA}"; j++ ))
                 do
                 echo "value of j=$j" ;
