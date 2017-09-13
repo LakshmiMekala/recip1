@@ -3,9 +3,9 @@ language :
 before_install:
   - "echo -e \"machine github.com\n  login ${GITHUB_USER_TOKEN}\" >> ~/.netrc" 
 os: 
-  - linux
+#  - linux
   - osx
-  - windows
+#  - windows
 install:
   - go get github.com/constabulary/gb/...
   - go get -u github.com/constabulary/gb/...
