@@ -43,13 +43,13 @@
 		echo "$array_length" ;
 		    for (( j=0; j<${array_length[@]}; j++ ))
                 do
-                url=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[i].url') ;
+                url=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[j].url') ;
                 if [[ "$url" == \http* ]] ; then
                     echo $url ;
-                    publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[i].publish') ;
+                    publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[j].publish') ;
                     echo $publish;            
                 else
-                    publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[i].publish') ;
+                    publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[j].publish') ;
                     echo $publish;            
                 fi
                 done
