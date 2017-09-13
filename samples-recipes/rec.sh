@@ -39,6 +39,42 @@
         echo "test 0" ;
 		#Extracting publish binaries from recipe_registry.json
 
+
+
+#######################################################new code
+		jq -r 'to_entries[] | "\(.key)\t\(.value.url)"' ../../../../mashling-recipes/recipe_registry.json |
+		while read url
+			do
+			echo "url=" $url ;
+			url=$(echo $url | tr -d '"' | tr -d ' ' ) ;
+			echo "url=" $url ;
+			if [[ "$url" == http* ]] ; then
+                    echo "$url" ;
+                    echo "alert 2" ;
+                    publish=jq -r 'to_entries[] | "\(.key)\t\(.value.publish)"' ../../../../mashling-recipes/recipe_registry.json | ;
+                    echo "$publish";            
+                else
+                    publish=jq -r 'to_entries[] | "\(.key)\t\(.value.publish)"' ../../../../mashling-recipes/recipe_registry.json | ;
+                    echo "alert 3" ;
+                    echo "$publish";                              
+                fi
+			done
+#############################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		array_length=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
 		echo "length of array = $array_length" ;
         tLenA="${#array_length[@]}" ;
