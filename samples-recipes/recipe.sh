@@ -41,18 +41,18 @@
 		#Removing spaces from publish
         publish=$(echo $publish | tr -d ' ') ;
         echo "test 3" ;
-		IFS=\, read -a gateway <<<"$publish" ;
+		IFS=\, read -a Gateway <<<"$publish" ;
 		echo "test 4" ;
         set | grep ^IFS= ;
 		echo "test 5" ;
         IFS=$' \t\n' ;
 		echo "test 6" ;
-        set | grep ^gateway=\\\|^publish= ;
+        set | grep ^Gateway=\\\|^publish= ;
 		echo "test 7" ;
 
-		for (( i = 0; i < ${#gateway[@]}; i++ ))
+		for (( i = 0; i < ${#Gateway[@]}; i++ ))
 			do
-  			echo "${gateway[$i]}" ;
+  			echo "${Gateway[$i]}" ;
 			done
 
 		echo "Creating gateway"
