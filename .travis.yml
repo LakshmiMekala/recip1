@@ -3,10 +3,12 @@ language :
 before_install:
   - "echo -e \"machine github.com\n  login ${GITHUB_USER_TOKEN}\" >> ~/.netrc" 
 os: 
-#  - linux
+  - linux
   - osx
 #  - windows
 install:
+  - ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
+	-	brew install jq
   - go get github.com/constabulary/gb/...
   - go get -u github.com/constabulary/gb/...
   - go get -u github.com/TIBCOSoftware/flogo-cli/...
