@@ -45,7 +45,7 @@
 		    for (( j = 0; j < "${tLenA}"; j++ ))
                 do
                 echo "value of j=$j" ;
-                url=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '${.recipe_repos[1].url'}) ;
+                url=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '${.recipe_repos[$j].url'}) ;
                 url=$(echo $url | tr -d '"') ;
                 echo "$url";
                 echo "alert 0" ;
