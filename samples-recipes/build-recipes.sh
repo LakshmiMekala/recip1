@@ -65,9 +65,9 @@
 												#	destfnamelc="${destfname,,}" ;
 												#	echo "$destfnamelc" ;
 												#	mv $fnamelc $destfnamelc ;
-												else
-												    fname="${Gateway[$i]}" ;
-													fnamelc="${fname,,}" ;											
+												#else
+												#    fname="${Gateway[$i]}" ;
+												#	fnamelc="${fname,,}" ;											
 												#	destfname="${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
 												#	destfnamelc="${destfname,,}" ;
 												#	mv $fnamelc $destfnamelc ;
