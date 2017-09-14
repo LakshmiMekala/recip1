@@ -42,8 +42,8 @@
 				do
 					echo "${Gateway[$i]}-${TRAVIS_OS_NAME}";
 				# creating gateway	
-					#mashling create -f ../../../../mashling-cli/samples/"${Gateway[$i]}".json "${Gateway[$i]}";
-					mashling create -f ../../../../mashling-recipes/recipes/"${Gateway[$i]}"/"${Gateway[$i]}".json "${Gateway[$i]}";
+					mashling create -f ../../../../mashling/cli/samples/"${Gateway[$i]}".json "${Gateway[$i]}";
+					#mashling create -f ../../../../mashling-recipes/recipes/"${Gateway[$i]}"/"${Gateway[$i]}".json "${Gateway[$i]}";
 						# If directory exists proceed to next steps	
 							if [ -d "${Gateway[$i]}" ]; then
 							cd "${Gateway[$i]}"  ;
@@ -120,7 +120,7 @@
 #	git checkout master;
 	echo "alert 2" ;
 #	git checkout historical-builds -- latest ;
-	git add latest ;
+#	git add latest ;
 	echo "alert 3" ;
 #	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
 	echo "alert 4" ;
