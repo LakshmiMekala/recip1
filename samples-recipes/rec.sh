@@ -108,12 +108,15 @@
                 echo "$publish";
                 echo "alert 0" ;
                 #sepa                
-                IFS=' ' read -a array_publish <<<"$publish" ;
-                set | grep ^IFS= ;                
+                IFS='\n' read -a array_publish <<<"$publish" ;
+                echo "alert 0" ;
+                set | grep ^IFS= ;  
+                echo "alert 0A" ;              
                 set | grep ^array_publish=\\\|^publish= ;
+                echo "alert 0B" ;
                 for (( i = 0; i < ${#array_publish[@]}; i++ ))
                 do
-                echo "${array_publish[$i]}" ;
+                echo "$i=${array_publish[$i]}" ;
                 done
 
 
