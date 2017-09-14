@@ -88,7 +88,7 @@
                 echo "$url";
                 echo "alert 0" ;
                 #sepa
-                IFS=' ' read -a array_url <<<"$url" ;
+                IFS=$'\n' read -a array_url <<<"$url" ;
                 echo "alert 0A" ;
                 set | grep ^IFS= ;
                 echo "alert 0B" ;
@@ -108,7 +108,7 @@
                 echo "$publish";
                 echo "alert 0" ;
                 #sepa                
-                IFS='\n' read -a array_publish <<<"$publish" ;
+                IFS=$'\n' read -a array_publish <<<"$publish" ;
                 echo "alert 0" ;
                 set | grep ^IFS= ;  
                 echo "alert 0A" ;              
