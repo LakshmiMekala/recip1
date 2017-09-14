@@ -147,11 +147,11 @@
 							# Changing directory to  binary containing folder
 										cd "${Gateway[$x]}-${TRAVIS_OS_NAME}";
                                         if [ "${TRAVIS_OS_NAME}" == "windows" ] ;then
-                                            fname="${Gateway[$i]}-$GOOS-$GOARCH.exe" ;
+                                            fname="${Gateway[$x]}-$GOOS-$GOARCH.exe" ;
                                             echo "$fname" ;
                                             fnamelc="${fname,,}" ;
                                             echo "$fnamelc" ;													
-                                            destfname="${Gateway[$i]}.exe" ;
+                                            destfname="${Gateway[$x]}.exe" ;
                                             echo "$destfname" ;
                                             destfnamelc="${destfname,,}" ;
                                             echo "$destfnamelc" ;
