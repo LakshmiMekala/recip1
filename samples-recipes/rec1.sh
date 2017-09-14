@@ -105,7 +105,8 @@
                                             mashling create -f ../../../../mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
                                             create_gateway ;
                                         done                              
-                            fi	
+                            fi
+            done                  	
 	}
 
     function create_gateway()
