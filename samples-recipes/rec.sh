@@ -78,15 +78,47 @@
 		array_length=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
 		echo "length of array = $array_length" ;
         tLenA="${#array_length[@]}" ;
-		    for (( j = 0; j < "${tLenA}"; j++ ))
+		   # for (( j = 0; j < "${tLenA}"; j++ ))
                 do
                 echo "value of j=$j" ;
                 
-                url=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[$j] | .url') ;
+                url=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[] | .url') ;
                 echo "value of url=$url" ;
                 url=$(echo $url | tr -d '"') ;
                 echo "$url";
                 echo "alert 0" ;
+                #sepa
+                IFS=\\n read -a array_url <<<"$url" ;
+                echo "alert 0A" ;
+                set | grep ^IFS= ;
+                echo "alert 0B" ;
+                set | grep ^array_url=\\\|^url= ;
+                echo "alert 0C" ;
+
+                for (( i = 0; i < ${#array_url[@]}; i++ ))
+                do
+                echo "${array_url[$i]}" ;
+                done
+                
+
+
+                publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[] | .publish') ;
+                echo "value of publish= $publish";
+                url=$(echo $publish | tr -d '"') ;
+                echo "$publish";
+                echo "alert 0" ;
+                #sepa                
+                IFS=\\n read -a array_publish <<<"$publish" ;
+                set | grep ^array_publish=\\\|^publish= ;
+                set | grep ^IFS= ;
+                for (( i = 0; i < ${#array_publish[@]}; i++ ))
+                do
+                echo "${array_publish[$i]}" ;
+                done
+
+
+
+
                 if [[ "$url" == http* ]] ; then
                     echo "$url" ;
                     echo "alert 2" ;
