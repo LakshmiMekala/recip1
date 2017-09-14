@@ -42,23 +42,23 @@
 
 
 #######################################################new code
-		jq -r 'to_entries[] | "\(.key)\t\(.value.url)"' ../../../../mashling-recipes/recipe_registry.json |
-		while read url
-			do
-			echo "url=" $url ;
-			url=$(echo $url | tr -d '"' | tr -d ' ' ) ;
-			echo "url=" $url ;
-			if [[ "$url" == http* ]] ; then
-                    echo "$url" ;
-                    echo "alert 2" ;
-                    jq -r 'to_entries[] | "\(.key)\t\(.value.publish)"' ../../../../mashling-recipes/recipe_registry.json |
-                    echo "$publish";            
-                else
-                    jq -r 'to_entries[] | "\(.key)\t\(.value.publish)"' ../../../../mashling-recipes/recipe_registry.json |
-                    echo "alert 3" ;
-                    echo "$publish";                              
-                fi
-			done
+#		jq -r 'to_entries[] | "\(.key)\t\(.value.url)"' ../../../../mashling-recipes/recipe_registry.json |
+#		while read url
+#			do
+#			echo "url=" $url ;
+#			url=$(echo $url | tr -d '"' | tr -d ' ' ) ;
+#			echo "url=" $url ;
+#			if [[ "$url" == http* ]] ; then
+#                    echo "$url" ;
+ #                   echo "alert 2" ;
+#                    jq -r 'to_entries[] | "\(.key)\t\(.value.publish)"' ../../../../mashling-recipes/recipe_registry.json |
+#                    echo "$publish";            
+#                else
+#                    jq -r 'to_entries[] | "\(.key)\t\(.value.publish)"' ../../../../mashling-recipes/recipe_registry.json |
+#                    echo "alert 3" ;
+#                    echo "$publish";                              
+#                fi
+#			done
 #############################################################
 
 
@@ -82,7 +82,7 @@
                 do
                 echo "value of j=$j" ;
                 
-                url=cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[$j].url' ;
+                url=cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[$j] | .url' ;
                 echo "value of url=$url" ;
                 url=$(echo $url | tr -d '"') ;
                 echo "$url";
