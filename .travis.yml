@@ -23,10 +23,10 @@ install:
   
 script:
    - chmod ugo+x ./build-recipes.sh  ./build.sh ./recipe.sh ./rec.sh
-#   - ./build-recipes.sh
+   - ./build-recipes.sh
 #   - chmod ugo+x ./build.sh 
 #   - ./recipe.sh
-   - ./rec.sh
+#   - ./rec.sh
 #   - ./build.sh
    - popd
 after_script:
