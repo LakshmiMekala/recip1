@@ -160,7 +160,7 @@
 						#		exit 1
 						fi
 			#	done
-				cd .. ;
+			#	cd .. ;
 	}
 			
 	if [ "${TRAVIS_OS_NAME}" == "windows" ] ;then
@@ -171,7 +171,7 @@
 		multi_os ;	
 	fi
 
-	cd .. ;
+	cd ../.. ;
    # Calling function to create recipes binaries 
   #  multi_os ;
 
