@@ -129,6 +129,7 @@
 	{
 		#for (( i=0; i<"${tLen}"; i++ ));
 		#		do
+                pwd ;
 				echo "${Gateway[$x]}-${TRAVIS_OS_NAME}";
 				# creating gateway	
 				#	mashling create -f ../../../../mashling/cli/samples/"${Gateway[$x]}".json "${Gateway[$x]}";
@@ -154,9 +155,9 @@
 							cp -r "${Gateway[$x]}" ../latest ;
 						# Exit if directory not found
 						else
-								echo "failed to create ${Gateway[$x]}-${TRAVIS_OS_NAME} gateway" 
-								echo "directory ${Gateway[$x]}-${TRAVIS_OS_NAME}" not found
-								exit 1
+								echo "failed to create ${Gateway[$x]} gateway" 
+								echo "directory ${Gateway[$x]}" not found
+						#		exit 1
 						fi
 			#	done
 				cd .. ;
