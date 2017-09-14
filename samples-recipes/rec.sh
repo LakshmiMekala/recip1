@@ -79,9 +79,9 @@
 		echo "length of array = $array_length" ;
         tLenA="${#array_length[@]}" ;
 		   # for (( j = 0; j < "${tLenA}"; j++ ))
-                do
+           #     do
                 echo "value of j=$j" ;
-                
+           #     done
                 url=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[] | .url') ;
                 echo "value of url=$url" ;
                 url=$(echo $url | tr -d '"') ;
@@ -129,7 +129,7 @@
                     echo "alert 3" ;
                     echo "$publish";                              
                 fi
-                done
+             #   done
     #    publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[0].publish') ;
         echo "test 1" ;
 		echo "$publish" ;
