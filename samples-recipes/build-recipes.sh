@@ -42,7 +42,8 @@
 				do
 					echo "${Gateway[$i]}-${TRAVIS_OS_NAME}";
 				# creating gateway	
-					mashling create -f ../../../../mashling-cli/samples/"${Gateway[$i]}".json "${Gateway[$i]}";
+					#mashling create -f ../../../../mashling-cli/samples/"${Gateway[$i]}".json "${Gateway[$i]}";
+					mashling create -f ../../../../mashling-recipes/recipes/"${Gateway[$i]}"/"${Gateway[$i]}".json "${Gateway[$i]}";
 						# If directory exists proceed to next steps	
 							if [ -d "${Gateway[$i]}" ]; then
 							cd "${Gateway[$i]}"  ;
