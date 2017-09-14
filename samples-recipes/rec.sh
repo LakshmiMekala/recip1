@@ -146,6 +146,17 @@
 							rm -r bin src vendor pkg ;
 							# Changing directory to  binary containing folder
 										cd "${Gateway[$x]}-${TRAVIS_OS_NAME}";
+                                        if [ "${TRAVIS_OS_NAME}" == "windows" ] ;then
+                                            fname="${Gateway[$i]}-$GOOS-$GOARCH.exe" ;
+                                            echo "$fname" ;
+                                            fnamelc="${fname,,}" ;
+                                            echo "$fnamelc" ;													
+                                            destfname="${Gateway[$i]}.exe" ;
+                                            echo "$destfname" ;
+                                            destfnamelc="${destfname,,}" ;
+                                            echo "$destfnamelc" ;
+                                            mv $fnamelc $destfnamelc ;												
+                                        fi
 										zip -r "${Gateway[$x]}-${TRAVIS_OS_NAME}" *;
 										cp "${Gateway[$x]}-${TRAVIS_OS_NAME}.zip" ../../"${Gateway[$x]}" ;		
 										cd .. ;
