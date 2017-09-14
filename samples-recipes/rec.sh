@@ -82,7 +82,7 @@
                 do
                 echo "value of j=$j" ;
                 
-                url=cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[$j] | .url' ;
+                url=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[$j] | .url') ;
                 echo "value of url=$url" ;
                 url=$(echo $url | tr -d '"') ;
                 echo "$url";
