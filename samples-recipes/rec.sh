@@ -10,135 +10,29 @@
 			echo Creating build with release version:"${TRAVIS_TAG}";
 				if [ -d "$namefolder-${TRAVIS_TAG}" ]; then			
 					cd "$namefolder-${TRAVIS_TAG}";
-					create_gateway;
+					recipe_registry;
 				else
 					mkdir "$namefolder-${TRAVIS_TAG}";
 					cd "$namefolder-${TRAVIS_TAG}";
-					create_gateway;				
+					recipe_registry;				
 				fi
 		 fi	
 		if [ -z "${TRAVIS_TAG}" ]; then
 			echo Creating build with travis build number:"${TRAVIS_BUILD_NUMBER}" ;
 				if [ -d "$namefolder-${TRAVIS_BUILD_NUMBER}" ]; then			
 					cd "$namefolder-${TRAVIS_BUILD_NUMBER}";
-					create_gateway;
+					recipe_registry;
 				else
 					mkdir "$namefolder-${TRAVIS_BUILD_NUMBER}";
 					cd "$namefolder-${TRAVIS_BUILD_NUMBER}";
-					create_gateway;				
+					recipe_registry;				
 				fi
 		fi
 	}
 	
-	function create_gateway()
-	{
-	#	if [ "${TRAVIS_OS_NAME}" == "osx" ] ;then
-	#	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
-	#	brew install jq
-	#	fi
-        echo "test 0" ;
-		#Extracting publish binaries from recipe_registry.json
-
-
-
-#######################################################new code
-#		jq -r 'to_entries[] | "\(.key)\t\(.value.url)"' ../../../../mashling-recipes/recipe_registry.json |
-#		while read url
-#			do
-#			echo "url=" $url ;
-#			url=$(echo $url | tr -d '"' | tr -d ' ' ) ;
-#			echo "url=" $url ;
-#			if [[ "$url" == http* ]] ; then
-#                    echo "$url" ;
- #                   echo "alert 2" ;
-#                    jq -r 'to_entries[] | "\(.key)\t\(.value.publish)"' ../../../../mashling-recipes/recipe_registry.json |
-#                    echo "$publish";            
-#                else
-#                    jq -r 'to_entries[] | "\(.key)\t\(.value.publish)"' ../../../../mashling-recipes/recipe_registry.json |
-#                    echo "alert 3" ;
-#                    echo "$publish";                              
-#                fi
-#			done
-#############################################################
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		array_length=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
-		echo "length of array = $array_length" ;
-        tLenA="${#array_length[@]}" ;
-		   # for (( j = 0; j < "${tLenA}"; j++ ))
-           #     do
-                echo "value of j=$j" ;
-           #     done
-                url=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[] | .url') ;
-                echo "value of url=$url" ;
-                url=$(echo $url | tr -d '"') ;
-                echo "$url";
-                echo "alert 0" ;
-                #sepa
-                IFS=$'\n' read -a array_url <<<"$url" ;
-                echo "alert 0A" ;
-                set | grep ^IFS= ;
-                echo "alert 0B" ;
-                set | grep ^array_url=\\\|^url= ;
-                echo "alert 0C" ;
-
-                for (( i = 0; i < ${#array_url[@]}; i++ ))
-                do
-                echo "${array_url[$i]}" ;
-                done
-                
-
-
-                publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[] | .publish') ;
-                echo "value of publish= $publish";
-                url=$(echo $publish | tr -d '"') ;
-                echo "$publish";
-                echo "alert 0" ;
-                #sepa                
-                IFS=$'\n' read -a array_publish <<<"$publish" ;
-                echo "alert 0" ;
-                set | grep ^IFS= ;  
-                echo "alert 0A" ;              
-                set | grep ^array_publish=\\\|^publish= ;
-                echo "alert 0B" ;
-                for (( i = 0; i < ${#array_publish[@]}; i++ ))
-                do
-                echo "$i=${array_publish[$i]}" ;
-                done
-
-
-
-
-                if [[ "$url" == http* ]] ; then
-                    echo "$url" ;
-                    echo "alert 2" ;
-                #    publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[j].publish') ;
-                    echo "$publish";            
-                else
-                #    publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[j].publish') ;
-                    echo "alert 3" ;
-                    echo "$publish";                              
-                fi
-             #   done
-    #    publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[0].publish') ;
-        echo "test 1" ;
-		echo "$publish" ;
-        echo "test 2" ;
-		#Removing spaces from publish
-        publish=$(echo $publish | tr -d ' ') ;
+    function publish_gateway()
+    {
+         publish=$(echo $publish | tr -d ' ') ;
         echo "test 3" ;
 		#Removing double quotes from publish
 		publish=$(echo $publish | tr -d '"') ;
@@ -160,9 +54,111 @@
   			echo "${Gateway[$i]}" ;
 			done
 
-		
-			tLen="${#Gateway[@]}"
+    }
+	function recipe_registry()
+	{
+	#	if [ "${TRAVIS_OS_NAME}" == "osx" ] ;then
+		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
+		brew install jq
+	#	fi
+        echo "test 0" ;
+		#Extracting publish binaries from recipe_registry.json
+    	array_length=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
+		echo "length of array = $array_length" ;
+        
+		    for (( j = 0; j < $array_length; j++ ))
+                do
+                        echo "value of j=$j" ;
+                        eval xpath='.recipe_repos[$j].url' ;
+                        eval xpath_publish='.recipe_repos[$j].publish' ;           
+                        url=$(cat ../../../../mashling-recipes/recipe_registry.json | jq $xpath ) ;
+                        echo "value of url=$url" ;
+                        url=$(echo $url | tr -d '"') ;
+                        echo "$url";
+                        echo "alert 0" ;
+                        #Removing space from array
+                        IFS=' ' read -a array_url <<<"$url" ;
+                        echo "alert 0A" ;
+                        set | grep ^IFS= ;
+                        echo "alert 0B" ;
+                        set | grep ^array_url=\\\|^url= ;
+                        echo "alert 0C" ;
+                        for (( k = 0; k < 1; k++ ))
+                              do
+                              echo "${array_url[$k]}" ;
+                              done
+                                              if [[ "$array_url" == http* ]] ; then
+                                                    echo "alert 2" ;
+                                                    path_url=$array_url ;
+                                                    fname=$(echo $path_url | rev | cut -d '/' -f 1 | rev);
+                                                    echo $fname
+                                                        if [[ "$array_url" == *github.com* ]] ; then
+                                                                pushd $GOPATH/src/github.com/TIBCOSoftware ;
+                                                                git clone $array_url.git "$fname" ;
+                                                                popd ;
+                                                                #publish_gateway ;
+                                                                publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq $xpath_publish) ;
+                                                                echo "$publish";
+                                                                publish_gateway ;
+                                                                    for (( x = 0; x < ${#Gateway[@]}; x++ ))
+                                                                        do
+                                                                            echo "${Gateway[$x]}" ;
+                                                                            mashling create -f ../../../../"$fname"/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
+                                                                            #mashling create -f "$fname/${Gateway[$x]}/${Gateway[$x]}".json "${Gateway[$x]}";
+                                                                            create_gateway ;
+                                                                        done											
+                                                          fi                                                                                                       
+                                                else
+                                                        echo "alert 3" ;
+                                                        publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq $xpath_publish) ;
+                                                        echo "$publish";
+                                                        publish_gateway ;
+                                                            for (( x = 0; x < ${#Gateway[@]}; x++ ))
+                                                                do
+                                                                    echo "${Gateway[$x]}" ;
+                                                                    mashling create -f ../../../../mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
+                                                                    create_gateway ;
+                                                                done                              
+                                                          fi        
+                                                                                tLen="${#Gateway[@]}"
+                done                      
 				
+	}
+
+    function create_gateway()
+	{
+		#for (( i=0; i<"${tLen}"; i++ ));
+		#		do
+				echo "${Gateway[$x]}-${TRAVIS_OS_NAME}";
+				# creating gateway	
+				#	mashling create -f ../../../../mashling/cli/samples/"${Gateway[$x]}".json "${Gateway[$x]}";
+					#mashling create -f ../../../../mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
+						# If directory exists proceed to next steps	
+							if [ -d "${Gateway[$x]}" ]; then
+							cd "${Gateway[$x]}"  ;
+							mv bin "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
+							mashling build ;
+							cp -r bin/flogo.json ../"${Gateway[$x]}" ;
+							cp -r bin/flogo.json "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
+							mv  mashling.json "${Gateway[$x]}.mashling.json"
+							cp -r "${Gateway[$x]}.mashling.json" "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
+							rm -r bin src vendor pkg ;
+							# Changing directory to  binary containing folder
+										cd "${Gateway[$x]}-${TRAVIS_OS_NAME}";
+										zip -r "${Gateway[$x]}-${TRAVIS_OS_NAME}" *;
+										cp "${Gateway[$x]}-${TRAVIS_OS_NAME}.zip" ../../"${Gateway[$x]}" ;		
+										cd .. ;
+							rm -r "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
+							cd ..;
+                            # Copying gateway into latest folder
+							cp -r "${Gateway[$x]}" ../latest ;
+						# Exit if directory not found
+						else
+								echo "failed to create ${Gateway[$x]}-${TRAVIS_OS_NAME} gateway" 
+								echo "directory ${Gateway[$x]}-${TRAVIS_OS_NAME}" not found
+								exit 1
+						fi
+			#	done
 				cd .. ;
 	}
 			
