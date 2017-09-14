@@ -88,7 +88,7 @@
                 echo "$url";
                 echo "alert 0" ;
                 #sepa
-                IFS=\\n read -a array_url <<<"$url" ;
+                IFS=' ' read -a array_url <<<"$url" ;
                 echo "alert 0A" ;
                 set | grep ^IFS= ;
                 echo "alert 0B" ;
@@ -108,9 +108,9 @@
                 echo "$publish";
                 echo "alert 0" ;
                 #sepa                
-                IFS=\\n read -a array_publish <<<"$publish" ;
+                IFS=' ' read -a array_publish <<<"$publish" ;
+                set | grep ^IFS= ;                
                 set | grep ^array_publish=\\\|^publish= ;
-                set | grep ^IFS= ;
                 for (( i = 0; i < ${#array_publish[@]}; i++ ))
                 do
                 echo "${array_publish[$i]}" ;
@@ -122,10 +122,10 @@
                 if [[ "$url" == http* ]] ; then
                     echo "$url" ;
                     echo "alert 2" ;
-                    publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[j].publish') ;
+                #    publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[j].publish') ;
                     echo "$publish";            
                 else
-                    publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[j].publish') ;
+                #    publish=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos[j].publish') ;
                     echo "alert 3" ;
                     echo "$publish";                              
                 fi
