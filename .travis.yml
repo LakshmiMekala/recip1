@@ -28,8 +28,8 @@ script:
 #   - chmod ugo+x ./build.sh 
 #   - ./recipe.sh
 #   - ./rec.sh
-   - ./rec1.sh
-#   - ./rec2.sh
+#   - ./rec1.sh
+   - ./rec2.sh
 #   - ./build.sh
    - popd
 after_script:
