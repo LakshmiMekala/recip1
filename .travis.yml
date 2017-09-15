@@ -47,6 +47,7 @@ script:
   - touch mashling.tgz
   - tar cvfz mashling.tgz --exclude=mashling.tgz .
   - find . -not -name "mashling.tgz" -not  -name "\." -not -name "\.\."  -print0 | xargs -0 rm -rf --
+  - cd $GOPATH/src/github.com/TIBCOSoftware/
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then    
     pushd mashling-cicd/docker/mashling;
     chmod ugo+x ./build-mashling.sh ;
