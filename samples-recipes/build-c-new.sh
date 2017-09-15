@@ -5,6 +5,11 @@
 	
 	function create_dest_directory ()
 	{
+		echo "test 1" ;
+		ls ;
+		echo "test 2" ;
+		pwd ;
+		echo "test 3" ;
 		cd master-builds ;
         if [ -n "${TRAVIS_TAG}" ]; then
             destFolder="$namefolder-${TRAVIS_TAG}"
@@ -77,7 +82,7 @@
 	fi
 
 	create_dest_directory ;
-    package_gateway ;
+ #   package_gateway ;
 
     git config user.email "lmekala@tibco.com";
 	git config user.name "LakshmiMekala"
