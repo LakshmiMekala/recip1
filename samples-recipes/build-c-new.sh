@@ -1,4 +1,8 @@
 #!/bin/bash
+	
+	name="${TRAVIS_REPO_SLUG}" ;
+	namefolder=${name:14} ;
+	
 	function create_dest_directory ()
 	{
 		cd master-builds ;
