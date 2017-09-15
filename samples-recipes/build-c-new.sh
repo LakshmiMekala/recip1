@@ -26,7 +26,7 @@
 				do
 					echo "${Gateway[$i]}";
 				# creating gateway	
-					mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling/cli/samples/"${Gateway[$i]}".json "${Gateway[$i]}-${TRAVIS_OS_NAME}";
+					mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling/cli/samples/"${Gateway[$i]}".json "${Gateway[$i]}";
 							if [ -d "${Gateway[$i]}" ]; then
 							cd "${Gateway[$i]}"  ;
 							mv bin "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
