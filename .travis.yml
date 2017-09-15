@@ -67,7 +67,7 @@ after_script:
 after_success:
   - "docker login -u=\"${DOCKER_USERNAME}\" -p=\"${DOCKER_PASSWORD}\" tibdocker.tibco.com"
   - "if [ \"${TRAVIS_BRANCH}\" == \"master\" ]; then
-    source ${TRAVIS_BUILD_DIR}/mashling-cicd/scripts/init.sh ;
+    source $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/scripts/init.sh ;
     mashling::module::postbuild mashling mashling ;
     fi"
   - "if [ \"${TRAVIS_BRANCH}\" == \"master\" ]; then
