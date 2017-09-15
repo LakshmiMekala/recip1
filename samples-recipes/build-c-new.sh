@@ -72,7 +72,7 @@
 		export GOARCH=amd64
 	fi
 
-	create_dest_gateway ;
+	create_dest_directory ;
     package_gateway ;
 
     git config user.email "lmekala@tibco.com";
