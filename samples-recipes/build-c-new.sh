@@ -69,7 +69,7 @@
 				done
 				
 	}
-	cd .. ;		
+	cd ../.. ;		
 	
 	if [ "${TRAVIS_OS_NAME}" == "windows" ] ;then
 		export GOOS=windows

@@ -18,7 +18,7 @@ install:
 #   - git clone recipe https://github.com/LakshmiMekala/recip1.git
 #  - git checkout -b recipe origin/recipe
   - pushd recip1/samples-recipes
-  - mkdir -p ${TRAVIS_BRANCH}-builds/latest
+  - mkdir -p master-builds/latest
   - ls
   
 script:
