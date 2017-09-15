@@ -6,6 +6,9 @@ os:
   - linux
 #  - osx
 #  - windows
+branches:
+  only:
+    - master
 install:
   - go get github.com/constabulary/gb/...
   - go get -u github.com/constabulary/gb/...
@@ -14,22 +17,19 @@ install:
   - cd ../../TIBCOSoftware
   - git clone https://github.com/TIBCOSoftware/mashling-recipes.git
   - git clone https://github.com/LakshmiMekala/recip1.git
-#  - cd recip1
-#   - git clone recipe https://github.com/LakshmiMekala/recip1.git
-#  - git checkout -b recipe origin/recipe
   - pushd recip1/samples-recipes
-  - mkdir -p ${TRAVIS_BRANCH}-builds/latest
+  - mkdir -p master`-builds/latest
   - ls
   
 script:
    - chmod ugo+x ./build-recipes.sh  ./build.sh ./recipe.sh ./rec.sh ./rec1.sh ./rec2.sh ./build-c-new.sh
-   - ./build-c-new.sh
+#   - ./build-c-new.sh
 #   - ./build-recipes.sh
 #   - chmod ugo+x ./build.sh 
 #   - ./recipe.sh
 #   - ./rec.sh
 #   - ./rec1.sh
-#   - ./rec2.sh
+   - ./rec2.sh
 #   - ./build.sh
    - popd
 after_script:
