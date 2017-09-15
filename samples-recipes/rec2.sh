@@ -54,8 +54,7 @@
                     #url=$(cat ../../../../mashling-recipes/recipe_registry.json | jq $xpath ) ;
                     url=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath ) ;
                     provider_url=$(echo $url | tr -d '"') ;
-                    echo "provider_url is $provider_url";
-              
+                    echo "provider_url is $provider_url";              
                             #checking if url contains http or not
                             if [[ "$provider_url" == http* ]] ; then
                                 path_url=$provider_url ;
