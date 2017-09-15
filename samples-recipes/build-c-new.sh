@@ -63,9 +63,9 @@
 								exit 1
 						fi
 				done
-				cd .. ;
+				
 	}
-			
+	cd .. ;		
 	
 	if [ "${TRAVIS_OS_NAME}" == "windows" ] ;then
 		export GOOS=windows
@@ -84,17 +84,3 @@
 	git add .;  
 	echo "alert -1" ;
 	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
-	echo "alert 0" ;
-	git push -u origin recipe;
-	echo "alert A 1" ;
-	git stash
-	echo "alert 1" ;
-	git checkout master;
-	echo "alert 2" ;
-	git checkout recipe -- latest ;
-	git add latest ;
-	echo "alert 3" ;
-	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
-	echo "alert 4" ;
-	git push -u origin master;
-	echo "alert 5" ;
