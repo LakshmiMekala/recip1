@@ -22,12 +22,13 @@ install:
   - ls
   
 script:
-   - chmod ugo+x ./build-recipes.sh  ./build.sh ./recipe.sh ./rec.sh ./rec1.sh
+   - chmod ugo+x ./build-recipes.sh  ./build.sh ./recipe.sh ./rec.sh ./rec1.sh ./rec2.sh
 #   - ./build-recipes.sh
 #   - chmod ugo+x ./build.sh 
 #   - ./recipe.sh
 #   - ./rec.sh
-   - ./rec1.sh
+#   - ./rec1.sh
+   - ./rec2.sh
 #   - ./build.sh
    - popd
 after_script:
