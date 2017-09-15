@@ -26,7 +26,7 @@
 				do
 					echo "${Gateway[$i]}";
 				# creating gateway	
-					mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-cli/samples/"${Gateway[$i]}".json "${Gateway[$i]}-${TRAVIS_OS_NAME}";
+					mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling/cli/samples/"${Gateway[$i]}".json "${Gateway[$i]}-${TRAVIS_OS_NAME}";
 							if [ -d "${Gateway[$i]}" ]; then
 							cd "${Gateway[$i]}"  ;
 							mv bin "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
@@ -74,7 +74,7 @@
 
 	create_dest_gateway ;
     package_gateway ;
-	
+
     git config user.email "lmekala@tibco.com";
 	git config user.name "LakshmiMekala"
 	
