@@ -7,7 +7,9 @@ os:
   - linux
   - osx
   - windows
-
+branches:
+  only:
+    - master
 install:
   - go get github.com/constabulary/gb/...
   - go get -u github.com/constabulary/gb/...
