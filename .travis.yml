@@ -6,8 +6,8 @@ services:
   - docker
 os:
   - linux
-#  - osx
-#  - windows
+  - osx
+  - windows
   
 cache:
   bundler: false
@@ -23,6 +23,7 @@ install:
   - go get -u github.com/constabulary/gb/...
   - go get github.com/TIBCOSoftware/mashling/...
   - cd $GOPATH/src/github.com/TIBCOSoftware
+  - git clone https://github.com/TIBCOSoftware/mashling-recipes.git mashling-recipes
   - "git ls-remote --exit-code https://github.com/TIBCOSoftware/mashling-cicd.git ${TRAVIS_BRANCH} ;
     if [ $? -eq 0 ]; then 
         echo \"Branch ${TRAVIS_BRANCH} found on mashling-cicd\" ;
@@ -31,6 +32,12 @@ install:
         echo \"Branch ${TRAVIS_BRANCH} not found on mashling-cicd using master\" ;
         git clone https://github.com/TIBCOSoftware/mashling-cicd.git mashling-cicd ;
     fi"
+  - cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/dependency-config/* $GOPATH/src/github.com/TIBCOSoftware/mashling
+  - cd $GOPATH/src/github.com/TIBCOSoftware/mashling
+  - godep restore
+  - go install ./...
+  - mashling help
+  - cd $GOPATH/src/github.com/TIBCOSoftware
   - pushd mashling-cicd/sample-recipes
   - rm -rf builds
   - mkdir -p builds/latest master-builds/latest
@@ -47,7 +54,6 @@ script:
   - touch mashling.tgz
   - tar cvfz mashling.tgz --exclude=mashling.tgz .
   - find . -not -name "mashling.tgz" -not  -name "\." -not -name "\.\."  -print0 | xargs -0 rm -rf --
-  - cd $GOPATH/src/github.com/TIBCOSoftware/
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then    
     pushd mashling-cicd/docker/mashling;
     chmod ugo+x ./build-mashling.sh ;
@@ -73,4 +79,26 @@ after_success:
   - "if [ \"${TRAVIS_BRANCH}\" == \"master\" ]; then
     source  $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/scripts/init.sh;
     mashling::module::postbuild mashling-sample mashling-sample ;
-    fi"
+    fi"  
+deploy:
+  on:
+    branch: master,$TRAVIS_TAG
+  provider: s3
+  access_key_id: $SITE_KEY
+  secret_access_key: $SITE_KEY_SECRET
+  bucket: $AWS_BUCKET
+  region: $AWS_REGION
+  skip_cleanup: true
+  local_dir: $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/sample-recipes/master-builds
+  upload-dir: master-builds
+
+notifications: 
+  email: 
+    on_failure: always
+    on_success: always
+    recipients: 
+      - jpark@tibco.com
+      - rpolishe@tibco.com
+      - lmekala@tibco.com
+      - nthota@tibco.com
+      - ykalidin@tibco.com
