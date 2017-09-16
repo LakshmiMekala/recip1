@@ -34,7 +34,7 @@ install:
     fi"
   - cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/dependency-config/* $GOPATH/src/github.com/TIBCOSoftware/mashling
   - cd $GOPATH/src/github.com/TIBCOSoftware/mashling
-  - godep restore
+#  - godep restore
   - go install ./...
   - mashling help
   - cd $GOPATH/src/github.com/TIBCOSoftware
