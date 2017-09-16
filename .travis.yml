@@ -5,9 +5,9 @@ language :
 services:
   - docker
 os:
-  - linux
+#  - linux
 #  - osx
-#  - windows
+  - windows
   
 cache:
   bundler: false
