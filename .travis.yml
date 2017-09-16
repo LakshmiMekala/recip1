@@ -6,8 +6,8 @@ services:
   - docker
 os:
   - linux
-  - osx
-  - windows
+#  - osx
+#  - windows
   
 cache:
   bundler: false
@@ -44,29 +44,29 @@ install:
   
 script:
   - chmod ugo+x ./build-recipes.sh ./sanity.sh ./build-registry-recipes.sh
-  - ./build-recipes.sh
-  - ./sanity.sh
+#  - ./build-recipes.sh
+#  - ./sanity.sh
   - popd
   - pushd mashling-cicd/sample-recipes
   - ./build-registry-recipes.sh
   - popd
   - cd $GOPATH/src/github.com/TIBCOSoftware/mashling  
-  - touch mashling.tgz
-  - tar cvfz mashling.tgz --exclude=mashling.tgz .
-  - find . -not -name "mashling.tgz" -not  -name "\." -not -name "\.\."  -print0 | xargs -0 rm -rf --
-  - cd $GOPATH/src/github.com/TIBCOSoftware 
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then    
-    pushd mashling-cicd/docker/mashling;
-    chmod ugo+x ./build-mashling.sh ;
-    ./build-mashling.sh ;
-    popd ;
-    fi
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then      
-    pushd mashling-cicd/docker/mashling-sample;
-    chmod ugo+x ./build-mashling-sample.sh ;
-    ./build-mashling-sample.sh ;
-    popd ;
-    fi
+#  - touch mashling.tgz
+#  - tar cvfz mashling.tgz --exclude=mashling.tgz .
+#  - find . -not -name "mashling.tgz" -not  -name "\." -not -name "\.\."  -print0 | xargs -0 rm -rf --
+#  - cd $GOPATH/src/github.com/TIBCOSoftware 
+#  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then    
+#    pushd mashling-cicd/docker/mashling;
+#    chmod ugo+x ./build-mashling.sh ;
+#    ./build-mashling.sh ;
+#    popd ;
+#    fi
+#  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then      
+#    pushd mashling-cicd/docker/mashling-sample;
+#    chmod ugo+x ./build-mashling-sample.sh ;
+#    ./build-mashling-sample.sh ;
+#    popd ;
+#    fi
     
 after_script:
   - "[ -f \"${HOME}/.netrc\" ] && rm -f ${HOME}/.netrc"
@@ -82,28 +82,37 @@ after_success:
     mashling::module::postbuild mashling-sample mashling-sample ;
     fi"  
 deploy:
-  on:
-    branch: master
-  provider: s3
-  access_key_id: $SITE_KEY
-  secret_access_key: $SITE_KEY_SECRET
-  bucket: $AWS_BUCKET
-  region: $AWS_REGION
-  skip_cleanup: true
-  local_dir: $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/sample-recipes/master-builds
-  upload-dir: master-builds
-deploy:  
-  on:
-    branch: release
-  provider: s3
-  access_key_id: $SITE_KEY
-  secret_access_key: $SITE_KEY_SECRET
-  bucket: $AWS_BUCKET
-  region: $AWS_REGION
-  skip_cleanup: true
-  local_dir: $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/sample-recipes/master-builds
-  upload-dir: master-builds
-
+# -  provider: s3
+#    access_key_id: $SITE_KEY
+#    secret_access_key: $SITE_KEY_SECRET
+#    bucket: $AWS_BUCKET
+#    region: $AWS_REGION
+#    skip_cleanup: true
+#    on:
+#      branch: master
+#    local_dir: $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/sample-recipes/master-builds
+#    upload-dir: master-builds
+# -  provider: s3
+#    access_key_id: $SITE_KEY
+#    secret_access_key: $SITE_KEY_SECRET
+#    bucket: $AWS_BUCKET
+#    region: $AWS_REGION
+#    skip_cleanup: true
+#    on:
+#      branch: release
+#    local_dir: $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/sample-recipes/master-builds
+#    upload-dir: master-builds   
+ -  provider: s3
+    access_key_id: $SITE_KEY
+    secret_access_key: $SITE_KEY_SECRET
+    bucket: $AWS_BUCKET
+    region: $AWS_REGION
+    skip_cleanup: true
+    on:
+      branch: master
+      tags: true
+    local_dir: $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/sample-recipes/master-builds
+    upload-dir: master-builds
 notifications: 
   email: 
     on_failure: always
