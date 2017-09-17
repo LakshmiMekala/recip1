@@ -88,7 +88,7 @@ deploy:
     skip_cleanup: true
     on:
       #branch: master
-      condition: $TRAVIS_BRANCH == master || $TRAVIS_BRANCH == $TRAVIS_TAG
+      condition: $TRAVIS_BRANCH == master || $TRAVIS_BRANCH == v6.0
     local_dir: $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/sample-recipes/master-builds
     upload-dir: master-builds
 ## -  provider: s3
