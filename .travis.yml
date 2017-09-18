@@ -4,7 +4,7 @@ language :
 branches:
   only:
     - master
-    - $TRAVIS_TAG
+tags: true    
 services:
   - docker
 os:
