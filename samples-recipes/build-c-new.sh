@@ -64,22 +64,24 @@
 							cp -r "${Gateway[$i]}" ../latest ;
 						# Exit if directory not found
 						else
-								echo "failed to create ${Gateway[$i]}-${TRAVIS_OS_NAME} gateway" 
-								echo "directory ${Gateway[$i]}-${TRAVIS_OS_NAME}" not found
-								exit 1
+								echo "failed to create ${Gateway[$i]}-${TRAVIS_OS_NAME} gateway"  ;
+								echo "directory ${Gateway[$i]}-${TRAVIS_OS_NAME}" not found ;
+								exit 1 ;
 						fi
 				done
 				
-	}
-	cd ../.. ;		
-	
+	}	
+
+
 	if [ "${TRAVIS_OS_NAME}" == "windows" ] ;then
 		export GOOS=windows
 		export GOARCH=amd64
 	fi
 
 	create_dest_directory ;
- #   package_gateway ;
+    package_gateway ;
+	
+	cd ../.. ;
 
     git config user.email "lmekala@tibco.com";
 	git config user.name "LakshmiMekala"
