@@ -4,13 +4,8 @@
 	namefolder=${name:14} ;
 	
 	function create_dest_directory ()
-	{
-		echo "test 1" ;
-		ls ;
-		echo "test 2" ;
-		pwd ;
-		echo "test 3" ;
-		cd master-builds ;
+	{		
+		cd builds ;
         if [ -n "${TRAVIS_TAG}" ]; then
             destFolder="$namefolder-${TRAVIS_TAG}"
         elif [ -z "${TRAVIS_TAG}" ]; then
