@@ -4,7 +4,7 @@ language :
 branches:
   only:
     - master
-    - 7.22  
+    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
 services:
   - docker
 os:
