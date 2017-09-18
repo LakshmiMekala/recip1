@@ -5,6 +5,8 @@
 	
 	function create_dest_directory ()
 	{		
+		pwd :
+		ls :
 		cd builds ;
         if [ -n "${TRAVIS_TAG}" ]; then
             destFolder="$namefolder-${TRAVIS_TAG}"
