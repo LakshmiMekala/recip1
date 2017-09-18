@@ -1,7 +1,10 @@
 sudo: required
 language : 
   - go  
-
+branches:
+  only:
+    - master
+    - [-n $TRAVIS_TAG]
 services:
   - docker
 os:
