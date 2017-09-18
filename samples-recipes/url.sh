@@ -60,10 +60,14 @@
                             #checking if url contains http or not
                             if [[ "$provider_url" =~ $regex ]] ; then
                                 path_url=$provider_url ;
+                                    if [[ ! $provider_url == *[.git] ]] ; then
+                                        path_url=$path_url.git ;    
+                                    fi
                                 fname=$(echo $path_url | rev | cut -d '/' -f 1 | rev);
+                                fname=$(echo $fname | cut -f1 -d '.');
                                 echo $fname
                                 pushd $GOPATH/src/github.com/TIBCOSoftware ;
-                                git clone $provider_url.git "$fname" ;
+                                git clone $path_url "$fname" ;
                                 popd ;
                                 #publish_gateway ;
                                 publish=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish) ;
@@ -75,8 +79,8 @@
                                         echo "${Gateway[$x]}" ;
                                         mashling create -f $GOPATH/src/github.com/TIBCOSoftware/"$fname"/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
                                         package_gateway ;
-                                        done											
-                                                                                                                                       
+                                        done 
+                                                                                                                                                                             
                             else
                                 echo "alert 3" ;
                                 publish=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish) ;

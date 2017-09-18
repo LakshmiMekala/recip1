@@ -20,7 +20,7 @@ install:
   
 script:
    - chmod ugo+x ./url.sh ./build-c-new.sh
-   - ./build-c-new.sh
+#   - ./build-c-new.sh
    - ./url.sh
    - popd
 after_script:
