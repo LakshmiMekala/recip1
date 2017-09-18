@@ -4,7 +4,7 @@ language :
 branches:
   only:
     - master
-tags: true    
+    - 7.22  
 services:
   - docker
 os:
