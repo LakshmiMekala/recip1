@@ -63,6 +63,10 @@
                             do
                                 # creating gateway with values from publish
                                 echo "${Gateway[$x]}" ;
+                                gwname="${Gateway[$x]}" ;
+                                echo "$gwname" ;
+                                Gateway[$x]="${gwname,,}" ;
+                                echo "${Gateway[$x]}" ;
                                 mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/"$provider_path"/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
                                 package_gateway ;
                             done                              
@@ -84,7 +88,7 @@
             #    cp -r bin/flogo.json "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
                 mv  mashling.json "${Gateway[$x]}.mashling.json"
                 cp -r "${Gateway[$x]}.mashling.json" "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
-                cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/"$provider_path"/"${Gateway[$x]}"/displayImage.svg $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/master-builds/"$destFolder"/"${Gateway[$x]}"
+                cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/"$provider_path"/"${Gateway[$x]}"/"displayImage.svg" $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/master-builds/"$destFolder"/"${Gateway[$x]}"
                 rm -r src vendor pkg ;
                     # Changing directory to  binary containing folder
                     cd "${Gateway[$x]}-${TRAVIS_OS_NAME}";
