@@ -18,14 +18,14 @@ install:
   - git clone https://github.com/TIBCOSoftware/mashling-recipes.git
   - git clone https://github.com/LakshmiMekala/recip1.git
   - pushd recip1/samples-recipes
-  - rm -rf builds/latest
-  - mkdir -p master-builds/latest builds/latest
+#  - rm -rf builds/latest
+  - mkdir -p master-builds/latest #builds/latest
   - ls
   
 script:
-   - chmod ugo+x ./url.sh ./build-c-new.sh
-   - ./build-c-new.sh
-   - ./url.sh
+   - chmod ugo+x ./removeurl.sh ./build-c-new.sh
+#   - ./build-c-new.sh
+   - ./removeurl.sh
    - popd
 after_script:
   - "[ -f \"${HOME}/.netrc\" ] && rm -f ${HOME}/.netrc"

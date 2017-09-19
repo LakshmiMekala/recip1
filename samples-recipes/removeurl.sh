@@ -53,47 +53,23 @@
                     eval xpath_publish='.recipe_repos[$j].publish' ;           
                     #url=$(cat ../../../../mashling-recipes/recipe_registry.json | jq $xpath ) ;
                     url=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath ) ;
-                    provider_url=$(echo $url | tr -d '"') ;
-                    echo "provider_url is $provider_url";
-                    # regular expression for validating URL
-                    regex='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'              
-                            #checking if url contains http or not
-                            if [[ "$provider_url" =~ $regex ]] ; then
-                                path_url=$provider_url ;
-                                    if [[ ! $provider_url == *[.git] ]] ; then
-                                        path_url=$path_url.git ;    
-                                    fi
-                                fname=$(echo $path_url | rev | cut -d '/' -f 1 | rev);
-                                fname=$(echo $fname | cut -f1 -d '.');
-                                echo $fname
-                                pushd $GOPATH/src/github.com/TIBCOSoftware ;
-                                git clone $path_url "$fname" ;
-                                popd ;
-                                #publish_gateway ;
-                                publish=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish) ;
-                                echo "$publish";
-                                publish_gateway ;
-                                    for (( x = 0; x < ${#Gateway[@]}; x++ ))
-                                        do
-                                        # creating gateway with values from publish
-                                        echo "${Gateway[$x]}" ;
-                                        mashling create -f $GOPATH/src/github.com/TIBCOSoftware/"$fname"/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
-                                        package_gateway ;
-                                        done 
-                                                                                                                                                                             
-                            else
-                                echo "alert 3" ;
-                                publish=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish) ;
-                                echo "$publish";
-                                publish_gateway ;
-                                    for (( x = 0; x < ${#Gateway[@]}; x++ ))
-                                        do
-                                            # creating gateway with values from publish
-                                            echo "${Gateway[$x]}" ;
-                                            mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/"$provider_url"/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
-                                            package_gateway ;
-                                        done                              
-                            fi
+                    provider_path=$(echo $url | tr -d '"') ;
+                    echo "provider_path is $provider_path";
+                    publish=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish) ;
+                    echo "$publish";
+                    publish_gateway ;
+                    if [[ -d  $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/"$provider_path" ]]; then
+                        for (( x = 0; x < ${#Gateway[@]}; x++ ))
+                            do
+                                # creating gateway with values from publish
+                                echo "${Gateway[$x]}" ;
+                                mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/"$provider_path"/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
+                                package_gateway ;
+                            done                              
+                    else
+                        echo "exiting the build as provider path is not a directory" ;
+                        exit 1 ;
+                    fi                    
             done                  	
 	}
 
@@ -108,7 +84,7 @@
             #    cp -r bin/flogo.json "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
                 mv  mashling.json "${Gateway[$x]}.mashling.json"
                 cp -r "${Gateway[$x]}.mashling.json" "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
-                cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/"$provider_url"/"${Gateway[$x]}"/displayImage.svg $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/master-builds/"$destFolder"/"${Gateway[$x]}"
+                cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/"$provider_path"/"${Gateway[$x]}"/displayImage.svg $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/master-builds/"$destFolder"/"${Gateway[$x]}"
                 rm -r src vendor pkg ;
                     # Changing directory to  binary containing folder
                     cd "${Gateway[$x]}-${TRAVIS_OS_NAME}";
@@ -160,17 +136,4 @@ recipe_registry;
 	git add .;  
 	echo "alert -1" ;
 	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
-	echo "alert 0" ;
-#	git push -u origin historical-builds;
-	echo "alert A 1" ;
-#	git stash
-	echo "alert 1" ;
-#	git checkout master;
-	echo "alert 2" ;
-#	git checkout historical-builds -- latest ;
-#	git add latest ;
-	echo "alert 3" ;
-#	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
-	echo "alert 4" ;
-#	git push -u origin master;
-	echo "alert 5" ;
+    git push ;
