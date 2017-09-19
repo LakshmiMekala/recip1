@@ -108,7 +108,7 @@
             #    cp -r bin/flogo.json "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
                 mv  mashling.json "${Gateway[$x]}.mashling.json"
                 cp -r "${Gateway[$x]}.mashling.json" "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
-                rm -r bin src vendor pkg ;
+                rm -r src vendor pkg ;
                     # Changing directory to  binary containing folder
                     cd "${Gateway[$x]}-${TRAVIS_OS_NAME}";
                         if [ "${TRAVIS_OS_NAME}" == "windows" ] ;then
