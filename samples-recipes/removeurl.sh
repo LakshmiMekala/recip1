@@ -80,14 +80,14 @@
     function package_gateway()
 	{
 		# If directory exists proceed to next steps	
-		if [ -d "${Gateway[$x]}" ]; then
-            cd "${Gateway[$x]}"  ;
-                mv bin "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
+		if [ -d "${Gatewaylc[$x]}" ]; then
+            cd "${Gatewaylc[$x]}"  ;
+                mv bin "${Gatewaylc[$x]}-${TRAVIS_OS_NAME}" ;
             #    mashling build ;
             #    cp -r bin/flogo.json ../"${Gateway[$x]}" ;
             #    cp -r bin/flogo.json "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
-                mv  mashling.json "${Gateway[$x]}.mashling.json"
-                cp -r "${Gateway[$x]}.mashling.json" "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
+                mv  mashling.json "${Gatewaylc[$x]}.mashling.json"
+                cp -r "${Gatewaylc[$x]}.mashling.json" "${Gatewaylc[$x]}-${TRAVIS_OS_NAME}" ;
                 cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/"$provider_path"/"${Gateway[$x]}"/"displayImage.svg" $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/master-builds/"$destFolder"/"${Gatewaylc[$x]}"
                 rm -r src vendor pkg ;
                     # Changing directory to  binary containing folder
