@@ -88,7 +88,8 @@
             #    cp -r bin/flogo.json "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
                 mv  mashling.json "${Gatewaylc[$x]}.mashling.json"
                 cp -r "${Gatewaylc[$x]}.mashling.json" "${Gatewaylc[$x]}-${TRAVIS_OS_NAME}" ;
-                cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/"$provider_path"/"${Gateway[$x]}"/"displayImage.svg" $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/master-builds/"$destFolder"/"${Gatewaylc[$x]}"
+                #cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/"$provider_path"/"${Gateway[$x]}"/"displayImage.svg" $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/master-builds/"$destFolder"/"${Gatewaylc[$x]}"
+                cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/"$provider_path"/"${Gateway[$x]}"/"displayImage.svg" $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gatewaylc[$x]}"
                 rm -r src vendor pkg ;
                     # Changing directory to  binary containing folder
                     cd "${Gatewaylc[$x]}-${TRAVIS_OS_NAME}";
