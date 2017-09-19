@@ -35,9 +35,9 @@
 							if [ -d "${Gateway[$i]}" ]; then
 							cd "${Gateway[$i]}"  ;
 							mv bin "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
-							mashling build ;
-							cp -r bin/flogo.json ../"${Gateway[$i]}" ;
-							cp -r bin/flogo.json "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
+						#	mashling build ;
+						#	cp -r bin/flogo.json ../"${Gateway[$i]}" ;
+						#	cp -r bin/flogo.json "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
 							mv  mashling.json "${Gateway[$i]}.mashling.json"
 							cp -r "${Gateway[$i]}.mashling.json" "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
 							rm -r bin src vendor pkg ;
@@ -88,6 +88,6 @@
 
 	ls ;
 	pwd ;
-	git add .;  
+#	git add .;  
 	echo "alert -1" ;
-	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
+#	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";

@@ -103,9 +103,9 @@
 		if [ -d "${Gateway[$x]}" ]; then
             cd "${Gateway[$x]}"  ;
                 mv bin "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
-                mashling build ;
-                cp -r bin/flogo.json ../"${Gateway[$x]}" ;
-                cp -r bin/flogo.json "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
+            #    mashling build ;
+            #    cp -r bin/flogo.json ../"${Gateway[$x]}" ;
+            #    cp -r bin/flogo.json "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
                 mv  mashling.json "${Gateway[$x]}.mashling.json"
                 cp -r "${Gateway[$x]}.mashling.json" "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
                 rm -r bin src vendor pkg ;
