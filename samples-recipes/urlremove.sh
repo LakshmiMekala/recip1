@@ -71,6 +71,7 @@
                             cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$i]}"/"displayImage.svg" $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gatewaylc[$i]}"
                             else
                             cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$i]}"/"displayImage.svg" $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$i]}"
+                            fi
 							cp -r "${Gateway[$i]}.mashling.json" "${Gateway[$i]}-${TRAVIS_OS_NAME}" ;
                             rm -r src vendor pkg ;
 							# Changing directory to  binary containing folder
@@ -108,7 +109,7 @@
 		export GOARCH=amd64			
 	fi
     create_dest_directory ;
-    
+
 	cd .. ;
    # Calling function to create recipes binaries 
   #  multi_os ;
