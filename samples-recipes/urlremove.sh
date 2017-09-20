@@ -109,6 +109,7 @@
 		export GOARCH=amd64			
 	fi
     create_dest_directory ;
+    create_gateway ;
 
 	cd .. ;
    # Calling function to create recipes binaries 
