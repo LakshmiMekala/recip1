@@ -2,8 +2,8 @@ language : go
 before_install:
   - "echo -e \"machine github.com\n  login ${GITHUB_USER_TOKEN}\" >> ~/.netrc" 
 os: 
-  - linux
-#  - osx
+#  - linux
+  - osx
 #  - windows
 branches:
   only:
