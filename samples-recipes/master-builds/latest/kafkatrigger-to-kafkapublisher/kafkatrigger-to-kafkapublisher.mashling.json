@@ -1,7 +1,7 @@
 {
 	"mashling_schema": "0.2",
 	"gateway": {
-		"name": "kafkatrigger-to-kafkapublisher",
+		"name": "KafkaTrigger-To-KafkaPublisher",
 		"version": "1.0.0",
 		"display_name":"KafkaTrigger to KafkaPublisher",
 		"display_image":"displayImage.svg",
