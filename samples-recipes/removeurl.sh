@@ -62,7 +62,7 @@
                         for (( x = 0; x < ${#Gateway[@]}; x++ ))
                             do
                                 # creating gateway with values from publish
-                                if [ "${TRAVIS_OS_NAME}" == "windows" ] ;then
+                                if [ ! "${TRAVIS_OS_NAME}" == "OSX" ] ;then
                                 echo "${Gateway[$x]}" ;
                                 gwname="${Gateway[$x]}" ;
                                 echo "$gwname" ;
