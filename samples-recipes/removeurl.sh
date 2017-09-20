@@ -37,7 +37,7 @@
 	function recipe_registry()
 	{
 	#	if [ "${TRAVIS_OS_NAME}" == "osx" ] ;then
-		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
+		ruby -e "$(cprovider -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
 		brew install jq
 	#	fi
 		#Extracting publish binaries from recipe_registry.json
@@ -48,17 +48,14 @@
 		    for (( j = 0; j < $array_length; j++ ))
                 do
                     echo "value of j=$j" ;
-                    #eval url and publish
-                    eval xpath='.recipe_repos[$j].url' ;
+                    #eval provider and publish
+                   
                     eval xpath_publish='.recipe_repos[$j].publish' ;           
-                    #url=$(cat ../../../../mashling-recipes/recipe_registry.json | jq $xpath ) ;
-                    url=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath ) ;
-                    provider_path=$(echo $url | tr -d '"') ;
-                    echo "provider_path is $provider_path";
+                
                     publish=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish) ;
                     echo "$publish";
                     publish_gateway ;
-                    if [[ -d  $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/"$provider_path" ]]; then
+                    if [[ -d  $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes ]]; then
                         for (( x = 0; x < ${#Gateway[@]}; x++ ))
                             do
                                 # creating gateway with values from publish
@@ -69,12 +66,12 @@
                                 Gatewaylc[$x]="${gwname,,}" ;
                                 echo "${Gatewaylc[$x]}" ;
                                 fi 
-                                mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/"$provider_path"/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
+                                mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
                                 package_gateway ;
                             done                              
                     else
                         echo "exiting the build as provider path is not a directory" ;
-                        exit 1 ;
+                      #  exit 1 ;
                     fi                    
             done                  	
 	}
@@ -90,11 +87,11 @@
             #    cp -r bin/flogo.json "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
                 mv  mashling.json "${Gatewaylc[$x]}.mashling.json"
                 cp -r "${Gatewaylc[$x]}.mashling.json" "${Gatewaylc[$x]}-${TRAVIS_OS_NAME}" ;
-                #cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/"$provider_path"/"${Gateway[$x]}"/"displayImage.svg" $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/master-builds/"$destFolder"/"${Gatewaylc[$x]}" ;
+                #cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"displayImage.svg" $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/master-builds/"$destFolder"/"${Gatewaylc[$x]}" ;
                 if [[ ! "${TRAVIS_OS_NAME}" == "OSX" ]] ; then
-                cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/"$provider_path"/"${Gateway[$x]}"/"displayImage.svg" $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gatewaylc[$x]}"
+                cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"displayImage.svg" $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gatewaylc[$x]}"
                 else
-                cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/"$provider_path"/"${Gateway[$x]}"/"displayImage.svg" $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"
+                cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"displayImage.svg" $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"
                 fi
                 rm -r src vendor pkg ;
                     # Changing directory to  binary containing folder

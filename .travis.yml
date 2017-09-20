@@ -3,8 +3,8 @@ before_install:
   - "echo -e \"machine github.com\n  login ${GITHUB_USER_TOKEN}\" >> ~/.netrc" 
 os: 
   - linux
-  - osx
-  - windows
+#  - osx
+#  - windows
 branches:
   only:
     - master
@@ -23,9 +23,9 @@ install:
   - ls
   
 script:
-   - chmod ugo+x ./urlremove.sh ./build-c-new.sh
+   - chmod ugo+x ./removeurl.sh ./build-c-new.sh
 #   - ./build-c-new.sh
-   - ./urlremove.sh
+   - ./removeurl.sh
    - popd
 after_script:
   - "[ -f \"${HOME}/.netrc\" ] && rm -f ${HOME}/.netrc"
