@@ -69,7 +69,7 @@
                                 Gatewaylc[$x]="${gwname,,}" ;
                                 echo "${Gatewaylc[$x]}" ;
                                 fi 
-                                mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/"$provider_path"/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gatewaylc[$x]}";
+                                mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/"$provider_path"/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
                                 package_gateway ;
                             done                              
                     else
