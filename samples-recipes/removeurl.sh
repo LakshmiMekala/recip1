@@ -79,15 +79,12 @@
     function package_gateway()
 	{
 		# If directory exists proceed to next steps	
-		if [ -d "${Gatewaylc[$x]}" ]; then
-             cd "${Gatewaylc[$x]}"  ;
-                mv bin "${Gatewaylc[$x]}-${TRAVIS_OS_NAME}" ;
-            #    mashling build ;
-            #    cp -r bin/flogo.json ../"${Gateway[$x]}" ;
-            #    cp -r bin/flogo.json "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
-                mv  mashling.json "${Gatewaylc[$x]}.mashling.json"
-                cp -r "${Gatewaylc[$x]}.mashling.json" "${Gatewaylc[$x]}-${TRAVIS_OS_NAME}" ;
-                #cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"displayImage.svg" $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/master-builds/"$destFolder"/"${Gatewaylc[$x]}" ;
+		if [ -d "${Gateway[$x]}" ]; then
+             cd "${Gateway[$x]}"  ;
+                mv bin "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
+                mv  mashling.json "${Gateway[$x]}.mashling.json" ;
+                cp -r "${Gateway[$x]}.mashling.json" "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
+                #cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"displayImage.svg" $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/master-builds/"$destFolder"/"${Gateway[$x]}" ;
                 if [[ ! "${TRAVIS_OS_NAME}" == "OSX" ]] ; then
                 cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"displayImage.svg" $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gatewaylc[$x]}"
                 else
@@ -95,29 +92,29 @@
                 fi
                 rm -r src vendor pkg ;
                     # Changing directory to  binary containing folder
-                    cd "${Gatewaylc[$x]}-${TRAVIS_OS_NAME}";
+                    cd "${Gateway[$x]}-${TRAVIS_OS_NAME}";
                         if [ "${TRAVIS_OS_NAME}" == "windows" ] ;then
 							fname="${Gateway[$x]}-$GOOS-$GOARCH.exe" ;
 							echo "$fname" ;
 							fnamelc="${fname,,}" ;
 							echo "$fnamelc" ;													
-							destfname="${Gatewaylc[$x]}.exe" ;
+							destfname="${Gateway[$x]}.exe" ;
 							echo "$destfname" ;
 							destfnamelc="${destfname,,}" ;
 							echo "$destfnamelc" ;
 							mv $fnamelc $destfnamelc ;												
 						fi
-                        zip -r "${Gatewaylc[$x]}-${TRAVIS_OS_NAME}" *;
-                        cp "${Gatewaylc[$x]}-${TRAVIS_OS_NAME}.zip" ../../"${Gatewaylc[$x]}" ;		
+                        zip -r "${Gateway[$x]}-${TRAVIS_OS_NAME}" *;
+                        cp "${Gateway[$x]}-${TRAVIS_OS_NAME}.zip" ../../"${Gateway[$x]}" ;		
                     cd .. ;
-                rm -r "${Gatewaylc[$x]}-${TRAVIS_OS_NAME}" ;
+                rm -r "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
             cd ..;
             # Copying gateway into latest folder
-            cp -r "${Gatewaylc[$x]}" ../latest ;
+            cp -r "${Gateway[$x]}" ../latest ;
             # Exit if directory not found
 		else
-			echo "failed to create ${Gatewaylc[$x]} gateway" 
-			echo "directory ${Gatewaylc[$x]}" not found
+			echo "failed to create ${Gateway[$x]} gateway" 
+			echo "directory ${Gateway[$x]}" not found
 			#exit 1
 		fi			
 	}
