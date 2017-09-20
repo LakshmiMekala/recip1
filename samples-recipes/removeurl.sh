@@ -59,13 +59,13 @@
                         for (( x = 0; x < ${#Gateway[@]}; x++ ))
                             do
                                 # creating gateway with values from publish
-                                if [ ! "${TRAVIS_OS_NAME}" == "OSX" ] ;then
-                                echo "${Gateway[$x]}" ;
-                                gwname="${Gateway[$x]}" ;
-                                echo "$gwname" ;
-                                Gatewaylc[$x]="${gwname,,}" ;
-                                echo "${Gatewaylc[$x]}" ;
-                                fi 
+                                # if [ ! "${TRAVIS_OS_NAME}" == "OSX" ] ;then
+                                # echo "${Gateway[$x]}" ;
+                                # gwname="${Gateway[$x]}" ;
+                                # echo "$gwname" ;
+                                # Gatewaylc[$x]="${gwname,,}" ;
+                                # echo "${Gatewaylc[$x]}" ;
+                                # fi 
                                 mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
                                 package_gateway ;
                             done                              
@@ -85,17 +85,17 @@
                 mv  mashling.json "${Gateway[$x]}.mashling.json" ;
                 cp -r "${Gateway[$x]}.mashling.json" "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
                 #cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"displayImage.svg" $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/master-builds/"$destFolder"/"${Gateway[$x]}" ;
-                if [[ ! "${TRAVIS_OS_NAME}" == "OSX" ]] ; then
+                # if [[ ! "${TRAVIS_OS_NAME}" == "OSX" ]] ; then
                 cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/displayImage.svg $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"
                 echo "test 123"
                 pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}" ;
                 ls ;
                 echo "test 1"
                 popd ;
-                else
-                cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/displayImage.svg $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"
-                echo "test 1234"
-                fi
+                # else
+                # cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/displayImage.svg $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"
+                # echo "test 1234"
+                # fi
                 rm -r src vendor pkg ;
                     # Changing directory to  binary containing folder
                     cd "${Gateway[$x]}-${TRAVIS_OS_NAME}";

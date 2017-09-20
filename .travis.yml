@@ -3,8 +3,8 @@ before_install:
   - "echo -e \"machine github.com\n  login ${GITHUB_USER_TOKEN}\" >> ~/.netrc" 
 os: 
   - linux
-#  - osx
-#  - windows
+  - osx
+  - windows
 branches:
   only:
     - master
