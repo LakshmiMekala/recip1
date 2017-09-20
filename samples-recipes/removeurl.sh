@@ -147,4 +147,4 @@ recipe_registry;
 	git add .;  
 	echo "alert -1" ;
 	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
-    git push ;
+ #   git push ;
