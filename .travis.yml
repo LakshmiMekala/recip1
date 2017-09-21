@@ -4,7 +4,7 @@ before_install:
 os: 
   - linux
 #  - osx
-#  - windows
+  - windows
 branches:
   only:
     - master
