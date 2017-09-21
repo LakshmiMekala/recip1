@@ -67,6 +67,7 @@
                                 # echo "${Gatewaylc[$x]}" ;
                                 # fi 
                                 displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json | jq '.gateway.display_image') ;
+                                displayImage=$(echo $displayImage | tr -d '"') ;
                                 mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
                                 package_gateway ;
                             done                              
