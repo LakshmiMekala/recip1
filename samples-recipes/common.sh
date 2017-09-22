@@ -150,6 +150,7 @@
     mkdir -p $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp
     mv $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp
     rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
+    cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
     export GOOS=darwin ;
     export GOARCH=amd64 ;
 	create_dest_directory ;
@@ -157,7 +158,9 @@
 
     mkdir -p $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp1
     mv $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp1
-    rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
+    rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" 
+    $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
+
     export GOOS=windows ;
     export GOARCH=amd64 ;
 	create_dest_directory ;
@@ -167,7 +170,7 @@
     cp -r $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp1 $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
 
     rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp1
-
+    $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
 ############################################################
 
 
@@ -179,5 +182,5 @@
 	pwd ;
 	git add .;  
 	echo "alert -1" ;
-#	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
+	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
  #   git push ;
