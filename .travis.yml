@@ -1,14 +1,10 @@
 language : go 
+
 before_install:
   - "echo -e \"machine github.com\n  login ${GITHUB_USER_TOKEN}\" >> ~/.netrc" 
 os: 
   - linux
-#  - osx
-  - windows
-branches:
-  only:
-    - master
-    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
+
 install:
   - go get github.com/constabulary/gb/...
   - go get -u github.com/constabulary/gb/...
@@ -23,9 +19,8 @@ install:
   - ls
   
 script:
-   - chmod ugo+x ./removeurl.sh ./build-c-new.sh
-#   - ./build-c-new.sh
-   - ./removeurl.sh
+   - chmod ugo+x ./common.sh 
+   - ./common.sh
    - popd
 after_script:
   - "[ -f \"${HOME}/.netrc\" ] && rm -f ${HOME}/.netrc"
