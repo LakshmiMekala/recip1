@@ -36,7 +36,7 @@
     
 	function recipe_registry()
 	{
-	#	if [ "${TRAVIS_OS_NAME}" == "osx" ] ;then
+	#	if [ "${OS_NAME[$j]}" == "osx" ] ;then
 		ruby -e "$(cprovider -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
 		brew install jq
 	#	fi
@@ -76,11 +76,11 @@
 		# If directory exists proceed to next steps	
 		if [ -d "${Gateway[$x]}" ]; then
              cd "${Gateway[$x]}"  ;
-                mv bin "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
+                mv bin "${Gateway[$x]}-${OS_NAME[$j]}" ;
                 mv  mashling.json "${Gateway[$x]}.mashling.json" ;
-                cp -r "${Gateway[$x]}.mashling.json" "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
+                cp -r "${Gateway[$x]}.mashling.json" "${Gateway[$x]}-${OS_NAME[$j]}" ;
                 #cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"displayImage.svg" $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/master-builds/"$destFolder"/"${Gateway[$x]}" ;
-                # if [[ ! "${TRAVIS_OS_NAME}" == "OSX" ]] ; then
+                # if [[ ! "${OS_NAME[$j]}" == "OSX" ]] ; then
                 echo $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"$displayImage"
                 if [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"$displayImage" ]]; then
                 #cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/*.svg $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"
@@ -99,9 +99,9 @@
                 # fi
                 rm -r src vendor pkg ;
                     # Changing directory to  binary containing folder
-                    cd "${Gateway[$x]}-${TRAVIS_OS_NAME}";
-                        if [ "${TRAVIS_OS_NAME}" == "windows" ] ;then
-							fname="${Gateway[$x]}-$GOOS-$GOARCH.exe" ;
+                    cd "${Gateway[$x]}-${OS_NAME[$j]}";
+                     #   if [ "${OS_NAME[$j]}" == "windows" ] ;then
+							fname="${Gateway[$x]}-${GOOS[$j]}-$GOARCH.exe" ;
 							echo "$fname" ;
 							fnamelc="${fname,,}" ;
 							echo "$fnamelc" ;													
@@ -110,11 +110,11 @@
 							destfnamelc="${destfname,,}" ;
 							echo "$destfnamelc" ;
 							mv $fnamelc $destfnamelc ;												
-						fi
-                        zip -r "${Gateway[$x]}-${TRAVIS_OS_NAME}" *;
-                        cp "${Gateway[$x]}-${TRAVIS_OS_NAME}.zip" ../../"${Gateway[$x]}" ;		
+					#	fi
+                        zip -r "${Gateway[$x]}-${OS_NAME[$j]}" *;
+                        cp "${Gateway[$x]}-${OS_NAME[$j]}.zip" ../../"${Gateway[$x]}" ;		
                     cd .. ;
-                rm -r "${Gateway[$x]}-${TRAVIS_OS_NAME}" ;
+                rm -r "${Gateway[$x]}-${OS_NAME[$j]}" ;
             cd ..;
             # Copying gateway into latest folder
             cp -r "${Gateway[$x]}" ../latest ;
@@ -126,7 +126,7 @@
 		fi			
 	}
 			
-# 	if [ "${TRAVIS_OS_NAME}" == "windows" ] ;then
+# 	if [ "${OS_NAME[$j]}" == "windows" ] ;then
 # 		export GOOS=windows
 # 		export GOARCH=amd64
 # 	fi
@@ -144,33 +144,61 @@
 ############################## new code #############################
 
 
-    create_dest_directory ;
-    recipe_registry ;
+#     create_dest_directory ;
+#     recipe_registry ;
     
-    mkdir -p $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp
-    mv $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp
-    rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
-    cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
-    export GOOS=darwin ;
-    export GOARCH=amd64 ;
-	create_dest_directory ;
-    recipe_registry ;
+#     mkdir -p $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp
+#     mv $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp
+#     rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
+#     cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
+#     export GOOS=darwin ;
+#     export GOARCH=amd64 ;
+# 	create_dest_directory ;
+#     recipe_registry ;
 
-    mkdir -p $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp1
-    mv $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp1
-    rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" 
-    cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
+#     mkdir -p $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp1
+#     mv $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp1
+#     rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" 
+#     cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
 
-    export GOOS=windows ;
-    export GOARCH=amd64 ;
-	create_dest_directory ;
-    recipe_registry ;
+#     export GOOS=windows ;
+#     export GOARCH=amd64 ;
+# 	create_dest_directory ;
+#     recipe_registry ;
 
-    cp -r $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
-    cp -r $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp1 $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
+#     cp -r $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
+#     cp -r $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp1 $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
 
-    rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp1
-    cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
+#     rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp1
+#     cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
+# ############################################################
+
+
+# ############################## new code version 1 #############################
+
+#     GOOS=({"linux","darwin","windows"});
+#     OS_NAME=({"linux","osx","windows"});
+#     # GOARCH=({"amd64","amd64","amd64"});
+# 			# get length of an array		
+# 			Len="${#GOOS[@]}"
+# 				for (( j=0; j < "${Len}"; j++ ));
+# 				do
+#                     export GOOS="${GOOS[$j]}" ;
+#                     export GOARCH=amd64 ;
+#                         if [[ ! -d mkdir -p $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp ]]; then
+#                         mkdir -p $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp
+#                         fi
+#                         cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
+#                         create_dest_directory ;
+#                         recipe_registry ;
+#                         cp $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/* $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp ;
+#                         #mv $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp ;
+#                         rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
+#                 done
+
+#         mv $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder";    
+
+    
 ############################################################
 
 
