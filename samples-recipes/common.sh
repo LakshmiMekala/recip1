@@ -185,7 +185,7 @@
 				do
                     export GOOS="${GOOS[$j]}" ;
                     export GOARCH=amd64 ;
-                        if [[ ! -d mkdir -p $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp ]]; then
+                        if [[ ! -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp ]]; then
                         mkdir -p $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp
                         fi
                         cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
