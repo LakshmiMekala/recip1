@@ -101,7 +101,7 @@
                     # Changing directory to  binary containing folder
                     cd "${Gateway[$x]}-${OS_NAME[$k]}";
                         if [ "${OS_NAME[$k]}" == "windows" ] ; then
-							fname="${Gateway[$x]}-${OS_NAME[$k]}.exe" ;
+							fname="${Gateway[$x]}-${GOOS[$k]}-$GOARCH.exe" ;
 							echo "$fname" ;
 							fnamelc="${fname,,}" ;
 							echo "$fnamelc" ;													
@@ -120,7 +120,7 @@
 						# #	destfnamelc="${destfname,,}" ;
 						# 	echo "$destfnamelc" ;
 						# #	mv $fnamelc $destfnamelc ;
-                             mv "${Gateway[$x]}-${OS_NAME[$k]}" "${Gateway[$x]}" ; 												
+                             mv "${Gateway[$x]}-${GOOS[$k]}-$GOARCH" "${Gateway[$x]}" ; 												
 						fi
                         zip -r "${Gateway[$x]}-${OS_NAME[$k]}" *;
                         cp "${Gateway[$x]}-${OS_NAME[$k]}.zip" ../../"${Gateway[$x]}" ;		
