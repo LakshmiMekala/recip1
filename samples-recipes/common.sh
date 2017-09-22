@@ -36,7 +36,7 @@
     
 	function recipe_registry()
 	{
-	#	if [ "${OS_NAME[$j]}" == "osx" ] ;then
+	#	if [ "${OS_NAME[$k]}" == "osx" ] ;then
 	#	ruby -e "$(cprovider -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
 	#	brew install jq
 	#	fi
@@ -50,7 +50,7 @@
                     echo "value of j=$j" ;
                     #eval provider and publish
                    
-                    eval xpath_publish='.recipe_repos[$j].publish' ;           
+                    eval xpath_publish='.recipe_repoS[$k].publish' ;           
                 
                     publish=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish) ;
                     echo "$publish";
@@ -76,11 +76,11 @@
 		# If directory exists proceed to next steps	
 		if [ -d "${Gateway[$x]}" ]; then
              cd "${Gateway[$x]}"  ;
-                mv bin "${Gateway[$x]}-${OS_NAME[$j]}" ;
+                mv bin "${Gateway[$x]}-${OS_NAME[$k]}" ;
                 mv  mashling.json "${Gateway[$x]}.mashling.json" ;
-                cp -r "${Gateway[$x]}.mashling.json" "${Gateway[$x]}-${OS_NAME[$j]}" ;
+                cp -r "${Gateway[$x]}.mashling.json" "${Gateway[$x]}-${OS_NAME[$k]}" ;
                 #cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"displayImage.svg" $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/master-builds/"$destFolder"/"${Gateway[$x]}" ;
-                # if [[ ! "${OS_NAME[$j]}" == "OSX" ]] ; then
+                # if [[ ! "${OS_NAME[$k]}" == "OSX" ]] ; then
                 echo $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"$displayImage"
                 if [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"$displayImage" ]]; then
                 #cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/*.svg $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"
@@ -99,9 +99,9 @@
                 # fi
                 rm -r src vendor pkg ;
                     # Changing directory to  binary containing folder
-                    cd "${Gateway[$x]}-${OS_NAME[$j]}";
-                        if [ "${OS_NAME[$j]}" == "windows" ] ; then
-							fname="${Gateway[$x]}-${GOOS[$j]}.exe" ;
+                    cd "${Gateway[$x]}-${OS_NAME[$k]}";
+                        if [ "${OS_NAME[$k]}" == "windows" ] ; then
+							fname="${Gateway[$x]}-${GOOS[$k]}.exe" ;
 							echo "$fname" ;
 							fnamelc="${fname,,}" ;
 							echo "$fnamelc" ;													
@@ -111,7 +111,7 @@
 							echo "$destfnamelc" ;
 							mv $fnamelc $destfnamelc ;
                         else
-                        #    fname="${Gateway[$x]}-${GOOS[$j]}" ;
+                        #    fname="${Gateway[$x]}-${GOOS[$k]}" ;
 						# 	echo "$fname" ;
 						# #	fnamelc="${fname,,}" ;
 						# 	echo "$fnamelc" ;													
@@ -120,12 +120,12 @@
 						# #	destfnamelc="${destfname,,}" ;
 						# 	echo "$destfnamelc" ;
 						# #	mv $fnamelc $destfnamelc ;
-                             mv "${Gateway[$x]}-${GOOS[$j]}" "${Gateway[$x]}" ; 												
+                             mv "${Gateway[$x]}-${GOOS[$k]}" "${Gateway[$x]}" ; 												
 						fi
-                        zip -r "${Gateway[$x]}-${OS_NAME[$j]}" *;
-                        cp "${Gateway[$x]}-${OS_NAME[$j]}.zip" ../../"${Gateway[$x]}" ;		
+                        zip -r "${Gateway[$x]}-${OS_NAME[$k]}" *;
+                        cp "${Gateway[$x]}-${OS_NAME[$k]}.zip" ../../"${Gateway[$x]}" ;		
                     cd .. ;
-                rm -r "${Gateway[$x]}-${OS_NAME[$j]}" ;
+                rm -r "${Gateway[$x]}-${OS_NAME[$k]}" ;
             cd ..;
             # Copying gateway into latest folder
             cp -r "${Gateway[$x]}" ../latest ;
@@ -137,7 +137,7 @@
 		fi			
 	}
 			
-# 	if [ "${OS_NAME[$j]}" == "windows" ] ;then
+# 	if [ "${OS_NAME[$k]}" == "windows" ] ;then
 # 		export GOOS=windows
 # 		export GOARCH=amd64
 # 	fi
@@ -192,9 +192,9 @@
     # GOARCH=({"amd64","amd64","amd64"});
 			# get length of an array		
 			Len="${#GOOS[@]}"
-				for (( j=0; j < "${Len}"; j++ ));
+				for (( k=0; k < "${Len}"; k++ ));
 				do
-                    export GOOS="${GOOS[$j]}" ;
+                    export GOOS="${GOOS[$k]}" ;
                     export GOARCH=amd64 ;
                         if [[ ! -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp ]]; then
                         mkdir -p $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp
