@@ -149,7 +149,7 @@
     
     mkdir -p $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp
     mv $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp
-    
+    rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
     export GOOS=darwin ;
     export GOARCH=amd64 ;
 	create_dest_directory ;
@@ -157,7 +157,7 @@
 
     mkdir -p $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp1
     mv $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp1
-
+    rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
     export GOOS=windows ;
     export GOARCH=amd64 ;
 	create_dest_directory ;
