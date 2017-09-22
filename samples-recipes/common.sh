@@ -50,7 +50,7 @@
                     echo "value of j=$j" ;
                     #eval provider and publish
                    
-                    eval xpath_publish='.recipe_repoS[$k].publish' ;           
+                    eval xpath_publish='.recipe_repos[$j].publish' ;           
                 
                     publish=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish) ;
                     echo "$publish";
