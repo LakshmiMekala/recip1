@@ -37,8 +37,8 @@
 	function recipe_registry()
 	{
 	#	if [ "${OS_NAME[$j]}" == "osx" ] ;then
-		ruby -e "$(cprovider -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
-		brew install jq
+	#	ruby -e "$(cprovider -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
+	#	brew install jq
 	#	fi
 		#Extracting publish binaries from recipe_registry.json
     	#array_length=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
@@ -100,7 +100,7 @@
                 rm -r src vendor pkg ;
                     # Changing directory to  binary containing folder
                     cd "${Gateway[$x]}-${OS_NAME[$j]}";
-                     #   if [ "${OS_NAME[$j]}" == "windows" ] ;then
+                        if [ "${OS_NAME[$j]}" == "windows" ] ;then
 							fname="${Gateway[$x]}-${GOOS[$j]}-$GOARCH.exe" ;
 							echo "$fname" ;
 							fnamelc="${fname,,}" ;
@@ -109,8 +109,18 @@
 							echo "$destfname" ;
 							destfnamelc="${destfname,,}" ;
 							echo "$destfnamelc" ;
-							mv $fnamelc $destfnamelc ;												
-					#	fi
+							mv $fnamelc $destfnamelc ;
+                        else
+                           fname="${Gateway[$x]}-${GOOS[$j]}-$GOARCH" ;
+							echo "$fname" ;
+							fnamelc="${fname,,}" ;
+							echo "$fnamelc" ;													
+							destfname="${Gateway[$x]}" ;
+							echo "$destfname" ;
+							destfnamelc="${destfname,,}" ;
+							echo "$destfnamelc" ;
+							mv $fnamelc $destfnamelc ; 												
+						fi
                         zip -r "${Gateway[$x]}-${OS_NAME[$j]}" *;
                         cp "${Gateway[$x]}-${OS_NAME[$j]}.zip" ../../"${Gateway[$x]}" ;		
                     cd .. ;
