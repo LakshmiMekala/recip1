@@ -101,7 +101,7 @@
                     # Changing directory to  binary containing folder
                     cd "${Gateway[$x]}-${OS_NAME[$k]}";
                         if [ "${OS_NAME[$k]}" == "windows" ] ; then
-							fname="${Gateway[$x]}-${GOOS[$k]}.exe" ;
+							fname="${Gateway[$x]}-${OS_NAME[$k]}.exe" ;
 							echo "$fname" ;
 							fnamelc="${fname,,}" ;
 							echo "$fnamelc" ;													
@@ -111,7 +111,7 @@
 							echo "$destfnamelc" ;
 							mv $fnamelc $destfnamelc ;
                         else
-                        #    fname="${Gateway[$x]}-${GOOS[$k]}" ;
+                        #    fname="${Gateway[$x]}-${GOOSA[$k]}" ;
 						# 	echo "$fname" ;
 						# #	fnamelc="${fname,,}" ;
 						# 	echo "$fnamelc" ;													
@@ -120,7 +120,7 @@
 						# #	destfnamelc="${destfname,,}" ;
 						# 	echo "$destfnamelc" ;
 						# #	mv $fnamelc $destfnamelc ;
-                             mv "${Gateway[$x]}-${GOOS[$k]}" "${Gateway[$x]}" ; 												
+                             mv "${Gateway[$x]}-${OS_NAME[$k]}" "${Gateway[$x]}" ; 												
 						fi
                         zip -r "${Gateway[$x]}-${OS_NAME[$k]}" *;
                         cp "${Gateway[$x]}-${OS_NAME[$k]}.zip" ../../"${Gateway[$x]}" ;		
@@ -187,14 +187,16 @@
 
 ############################## new code version 1 #############################
 
-    GOOS=({"linux","darwin","windows"});
+    GOOSA=({"linux","darwin","windows"});
     OS_NAME=({"linux","osx","windows"});
     # GOARCH=({"amd64","amd64","amd64"});
 			# get length of an array		
-			Len="${#GOOS[@]}"
+			Len="${#GOOSA[@]}"
 				for (( k=0; k < "${Len}"; k++ ));
 				do
-                    export GOOS="${GOOS[$k]}" ;
+                    export GOOS="${GOOSA[$k]}" ;
+                    echo $GOOS ;
+                    echo $GOARCH ;
                     export GOARCH=amd64 ;
                         if [[ ! -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp ]]; then
                         mkdir -p $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp
@@ -202,7 +204,7 @@
                         cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
                         create_dest_directory ;
                         recipe_registry ;
-                        cp $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/* $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp ;
+                        cp -r $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/* $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp ;
                         #mv $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp ;
                         rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
                 done
@@ -222,4 +224,4 @@
 	git add .;  
 	echo "alert -1" ;
 	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
- #   git push ;
+    git push ;
