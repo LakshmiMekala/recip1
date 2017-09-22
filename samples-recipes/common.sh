@@ -111,7 +111,7 @@
 							echo "$destfnamelc" ;
 							mv $fnamelc $destfnamelc ;
                         else
-                           fname="${Gateway[$x]}-${GOOS[$j]}-$GOARCH" ;
+                           fname="${Gateway[$x]}-${GOOS[$j]}" ;
 							echo "$fname" ;
 							fnamelc="${fname,,}" ;
 							echo "$fnamelc" ;													
