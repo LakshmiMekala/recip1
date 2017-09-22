@@ -159,7 +159,7 @@
     mkdir -p $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp1
     mv $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp1
     rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" 
-    $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
+    cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
 
     export GOOS=windows ;
     export GOARCH=amd64 ;
@@ -170,7 +170,7 @@
     cp -r $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp1 $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
 
     rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp1
-    $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
+    cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
 ############################################################
 
 
