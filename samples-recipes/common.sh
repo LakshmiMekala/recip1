@@ -66,7 +66,7 @@
                             done                              
                     else
                         echo "exiting the build as provider path is not a directory" ;
-                      #  exit 1 ;
+                        exit 1 ;
                     fi                    
             done                  	
 	}
