@@ -100,7 +100,7 @@
                 rm -r src vendor pkg ;
                     # Changing directory to  binary containing folder
                     cd "${Gateway[$x]}-${OS_NAME[$j]}";
-                        if [ "${OS_NAME[$j]}" == "windows" ] ;then
+                        if [ "${OS_NAME[$j]}" == "windows" ] ; then
 							fname="${Gateway[$x]}-${GOOS[$j]}.exe" ;
 							echo "$fname" ;
 							fnamelc="${fname,,}" ;
@@ -120,7 +120,7 @@
 						# #	destfnamelc="${destfname,,}" ;
 						# 	echo "$destfnamelc" ;
 						# #	mv $fnamelc $destfnamelc ;
-                        #     mv $fname $destfname ; 												
+                             mv "${Gateway[$x]}-${GOOS[$j]}" "${Gateway[$x]}" ; 												
 						fi
                         zip -r "${Gateway[$x]}-${OS_NAME[$j]}" *;
                         cp "${Gateway[$x]}-${OS_NAME[$j]}.zip" ../../"${Gateway[$x]}" ;		
