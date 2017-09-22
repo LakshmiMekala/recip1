@@ -113,13 +113,14 @@
                         else
                            fname="${Gateway[$x]}-${GOOS[$j]}" ;
 							echo "$fname" ;
-							fnamelc="${fname,,}" ;
+						#	fnamelc="${fname,,}" ;
 							echo "$fnamelc" ;													
 							destfname="${Gateway[$x]}" ;
 							echo "$destfname" ;
-							destfnamelc="${destfname,,}" ;
+						#	destfnamelc="${destfname,,}" ;
 							echo "$destfnamelc" ;
-							mv $fnamelc $destfnamelc ; 												
+						#	mv $fnamelc $destfnamelc ;
+                            mv $fname $destfname ; 												
 						fi
                         zip -r "${Gateway[$x]}-${OS_NAME[$j]}" *;
                         cp "${Gateway[$x]}-${OS_NAME[$j]}.zip" ../../"${Gateway[$x]}" ;		
