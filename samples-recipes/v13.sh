@@ -122,7 +122,7 @@
                             echo "xyz"
 							mv $fnamelc $destfnamelc ;
                             echo "ABC"
-                            mv "${Gateway[$x]}-${GOOS[$k]}-$GOARCH" "${Gateway[$x]}"; 												
+                        #    mv "${Gateway[$x]}-${GOOS[$k]}-$GOARCH" "${Gateway[$x]}"; 												
 						fi
                         zip -r "${Gateway[$x]}-${OS_NAME[$k]}" *;
                         cp "${Gateway[$x]}-${OS_NAME[$k]}.zip" ../../"${Gateway[$x]}" ;		
@@ -135,7 +135,7 @@
 		else
 			echo "failed to create ${Gateway[$x]} gateway" 
 			echo "directory ${Gateway[$x]}" not found
-			#exit 1
+			exit 1
 		fi			
 	}
 			
