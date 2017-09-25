@@ -189,7 +189,6 @@
 
     GOOSystem=({"linux","darwin","windows"});
     OS_NAME=({"linux","osx","windows"});
-    # GOARCH=({"amd64","amd64","amd64"});
 			# get length of an array		
 			Len="${#GOOSystem[@]}"
 				for (( k=0; k < "${Len}"; k++ ));
