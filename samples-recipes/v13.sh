@@ -22,16 +22,28 @@
 	
     function publish_gateway()
     {
-        publish=$(echo $publish | tr -d ' ') ;
-		#Removing double quotes from publish
-		publish=$(echo $publish | tr -d '"') ;
-		# separating string using comma and reading publish into Gateway
-		IFS=\, read -a Gateway <<<"$publish" ;
+        # publish=$(echo $publish | tr -d ' ') ;
+		# #Removing double quotes from publish
+		# publish=$(echo $publish | tr -d '"') ;
+		# # separating string using comma and reading publish into Gateway
+		# IFS=\, read -a Gateway <<<"$publish" ;
+        # set | grep ^IFS= ;
+		# #separating arrays ny line
+        # IFS=$' \t\n' ;
+		# #fetching Gateway
+        # set | grep ^Gateway=\\\|^publish= ;
+        publish=$(echo $publish | tr -d ',') ;
+        publish=$(echo $publish | tr -d '"') ;
+        echo $publish ;
+        # removing string duplicates
+        publish=$(echo "$publish" | xargs -n1 | sort -u | xargs) ;
+        IFS=\  read -a Gateway <<<"$publish" ;
         set | grep ^IFS= ;
 		#separating arrays ny line
         IFS=$' \t\n' ;
 		#fetching Gateway
         set | grep ^Gateway=\\\|^publish= ;
+
     }
     
 	function recipe_registry()
