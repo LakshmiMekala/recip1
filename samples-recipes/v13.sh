@@ -101,7 +101,7 @@
                     # Changing directory to  binary containing folder
                     cd "${Gateway[$x]}-${OS_NAME[$k]}";
                         if [ "${OS_NAME[$k]}" == "windows" ] ; then
-							fname="${Gateway[$x]}-${GOOSystem[$k]}-$GOARCH.exe" ;
+							fname="${Gateway[$x]}-${GOOS[$k]}-$GOARCH.exe" ;
 							echo "$fname" ;
 							fnamelc="${fname,,}" ;
 							echo "$fnamelc" ;													
@@ -119,8 +119,10 @@
 							echo "$destfname" ;
 							destfnamelc="${destfname,,}" ;
 							echo "$destfnamelc" ;
+                            echo "xyz"
 							mv $fnamelc $destfnamelc ;
-                        #    mv "${Gateway[$x]}-${GOOSystem[$k]}-$GOARCH" "${Gateway[$x]}" ; 												
+                            echo "ABC"
+                            mv "${Gateway[$x]}-${GOOS[$k]}-$GOARCH" "${Gateway[$x]}"; 												
 						fi
                         zip -r "${Gateway[$x]}-${OS_NAME[$k]}" *;
                         cp "${Gateway[$x]}-${OS_NAME[$k]}.zip" ../../"${Gateway[$x]}" ;		
@@ -187,13 +189,14 @@
 
 ############################## new code version 1 #############################
 
-    GOOSystem=({"linux","darwin","windows"});
+    GOOSA=({"linux","darwin","windows"});
     OS_NAME=({"linux","osx","windows"});
+    # GOARCH=({"amd64","amd64","amd64"});
 			# get length of an array		
-			Len="${#GOOSystem[@]}"
+			Len="${#GOOSA[@]}"
 				for (( k=0; k < "${Len}"; k++ ));
 				do
-                    export GOOS="${GOOSystem[$k]}" ;
+                    export GOOS="${GOOSA[$k]}" ;
                     echo $GOOS ;
                     echo $GOARCH ;
                     export GOARCH=amd64 ;

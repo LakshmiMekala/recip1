@@ -18,8 +18,8 @@ install:
   - ls
   
 script:
-   - chmod ugo+x ./common.sh 
-   - ./common.sh
+   - chmod ugo+x ./common.sh ./v13.sh
+   - ./v13.sh
    - popd
 after_script:
   - "[ -f \"${HOME}/.netrc\" ] && rm -f ${HOME}/.netrc"
