@@ -111,16 +111,16 @@
 							echo "$destfnamelc" ;
 							mv $fnamelc $destfnamelc ;
                         else
-                           fname="${Gateway[$x]}-${GOOS[$k]}-$GOARCH" ;
-							echo "$fname" ;
-							fnamelc="${fname,,}" ;
-							echo "$fnamelc" ;													
-							destfname="${Gateway[$x]}" ;
-							echo "$destfname" ;
-							destfnamelc="${destfname,,}" ;
-							echo "$destfnamelc" ;
-							mv $fnamelc $destfnamelc ;
-                             mv "${Gateway[$x]}-${GOOSystem[$k]}-$GOARCH" "${Gateway[$x]}" ; 												
+                            # fname="${Gateway[$x]}-${GOOS[$k]}-$GOARCH" ;
+							# echo "$fname" ;
+							# fnamelc="${fname,,}" ;
+							# echo "$fnamelc" ;													
+							# destfname="${Gateway[$x]}" ;
+							# echo "$destfname" ;
+							# destfnamelc="${destfname,,}" ;
+							# echo "$destfnamelc" ;
+						#	mv $fnamelc $destfnamelc ;
+                            mv "${Gateway[$x]}-${GOOSystem[$k]}-$GOARCH" "${Gateway[$x]}" ; 												
 						fi
                         zip -r "${Gateway[$x]}-${OS_NAME[$k]}" *;
                         cp "${Gateway[$x]}-${OS_NAME[$k]}.zip" ../../"${Gateway[$x]}" ;		
