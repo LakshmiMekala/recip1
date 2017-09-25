@@ -65,7 +65,7 @@
                     eval xpath_publish='.recipe_repos[$j].publish' ;           
                 
                     publish=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish) ;
-                    echo "$publish";
+                    #echo "$publish";
                     publish_gateway ;
                     if [[ -d  $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes ]]; then
                         for (( x = 0; x < ${#Gateway[@]}; x++ ))
@@ -113,7 +113,7 @@
                     # Changing directory to  binary containing folder
                     cd "${Gateway[$x]}-${OS_NAME[$k]}";
                         if [ "${OS_NAME[$k]}" == "windows" ] ; then
-							fname="${Gateway[$x]}-${GOOS[$k]}-$GOARCH.exe" ;
+							fname="${Gateway[$x]}-${GOOSystem[$k]}-$GOARCH.exe" ;
 							echo "$fname" ;
 							fnamelc="${fname,,}" ;
 							echo "$fnamelc" ;													
@@ -123,7 +123,7 @@
 							echo "$destfnamelc" ;
 							mv $fnamelc $destfnamelc ;
                         else
-                            fname="${Gateway[$x]}-${GOOS[$k]}-$GOARCH" ;
+                            fname="${Gateway[$x]}-${GOOSystem[$k]}-$GOARCH" ;
 							echo "$fname" ;
 							fnamelc="${fname,,}" ;
 							echo "$fnamelc" ;													
@@ -201,14 +201,14 @@
 
 ############################## new code version 1 #############################
 
-    GOOSA=({"linux","darwin","windows"});
+    GOOSystem=({"linux","darwin","windows"});
     OS_NAME=({"linux","osx","windows"});
     # GOARCH=({"amd64","amd64","amd64"});
 			# get length of an array		
-			Len="${#GOOSA[@]}"
+			Len="${#GOOSystem[@]}"
 				for (( k=0; k < "${Len}"; k++ ));
 				do
-                    export GOOS="${GOOSA[$k]}" ;
+                    export GOOS="${GOOSystem[$k]}" ;
                     echo $GOOS ;
                     echo $GOARCH ;
                     export GOARCH=amd64 ;
