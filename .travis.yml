@@ -15,9 +15,9 @@ install:
 script:
   - mkdir -p $GOPATH/src/github.com/TIBCOSoftware
   - cd $GOPATH/src/github.com/TIBCOSoftware
-  - git clone https://github.com/TIBCOSoftware/mashling-cicd.git mashling-cicd
-  - cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/dependency-config/* $GOPATH/src/github.com/TIBCOSoftware/mashling
+  - git clone https://github.com/TIBCOSoftware/mashling-cicd.git mashling-cicd  
   - git clone https://github.com/TIBCOSoftware/mashling.git
+  - cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/dependency-config/* $GOPATH/src/github.com/TIBCOSoftware/mashling
   - cd mashling
   - godep restore
   - go test ./...
