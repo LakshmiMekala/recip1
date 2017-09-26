@@ -21,6 +21,7 @@ script:
   - cd mashling
   - godep restore
   - go install ./...
+  - cd $GOPATH/src/github.com/TIBCOSoftware
   - mashling version  
   -  pushd mashling-cicd/docker/mashling;
   -  chmod ugo+x ./build-mashling.sh
