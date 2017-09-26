@@ -20,7 +20,6 @@ script:
   - cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/dependency-config/* $GOPATH/src/github.com/TIBCOSoftware/mashling
   - cd mashling
   - godep restore
-  - go test ./...
   - go install ./...
   - mashling version  
   -  pushd mashling-cicd/docker/mashling;
