@@ -32,7 +32,7 @@ deploy:
   skip_cleanup: true
   on:
     all_branches: true
-  local_dir: $GOPATH/src/github.com/TIBCOSoftware/recip1/sample-recipes/master-builds
+  local_dir: $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds
   upload-dir: master-builds
 
 notifications: 
