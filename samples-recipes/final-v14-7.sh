@@ -17,7 +17,6 @@
         fi
         echo "Creating folder - $destFolder ..."
         cd "$destFolder";
-
 	}
 	
     function publish_gateway()
@@ -152,13 +151,13 @@
 ############################################################
 
 
-    git config user.email "lmekala@tibco.com";
-	git config user.name "LakshmiMekala"
+    # git config user.email "lmekala@tibco.com";
+	# git config user.name "LakshmiMekala"
 	
 	
-	ls ;
-	pwd ;
-	git add .;  
-	echo "alert -1" ;
-	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
-    git push ;
+	# ls ;
+	# pwd ;
+	# git add .;  
+	# echo "alert -1" ;
+	# git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
+    # git push ;
