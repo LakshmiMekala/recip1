@@ -9,7 +9,7 @@
         if [ -n "${TRAVIS_TAG}" ]; then
             destFolder="$namefolder-${TRAVIS_TAG}"
         elif [ -z "${TRAVIS_TAG}" ]; then
-            destFolder="$namefolder-${TRAVIS_BUILD_NUMBER}"
+            destFolder="$namefolder-${TRAVIS_JOB_NUMBER}"
         fi
 
         if [ ! -d "$destFolder" ]; then
