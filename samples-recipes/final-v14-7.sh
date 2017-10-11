@@ -21,20 +21,22 @@
 	
     function publish_gateway()
     {        
+        echo $publish ;
         publish=$(echo $publish | tr -d ',') ;
         publish=$(echo $publish | tr -d '"') ;
+        echo $featured ;
         featured=$(echo $featured | tr -d ',') ;
         featured=$(echo $featured | tr -d '"') ;
-        publish=("${publish[@]}" "${featured[@]}") ;
-        echo ${publish[@]} ;
+        publish_array=("${publish[@]}" "${featured[@]}") ;
+        echo ${publish_array[@]} ;
         # removing string duplicates
-        publish=$(echo "${publish[@]}" | xargs -n1 | sort -u | xargs) ;
-        IFS=\  read -a Gateway <<<"$publish" ;
+        publish_array=$(echo "${publish_array[@]}" | xargs -n1 | sort -u | xargs) ;
+        IFS=\  read -a Gateway <<<"$publish_array" ;
         set | grep ^IFS= ;
 		#separating arrays ny line
         IFS=$' \t\n' ;
 		#fetching Gateway
-        set | grep ^Gateway=\\\|^publish= ;
+        set | grep ^Gateway=\\\|^publish_array= ;
     }
     
 	function recipe_registry()
@@ -42,7 +44,7 @@
 		#Extracting publish binaries from recipe_registry.json
     	#array_length=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
         array_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
-
+    
 		echo "Found $array_length recipe providers." ;        
 		    for (( j = 0; j < $array_length; j++ ))
                 do
