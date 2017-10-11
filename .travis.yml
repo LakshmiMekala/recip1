@@ -17,7 +17,8 @@ install:
   - ls
   
 script:
-   - chmod ugo+x ./common.sh ./final-v14-7.sh
+   - chmod ugo+x ./common.sh ./final-v14-7.sh ./featured.sh
+   - ./featured.sh
    - ./final-v14-7.sh
    - popd
 after_script:
