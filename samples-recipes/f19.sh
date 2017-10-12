@@ -58,6 +58,8 @@
                     eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;
                     Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
 
+                    Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;
+
                     if [[ -d  $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes ]]; then
                        # for (( x = 0; x < ${#Gateway[@]}; x++ ))
                         #    do
