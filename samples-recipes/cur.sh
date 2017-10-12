@@ -20,18 +20,23 @@
 	}
 	
     function publish_gateway()
-    {
+    {        
+        echo $publish ;
         publish=$(echo $publish | tr -d ',') ;
         publish=$(echo $publish | tr -d '"') ;
-        echo $publish ;
+        echo $featured ;
+        featured=$(echo $featured | tr -d ',') ;
+        featured=$(echo $featured | tr -d '"') ;
+        publish_array=("${publish[@]}" "${featured[@]}") ;
+        echo ${publish_array[@]} ;
         # removing string duplicates
-        publish=$(echo "$publish" | xargs -n1 | sort -u | xargs) ;
-        IFS=\  read -a Gateway <<<"$publish" ;
+        publish_array=$(echo "${publish_array[@]}" | xargs -n1 | sort -u | xargs) ;
+        IFS=\  read -a Gateway <<<"$publish_array" ;
         set | grep ^IFS= ;
 		#separating arrays ny line
         IFS=$' \t\n' ;
 		#fetching Gateway
-        set | grep ^Gateway=\\\|^publish= ;
+        set | grep ^Gateway=\\\|^publish_array= ;
     }
     
 	function recipe_registry()
@@ -39,16 +44,18 @@
 		#Extracting publish binaries from recipe_registry.json
     	#array_length=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
         array_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
-
+    
 		echo "Found $array_length recipe providers." ;        
 		    for (( j = 0; j < $array_length; j++ ))
                 do
                     echo "value of j=$j" ;
                     #eval provider and publish
                    
-                    eval xpath_publish='.recipe_repos[$j].publish' ;           
+                    eval xpath_publish='.recipe_repos[$j].publish' ;
+                    eval xpath_featured='.recipe_repos[$j].featured' ;           
                 
                     publish=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish) ;
+                    featured=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_featured) ;
                     #echo "$publish";
                     publish_gateway ;
                     if [[ -d  $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes ]]; then
@@ -57,8 +64,7 @@
                                 # creating gateway with values from publish
                                 displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json | jq '.gateway.display_image') ;
                                 displayImage=$(echo $displayImage | tr -d '"') ;
-                                mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
-                                package_gateway ;
+                                architecture ;
                             done                              
                     else
                         echo "exiting the build as provider path is not a directory" ;
@@ -124,6 +130,12 @@
 
 ############################## new code version 1 #############################
 
+
+create_dest_directory ;
+recipe_registry ;
+
+function architecture()
+{ 
     GOOSystem=({"linux","darwin","windows"});
     OS_NAME=({"linux","osx","windows"});
     # GOARCH=({"amd64","amd64","amd64"});
@@ -132,24 +144,24 @@
 				for (( k=0; k < "${Len}"; k++ ));
 				do
                     export GOOS="${GOOSystem[$k]}" ;
-                    echo $GOOS ;
-                    echo $GOARCH ;
+                    echo "$GOOS" ;
                     export GOARCH=amd64 ;
+                    echo "$GOARCH" ;
+                    mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
+                    package_gateway ;            
                         if [[ ! -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp ]]; then
                         mkdir -p $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp
                         fi
                         cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
-                        create_dest_directory ;
-                        recipe_registry ;
                         cp -r $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/* $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp ;
                         rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
                 done
-
+}
         mv $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder";    
         cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes ;
-
-        cp $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder";
-        cp $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest;
+        cp $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" ;
+        cp $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest ;
+    
 ############################################################
 
 
