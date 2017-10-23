@@ -15,25 +15,4 @@ install:
 script:
   - mkdir -p $GOPATH/src/github.com/TIBCOSoftware
   - cd $GOPATH/src/github.com/TIBCOSoftware
-  - git clone https://github.com/LakshmiMekala/testcid.git mashling-cicd  
-#  - git clone https://github.com/TIBCOSoftware/mashling.git
-#  - cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/dependency-config/* $GOPATH/src/github.com/TIBCOSoftware/mashling
-#  - cd mashling
-#  - godep restore
-#  - go install ./...
-#  - cd $GOPATH/src/github.com/TIBCOSoftware
-#  - mashling version  
-  -  pushd mashling-cicd/docker/mashling;
-  -  chmod ugo+x ./build-mashling.sh
-  -  ./build-mashling.sh 
-  -  popd
-    
-after_script:
-  - "[ -f \"${HOME}/.netrc\" ] && rm -f ${HOME}/.netrc"
-
-after_success:
-  - "docker login -u=\"${DOCKER_USERNAME}\" -p=\"${DOCKER_PASSWORD}\" tibdocker.tibco.com"
- # - "if [ \"${TRAVIS_BRANCH}\" == \"master\" || ${TRAVIS_TAG} ]; then
-  -  source $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/scripts/init.sh ;
-  -  mashling::module::postbuild mashling mashling ;
- #   fi" 
+  - git clone https://github.com/LakshmiMekala/testcid.git mashling-cicd
