@@ -4,8 +4,8 @@ mkdir ${HOME}/.aws
 
 cat > ${HOME}/.aws/credentials <<EOL
 [default]
-access_key_id = ${SITE_KEY}
-secret_access_key = ${SITE_KEY_SECRET}
+aws_access_key_id = ${SITE_KEY}
+aws_secret_access_key = ${SITE_KEY_SECRET}
 EOL
 
 cat > ${HOME}/.aws/config <<EOL
