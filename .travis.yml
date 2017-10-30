@@ -18,7 +18,7 @@ install:
   
 script:
    - chmod ugo+x ./as2.sh ./f19.sh
-#   - ./f19.sh
+   - ./f19.sh
 #   - ./final-v14-7.sh
    - ./as2.sh
    - popd
