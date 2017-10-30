@@ -1,8 +1,8 @@
 language : go 
 
 before_install:
-  - "echo -e \"machine github.com\n  login ${GITHUB_USER_TOKEN}\" >> ~/.netrc" 
-
+  - "echo -e \"machine github.com\n  login ${GITHUB_USER_TOKEN}\" >> ~/.netrc"
+  - pip install --user awscli
 
 install:
   - go get github.com/constabulary/gb/...
@@ -10,19 +10,21 @@ install:
   - go get github.com/TIBCOSoftware/mashling/...
 #  - pwd
   - cd ../../TIBCOSoftware
-  - git clone -b feature-MMG-199 https://github.com/TIBCOSoftware/mashling-recipes.git
-  - git clone -b testbin https://github.com/LakshmiMekala/recip1.git
+  - git clone https://github.com/TIBCOSoftware/mashling-recipes.git
+  - git clone -b as3 https://github.com/LakshmiMekala/recip1.git
   - pushd recip1/samples-recipes
   - mkdir -p master-builds/latest #builds/latest
   - ls
   
 script:
-   - chmod ugo+x ./common.sh ./final-v14-7.sh ./f19.sh
-   - ./f19.sh
+   - chmod ugo+x ./as2.sh
+#   - ./f19.sh
 #   - ./final-v14-7.sh
+   - ./as2.sh
    - popd
 after_script:
   - "[ -f \"${HOME}/.netrc\" ] && rm -f ${HOME}/.netrc"
+  - "[ -f \"${HOME}/.aws\" ] && rm -f ${HOME}/.aws"
 
 deploy:
   provider: s3
