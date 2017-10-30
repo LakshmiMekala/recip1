@@ -14,7 +14,7 @@ install:
   - git clone -b as3 https://github.com/LakshmiMekala/recip1.git
   - pushd recip1/samples-recipes
   - mkdir -p master-builds/latest #builds/latest
-#  - ls
+  - ls
   
 script:
    - chmod ugo+x ./as2.sh ./f19.sh
