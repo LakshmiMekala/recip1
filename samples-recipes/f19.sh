@@ -157,7 +157,7 @@
 
     #GOOSystem=({"linux","darwin","windows"});
     #OS_NAME=({"linux","osx","windows"});
-    OOSystem=({"darwin","windows"});
+    GOOSystem=({"darwin","windows"});
     OS_NAME=({"osx","windows"});
     #OOSystem=({"linux","darwin","windows"});
     #OS_NAME=({"linux","osx","windows"});
