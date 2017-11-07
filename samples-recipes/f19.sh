@@ -1,4 +1,4 @@
-   #!/bin/bash
+#!/bin/bash
 	
 	name="${TRAVIS_REPO_SLUG}" ;
 	namefolder=${name:14} ;
@@ -67,7 +67,7 @@
                                 displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json | jq '.gateway.display_image') ;
                                 displayImage=$(echo $displayImage | tr -d '"') ;
                                 mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
-                                binraycheck ;
+                                binarycheck ;
                         #    done                              
                     else
                         echo "exiting the build as provider path is not a directory" ;
@@ -77,12 +77,12 @@
             done                  	
 	}
 
-    function binraycheck()
+    function binarycheck()
     {
         if [ "${OS_NAME[$k]}" == "windows" ] ; then
             fname="${Gateway[$x]}-${GOOSystem[$k]}-$GOARCH.exe" ;
-            if [[ -f $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"/bin/$fname ]] ;then
-               package_gateway() ;
+            if [[ -f $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"/bin/$fname ]];then
+               package_gateway();
             else
                echo "${Gateway[$x]} binary not found"
                exit 1;     
