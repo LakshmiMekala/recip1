@@ -67,7 +67,7 @@
                                 displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json | jq '.gateway.display_image') ;
                                 displayImage=$(echo $displayImage | tr -d '"') ;
                                 mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
-                                package_gateway ;
+                                binraycheck ;
                         #    done                              
                     else
                         echo "exiting the build as provider path is not a directory" ;
@@ -76,6 +76,26 @@
             done
             done                  	
 	}
+
+    function binraycheck()
+    {
+        if [ "${OS_NAME[$k]}" == "windows" ] ; then
+            fname="${Gateway[$x]}-${GOOSystem[$k]}-$GOARCH.exe" ;
+            if [[ -f $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"/bin/$fname ]] ;then
+               package_gateway() ;
+            else
+               echo "${Gateway[$x]} binary not found"
+               exit 1;     
+            fi
+        else
+            fname="${Gateway[$x]}-${GOOSystem[$k]}-$GOARCH" ;
+            if [[ -f $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"/bin/$fname ]] ;then
+                package_gateway() ;
+            else
+                echo "${Gateway[$x]} binary not found"
+                exit 1;    
+        fi 
+    }
 
     function package_gateway()
 	{
