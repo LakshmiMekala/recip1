@@ -21,8 +21,8 @@ install:
   
 script:
    - chmod ugo+x ./f19.sh ./build-recipes.sh
-   - ./build-recipes.sh
-   #- ./f19.sh
+   #- ./build-recipes.sh
+   - ./f19.sh
    - popd
 after_script:
   - "[ -f \"${HOME}/.netrc\" ] && rm -f ${HOME}/.netrc"

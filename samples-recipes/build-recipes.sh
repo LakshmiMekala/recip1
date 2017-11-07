@@ -21,6 +21,19 @@
 
 	}
 
+	function binarycheck()
+	{
+			fname="${Gateway[$i]}";
+			fnamelc="${fname,,}" ;
+			if [[ -f $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/builds/"$destFolder"/"${Gateway[$i]}"/bin/$fnamelc ]] ;then
+                package_gateway ;
+            else
+                echo "${Gateway[$i]} binary not found"
+                exit 1;
+            fi
+
+	}
+	
 	function package_gateway()
 	{
 		if [ -d "${Gateway[$i]}" ]; then
@@ -59,19 +72,6 @@
 								echo "directory ${Gateway[$i]}-${TRAVIS_OS_NAME}" not found ;
 								exit 1 ;
 						fi
-	}
-	
-	function binarycheck()
-	{
-			fname="${Gateway[$i]}";
-			fnamelc="${fname,,}" ;
-			if [[ -f $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/builds/"$destFolder"/"${Gateway[$i]}"/bin/$fnamelc ]] ;then
-                package_gateway ;
-            else
-                echo "${Gateway[$i]} binary not found"
-                exit 1;
-            fi
-
 	}
 
 	function create_gateway()
