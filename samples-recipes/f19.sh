@@ -159,8 +159,8 @@
     #OS_NAME=({"linux","osx","windows"});
     #GOOSystem=({"darwin","windows"});
     #OS_NAME=({"osx","windows"});
-    GOOSystem=({"windows"});
-    OS_NAME=({"windows"});
+    GOOSystem=({"windows","darwin"});
+    OS_NAME=({"windows","osx"});
     # GOARCH=({"amd64","amd64","amd64"});
 			# get length of an array		
 			Len="${#GOOSystem[@]}"
