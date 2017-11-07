@@ -155,8 +155,12 @@
 
 ############################## new code version 1 #############################
 
-    GOOSystem=({"linux","darwin","windows"});
-    OS_NAME=({"linux","osx","windows"});
+    #GOOSystem=({"linux","darwin","windows"});
+    #OS_NAME=({"linux","osx","windows"});
+    OOSystem=({"darwin","windows"});
+    OS_NAME=({"osx","windows"});
+    #OOSystem=({"linux","darwin","windows"});
+    #OS_NAME=({"linux","osx","windows"});
     # GOARCH=({"amd64","amd64","amd64"});
 			# get length of an array		
 			Len="${#GOOSystem[@]}"
