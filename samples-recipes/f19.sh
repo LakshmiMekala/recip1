@@ -47,7 +47,7 @@
                     #eval provider and publish
                    
                     eval xpath_publish='.recipe_repos[$j].publish' ;
-                    
+
             publish_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish' | length') ; 
 		    echo "Found $publish_length recipes." ;        
 		        for (( x=0; x<$publish_length; x++ ))
@@ -156,8 +156,8 @@
 
     #GOOSystem=({"linux","darwin","windows"});
     #OS_NAME=({"linux","osx","windows"});
-    GOOSystem=({"darwin","windows"});
-    OS_NAME=({"osx","windows"});
+    GOOSystem=({"windows","darwin"});
+    OS_NAME=({"windows","osx"});
     # GOARCH=({"amd64","amd64","amd64"});
 			# get length of an array		
 			Len="${#GOOSystem[@]}"
