@@ -17,12 +17,11 @@ install:
   - git clone https://github.com/TIBCOSoftware/mashling-recipes.git
   - git clone -b bincheck https://github.com/LakshmiMekala/recip1.git
   - pushd recip1/samples-recipes
-  - mkdir -p master-builds/latest #builds/latest
-  - ls
+  - mkdir -p master-builds/latest builds/latest
   
 script:
    - chmod ugo+x ./f19.sh ./build-recipes.sh
-   - build-recipes.sh
+   - ./build-recipes.sh
    #- ./f19.sh
    - popd
 after_script:
