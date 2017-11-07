@@ -4,10 +4,16 @@ before_install:
   - "echo -e \"machine github.com\n  login ${GITHUB_USER_TOKEN}\" >> ~/.netrc"
 install:
   - go get github.com/constabulary/gb/...
-  - go get -u github.com/constabulary/gb/...
-  - go get github.com/TIBCOSoftware/mashling/...
-#  - pwd
-  - cd ../../TIBCOSoftware
+  - go get -u github.com/tools/godep/...
+  - mkdir -p $GOPATH/src/github.com/TIBCOSoftware
+  - cd $GOPATH/src/github.com/TIBCOSoftware
+  - git clone https://github.com/TIBCOSoftware/mashling.git
+  - git clone https://github.com/TIBCOSoftware/mashling-cicd.git
+  - cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/dependency-config/* $GOPATH/src/github.com/TIBCOSoftware/mashling
+  - cd $GOPATH/src/github.com/TIBCOSoftware/mashling
+  - godep restore
+  - go install ./...
+  - cd $GOPATH/src/github.com/TIBCOSoftware
   - git clone https://github.com/TIBCOSoftware/mashling-recipes.git
   - git clone -b bincheck https://github.com/LakshmiMekala/recip1.git
   - pushd recip1/samples-recipes
