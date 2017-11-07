@@ -63,7 +63,9 @@
 	
 	function binarycheck()
 	{
-			if [[ -f $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/builds/"$destFolder"/"${Gateway[$i]}"/bin/"${Gateway[$i]}" ]] ;then
+			fname="${Gateway[$i]}";
+			fnamelc="${fname,,}" ;
+			if [[ -f $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/builds/"$destFolder"/"${Gateway[$i]}"/bin/$fnamelc ]] ;then
                 package_gateway ;
             else
                 echo "${Gateway[$i]} binary not found"

@@ -81,7 +81,8 @@
     {
         if [ "${OS_NAME[$k]}" == "windows" ] ; then
             fname="${Gateway[$x]}-${GOOSystem[$k]}-$GOARCH.exe" ;
-            if [[ -f $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"/bin/$fname ]];then
+            fnamelc="${fname,,}" ;
+            if [[ -f $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"/bin/$fnamelc ]];then
                package_gateway ;
             else
                echo "${Gateway[$x]} binary not found"
@@ -89,7 +90,8 @@
             fi
         else
             fname="${Gateway[$x]}-${GOOSystem[$k]}-$GOARCH" ;
-            if [[ -f $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"/bin/$fname ]] ;then
+            fnamelc="${fname,,}" ;
+            if [[ -f $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"/bin/$fnamelc ]] ;then
                 package_gateway ;
             else
                 echo "${Gateway[$x]} binary not found"
