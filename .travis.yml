@@ -9,8 +9,8 @@ install:
 #  - deb-src http://ppa.launchpad.net/duggan/jo/ubuntu trusty main 
 #  - sudo apt-get update
   - sudo apt-add-repository ppa:duggan/jo --yes
-  - apt-get update -q
-  - apt-get install jo
+  - sudo apt-get update -q
+  - sudo apt-get install jo
   - go get -u github.com/tools/godep/...
   - mkdir -p $GOPATH/src/github.com/TIBCOSoftware
   - cd $GOPATH/src/github.com/TIBCOSoftware
