@@ -152,8 +152,8 @@
 
     function recipeInfo()
     {
-        if [[ "${GOOSystem[$k]}" == windows ]]; then      
-    #    if [[ "$GOOS" == windows ]]; then      
+    #    if [[ "${GOOSystem[$k]}" == windows ]]; then      
+        if [[ "$GOOS" == windows ]]; then      
         echo "alert json 1" ; 
         idvalue="${Gateway[$x]}" ;   
         eval xpath_featured='.recipe_repos[$j].publish[$x].featured' ;
