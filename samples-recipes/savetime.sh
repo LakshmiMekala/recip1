@@ -204,11 +204,11 @@
         
 ############################################end of new code################################################        
 
-    if [[ $TRAVIS_OSNAME == linux ]]; then
+    if [[ $TRAVIS_OS_NAME == linux ]]; then
        export GOOS=linux ;
        OS_NAME=linux
        echo "Generating binaries for $GOOS platform";
-    elif [[ $TRAVIS_OSNAME == linuxA ]];then
+    elif [[ $TRAVIS_OS_NAME == linuxA ]];then
         export GOOS=darwin ;
         OS_NAME=mac
        echo "Generating binaries for $GOOS platform"
@@ -220,7 +220,7 @@
 
     create_dest_directory ;
     recipe_registry ;
-        if [[ $TRAVIS_OSNAME == linuxB ]]; then
+        if [[ $TRAVIS_OS_NAME == linuxB ]]; then
         pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp ;
         echo "alert json 4" ;
         jq -s '.' recipe-*.json > recipeinfo.json
