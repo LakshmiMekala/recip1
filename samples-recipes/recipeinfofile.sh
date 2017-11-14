@@ -173,7 +173,6 @@
         jo -p id=$idvalue featured=$featuredvalue repository_url=$sourceURL json_url=$jsonURL image_url=$imageURL binaries=[$(jo  platform=mac url=$macurl),$(jo  platform=linux url=$linuxurl),$(jo  platform=windows url=$windowsurl)] >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp/recipe-[$x].json
         echo "alert json 3" ;
         jq -s '.[0] * .[1]' $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp/recipe-[$x].json
-
         fi
     } 		
 
