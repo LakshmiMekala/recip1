@@ -5,7 +5,7 @@ before_install:
 install:
   - go get github.com/constabulary/gb/...
   - sudo add-apt-repository ppa:duggan/jo
-  - sudo apt-get update
+#  - sudo apt-get update
   - apt-add-repository ppa:duggan/jo --yes
   - apt-get update -q
   - apt-get install jo
