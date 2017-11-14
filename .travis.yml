@@ -3,8 +3,8 @@ language :
   - go  
 os:
   - linux
-  -linux1
-  -windows
+  - linux1
+  - windows
 services:
   - docker
 
