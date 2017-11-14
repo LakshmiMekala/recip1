@@ -4,10 +4,6 @@ before_install:
   - "echo -e \"machine github.com\n  login ${GITHUB_USER_TOKEN}\" >> ~/.netrc"
 install:
   - go get github.com/constabulary/gb/...
-#  - sudo add-apt-repository ppa:duggan/jo
-#  - deb http://ppa.launchpad.net/duggan/jo/ubuntu trusty main 
-#  - deb-src http://ppa.launchpad.net/duggan/jo/ubuntu trusty main 
-#  - sudo apt-get update
   - sudo apt-add-repository ppa:duggan/jo --yes
   - sudo apt-get update -q
   - sudo apt-get install jo
@@ -22,7 +18,7 @@ install:
   - go install ./...
   - cd $GOPATH/src/github.com/TIBCOSoftware
   - git clone https://github.com/TIBCOSoftware/mashling-recipes.git
-  - git clone -b bincheck https://github.com/LakshmiMekala/recip1.git
+  - git clone -b json https://github.com/LakshmiMekala/recip1.git
   - pushd recip1/samples-recipes
   - mkdir -p master-builds/latest builds/latest
   
