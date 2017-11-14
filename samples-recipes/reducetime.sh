@@ -74,8 +74,8 @@
 
     function binarycheck()
     {
-        if [ "${OS_NAME[$k]}" == "windows" ] ; then
-            fname="${Gateway[$x]}-${GOOSystem[$k]}-$GOARCH.exe" ;
+        if [ "$OS_NAME" == "windows" ] ; then
+            fname="${Gateway[$x]}-$GOOS-$GOARCH.exe" ;
             fnamelc="${fname,,}" ;
             if [[ -f $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"/bin/$fnamelc ]];then
                package_gateway ;
@@ -84,7 +84,7 @@
                exit 1;     
             fi
         else
-            fname="${Gateway[$x]}-${GOOSystem[$k]}-$GOARCH" ;
+            fname="${Gateway[$x]}-$GOOS-$GOARCH" ;
             fnamelc="${fname,,}" ;
             if [[ -f $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"/bin/$fnamelc ]] ;then
                 package_gateway ;
@@ -100,9 +100,9 @@
 		# If directory exists proceed to next steps	
 		if [ -d "${Gateway[$x]}" ]; then
              cd "${Gateway[$x]}"  ;
-                mv bin "${Gateway[$x]}-${OS_NAME[$k]}" ;
+                mv bin "${Gateway[$x]}-$OS_NAME" ;
                 mv  mashling.json "${Gateway[$x]}.mashling.json" ;
-                cp -r "${Gateway[$x]}.mashling.json" "${Gateway[$x]}-${OS_NAME[$k]}" ;
+                cp -r "${Gateway[$x]}.mashling.json" "${Gateway[$x]}-$OS_NAME" ;
                 echo $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"$displayImage"
                 if [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"$displayImage" ]]; then
                 cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/$displayImage $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"
@@ -112,9 +112,9 @@
                 echo "$displayImage";
                 rm -r src vendor pkg ;
                     # Changing directory to  binary containing folder
-                    cd "${Gateway[$x]}-${OS_NAME[$k]}";
-                        if [ "${OS_NAME[$k]}" == "windows" ] ; then
-							fname="${Gateway[$x]}-${GOOSystem[$k]}-$GOARCH.exe" ;
+                    cd "${Gateway[$x]}-$OS_NAME";
+                        if [ "$OS_NAME" == "windows" ] ; then
+							fname="${Gateway[$x]}-$GOOS-$GOARCH.exe" ;
 							echo "$fname" ;
 							fnamelc="${fname,,}" ;
 							echo "$fnamelc" ;													
@@ -124,7 +124,7 @@
 							echo "$destfnamelc" ;
 							mv $fnamelc $destfnamelc ;
                         else
-                            fname="${Gateway[$x]}-${GOOSystem[$k]}-$GOARCH" ;
+                            fname="${Gateway[$x]}-$GOOS-$GOARCH" ;
 							echo "$fname" ;
 							fnamelc="${fname,,}" ;
 							echo "$fnamelc" ;													
@@ -134,10 +134,10 @@
 							echo "$destfnamelc" ;
 							mv $fnamelc $destfnamelc ;												
 						fi
-                        zip -r "${Gateway[$x]}-${OS_NAME[$k]}" *;
-                        cp "${Gateway[$x]}-${OS_NAME[$k]}.zip" ../../"${Gateway[$x]}" ;		
+                        zip -r "${Gateway[$x]}-$OS_NAME" *;
+                        cp "${Gateway[$x]}-$OS_NAME.zip" ../../"${Gateway[$x]}" ;		
                     cd .. ;
-                rm -r "${Gateway[$x]}-${OS_NAME[$k]}" ;
+                rm -r "${Gateway[$x]}-$OS_NAME" ;
             cd ..;
             # Copying gateway into latest folder
             cp -r "${Gateway[$x]}" ../latest ;
@@ -152,8 +152,8 @@
 
     function recipeInfo()
     {
-        if [[ "${GOOSystem[$k]}" == windows ]]; then      
-
+    #    if [[ "$GOOS" == windows ]]; then      
+        if [[ "$GOOS" == windows ]]; then      
         echo "alert json 1" ; 
         idvalue="${Gateway[$x]}" ;   
         eval xpath_featured='.recipe_repos[$j].publish[$x].featured' ;
@@ -175,36 +175,52 @@
 
 ############################## new code version 1 #############################
 
-    GOOSystem=({"linux","darwin","windows"});
-    OS_NAME=({"linux","osx","windows"});
-    # GOARCH=({"amd64","amd64","amd64"});
-			# get length of an array		
-			Len="${#GOOSystem[@]}"
-				for (( k=0; k < "${Len}"; k++ ));
-				do
-                    export GOOS="${GOOSystem[$k]}" ;
-                    echo $GOOS ;
-                    echo $GOARCH ;
-                    export GOARCH=amd64 ;
-                        if [[ ! -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp ]]; then
-                        mkdir -p $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp
-                        fi
-                        cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
-                        create_dest_directory ;
-                        recipe_registry ;
-                        cp -r $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/* $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp ;
-                        rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
-                done
+    # GOOSystem=({"linux","darwin","windows"});
+    # OS_NAME=({"linux","osx","windows"});
+    # # GOARCH=({"amd64","amd64","amd64"});
+	# 		# get length of an array		
+	# 		Len="${#GOOSystem[@]}"
+	# 			for (( k=0; k < "${Len}"; k++ ));
+	# 			do
+    #                 export GOOS="$GOOS" ;
+    #                 echo $GOOS ;
+    #                 echo $GOARCH ;
+    #                 export GOARCH=amd64 ;
+    #                     if [[ ! -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp ]]; then
+    #                     mkdir -p $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp
+    #                     fi
+    #                     cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
+    #                     create_dest_directory ;
+    #                     recipe_registry ;
+    #                     cp -r $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/* $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp ;
+    #                     rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
+    #             done
 
-        mv $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder";    
-        cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes ;
+    #     mv $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder";    
+    #     cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes ;
 
-        cp $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder";
-        cp $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest;
+    #     cp $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder";
+    #     cp $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest;
         
-        
-        
-        
+############################################end of new code################################################        
+
+    if [[ $TRAVIS_OSNAME == linux ]]; then
+       export GOOS=linux ;
+       OS_NAME=linux
+       echo "Generating binaries for $GOOS platform";
+    elif [[ $TRAVIS_OSNAME == linuxA ]];then
+        export GOOS=darwin ;
+        OS_NAME=mac
+       echo "Generating binaries for $GOOS platform"
+    else
+       export GOOS=windows ;
+       OS_NAME=windows
+       echo "Generating binaries for $GOOS platform"
+    fi        
+
+    create_dest_directory ;
+    recipe_registry ;
+        if [[ $TRAVIS_OSNAME == linuxB ]]; then
         pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp ;
         echo "alert json 4" ;
         jq -s '.' recipe-*.json > recipeinfo.json
@@ -214,6 +230,7 @@
         echo "alert json 6" ;
         rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp ;
         popd ;
+        fi
 
 
 ############################################################

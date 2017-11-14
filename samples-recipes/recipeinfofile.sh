@@ -206,12 +206,15 @@
 
     if [[ $TRAVIS_OSNAME == linux ]]; then
        export GOOS=linux ;
+       OS_NAME=linux
        echo "Generating binaries for $GOOS platform";
     elif [[ $TRAVIS_OSNAME == linuxA ]];then
         export GOOS=darwin ;
+        OS_NAME=mac
        echo "Generating binaries for $GOOS platform"
     else
        export GOOS=windows ;
+       OS_NAME=windows
        echo "Generating binaries for $GOOS platform"
     fi        
 
