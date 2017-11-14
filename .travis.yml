@@ -4,6 +4,11 @@ before_install:
   - "echo -e \"machine github.com\n  login ${GITHUB_USER_TOKEN}\" >> ~/.netrc"
 install:
   - go get github.com/constabulary/gb/...
+  - sudo add-apt-repository ppa:duggan/jo
+  - sudo apt-get update
+  - apt-add-repository ppa:duggan/jo --yes
+  - apt-get update -q
+  - apt-get install jo
   - go get -u github.com/tools/godep/...
   - mkdir -p $GOPATH/src/github.com/TIBCOSoftware
   - cd $GOPATH/src/github.com/TIBCOSoftware
@@ -20,8 +25,8 @@ install:
   - mkdir -p master-builds/latest builds/latest
   
 script:
-   - chmod ugo+x ./f19.sh ./build-recipes.sh
-   - ./build-recipes.sh
+   - chmod ugo+x ./f19.sh ./recipeinfofile.sh
+   - ./recipeinfofile.sh
    #- ./f19.sh
    - popd
 after_script:

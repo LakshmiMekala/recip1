@@ -63,9 +63,10 @@
                                 # creating gateway with values from publish
                                 displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json | jq '.gateway.display_image') ;
                                 displayImage=$(echo $displayImage | tr -d '"') ;
-                                mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
-                                binarycheck ;
-                        #    done                              
+                            #    mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
+                            #    binarycheck ;
+                        #    done    
+                        recipeInfo ;                          
                     else
                         echo "exiting the build as provider path is not a directory" ;
                         exit 1 ;
@@ -148,9 +149,32 @@
 			echo "failed to create ${Gateway[$x]} gateway" 
 			echo "directory ${Gateway[$x]}" not found
 			exit 1
-		fi			
+		fi	
+
 	}
-			
+
+    function recipeInfo()
+    {
+        if [[ "$TRAVIS_OSNAME" == windows ]]; then      
+
+      echo "alert json 1" ; 
+    idvalue=${Gateway[$x]} ;   
+    eval xpath_featured='.recipe_repos[$j].publish[$x].featured' ;
+    featuredvalue=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_featured) ;
+    sourceURL= https://github.com/TIBCOSoftware/mashling-recipes/tree/master/recipes/${Gateway[$x]} ;
+    jsonURL=...${Gateway[$x]}/${Gateway[$x]}.mashling.json ;
+    imageURL=...${Gateway[$x]}/$displayImage ;
+    macurl=...${Gateway[$x]}/${Gateway[$x]}-osx.zip ;
+    linuxurl=...${Gateway[$x]}/${Gateway[$x]}-linux.zip ;
+    windowsUurl=...${Gateway[$x]}/${Gateway[$x]}-windows.zip ;
+
+echo "alert json 2" ;
+ jo -p id=$idvalue featured=$featuredvalue repository_url=$sourceURL json_url=$jsonURL image_url=$imageURL binaries=[$(jo  platform=mac url=$macurl),$(jo  platform=linux url=$linuxurl),$(jo  platform=windows url=$windowsurl)] >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp/recipe-[$x].json
+        echo "alert json 3" ;
+        jq -s '.[0] * .[1]' $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp/recipe-[$x].json
+
+        fi
+    } 		
 
 ############################## new code version 1 #############################
 
@@ -180,37 +204,39 @@
 
         cp $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder";
         cp $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest;
+        
+        
+        
+        
+        pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp ;
+        echo "alert json 4" ;
+        jq -s '.' recipe-*.json > recipeinfo.json
+        echo "alert json 5" ;
+        cp recipeinfo.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest
+        cp $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder";
+        echo "alert json 6" ;
+        rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp ;
+        popd ;
+
+
+
 ############################################################
 
 
-    # git config user.email "lmekala@tibco.com";
-	# git config user.name "LakshmiMekala"
+     git config user.email "lmekala@tibco.com";
+	 git config user.name "LakshmiMekala"
 	
-	
+	pushd $GOPATH/src/github.com/TIBCOSoftware/recip1 ;
 	# ls ;
 	# pwd ;
-	# git add .;  
+	 git add .;  
 	# echo "alert -1" ;
-	# git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
-    # git push ;
+	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
+    git push ;
+    popd 
 
 
 
 
-
-    displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json | jq '.gateway.display_image') ;
-    displayName=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json | jq '.gateway.display_name') ;
-    description=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json | jq '.gateway.description') ;
-    version=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json | jq '.gateway.version') ;
-    mashlingSchema=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json | jq '.mashling_schema') ;
-    id=${Gateway[$x]} ;
-   
-   eval xpath_featured='.recipe_repos[$j].publish[$x].featured' ;
-   featured=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_featured) ;
-   sourceURL= https://github.com/TIBCOSoftware/mashling-recipes/tree/master/recipes/${Gateway[$x]} ;
-   jsonURL=...${Gateway[$x]}/${Gateway[$x]}.mashling.json ;
-   imageURL=...${Gateway[$x]}/$displayImage ;
-   macurl=...${Gateway[$x]}/${Gateway[$x]}-osx.zip ;
-   linuxurl=...${Gateway[$x]}/${Gateway[$x]}-linux.zip ;
-   windowsUurl=...${Gateway[$x]}/${Gateway[$x]}-windows.zip ;
+    
 
