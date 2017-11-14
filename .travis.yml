@@ -1,7 +1,10 @@
 sudo: required
 language : 
   - go  
-
+os:
+  - linux
+  -linux1
+  -windows
 services:
   - docker
 
