@@ -27,8 +27,8 @@ install:
   - mkdir -p master-builds/latest/temp builds/latest
   
 script:
-   - chmod ugo+x ./f19.sh ./reducetime.sh
-   - ./reducetime.sh
+   - chmod ugo+x ./f19.sh ./savetime.sh
+   - ./savetime.sh
    - popd
 after_script:
   - "[ -f \"${HOME}/.netrc\" ] && rm -f ${HOME}/.netrc"
