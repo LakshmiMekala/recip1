@@ -155,21 +155,21 @@
 
     function recipeInfo()
     {
-        if [[ "$TRAVIS_OSNAME" == windows ]]; then      
+        if [[ "${GOOSystem[$k]}" == windows ]]; then      
 
       echo "alert json 1" ; 
-    idvalue=${Gateway[$x]} ;   
-    eval xpath_featured='.recipe_repos[$j].publish[$x].featured' ;
-    featuredvalue=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_featured) ;
-    sourceURL= https://github.com/TIBCOSoftware/mashling-recipes/tree/master/recipes/${Gateway[$x]} ;
-    jsonURL=...${Gateway[$x]}/${Gateway[$x]}.mashling.json ;
-    imageURL=...${Gateway[$x]}/$displayImage ;
-    macurl=...${Gateway[$x]}/${Gateway[$x]}-osx.zip ;
-    linuxurl=...${Gateway[$x]}/${Gateway[$x]}-linux.zip ;
-    windowsUurl=...${Gateway[$x]}/${Gateway[$x]}-windows.zip ;
+        idvalue="${Gateway[$x]}" ;   
+        eval xpath_featured='.recipe_repos[$j].publish[$x].featured' ;
+        featuredvalue=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_featured) ;
+        sourceURL= https://github.com/TIBCOSoftware/mashling-recipes/tree/master/recipes/${Gateway[$x]} ;
+        jsonURL=...${Gateway[$x]}/${Gateway[$x]}.mashling.json ;
+        imageURL=...${Gateway[$x]}/$displayImage ;
+        macurl=...${Gateway[$x]}/${Gateway[$x]}-osx.zip ;
+        linuxurl=...${Gateway[$x]}/${Gateway[$x]}-linux.zip ;
+        windowsUurl=...${Gateway[$x]}/${Gateway[$x]}-windows.zip ;
 
-echo "alert json 2" ;
- jo -p id=$idvalue featured=$featuredvalue repository_url=$sourceURL json_url=$jsonURL image_url=$imageURL binaries=[$(jo  platform=mac url=$macurl),$(jo  platform=linux url=$linuxurl),$(jo  platform=windows url=$windowsurl)] >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp/recipe-[$x].json
+        echo "alert json 2" ;
+        jo -p id=$idvalue featured=$featuredvalue repository_url=$sourceURL json_url=$jsonURL image_url=$imageURL binaries=[$(jo  platform=mac url=$macurl),$(jo  platform=linux url=$linuxurl),$(jo  platform=windows url=$windowsurl)] >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp/recipe-[$x].json
         echo "alert json 3" ;
         jq -s '.[0] * .[1]' $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp/recipe-[$x].json
 
@@ -223,17 +223,17 @@ echo "alert json 2" ;
 ############################################################
 
 
-     git config user.email "lmekala@tibco.com";
-	 git config user.name "LakshmiMekala"
+    #  git config user.email "lmekala@tibco.com";
+	#  git config user.name "LakshmiMekala"
 	
-	pushd $GOPATH/src/github.com/TIBCOSoftware/recip1 ;
-	# ls ;
-	# pwd ;
-	 git add .;  
-	# echo "alert -1" ;
-	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
-    git push ;
-    popd 
+	# pushd $GOPATH/src/github.com/TIBCOSoftware/recip1 ;
+	# # ls ;
+	# # pwd ;
+	#  git add .;  
+	# # echo "alert -1" ;
+	# git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
+    # git push ;
+    # popd 
 
 
 
