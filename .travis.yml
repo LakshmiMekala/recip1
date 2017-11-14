@@ -5,8 +5,10 @@ before_install:
 install:
   - go get github.com/constabulary/gb/...
   - sudo add-apt-repository ppa:duggan/jo
+  - deb http://ppa.launchpad.net/duggan/jo/ubuntu trusty main 
+  - deb-src http://ppa.launchpad.net/duggan/jo/ubuntu trusty main 
 #  - sudo apt-get update
-  - apt-add-repository ppa:duggan/jo --yes
+  - sudo apt-add-repository ppa:duggan/jo -qq
   - apt-get update -q
   - apt-get install jo
   - go get -u github.com/tools/godep/...
