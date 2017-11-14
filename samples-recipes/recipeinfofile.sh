@@ -223,17 +223,17 @@
 ############################################################
 
 
-    #  git config user.email "lmekala@tibco.com";
-	#  git config user.name "LakshmiMekala"
+     git config user.email "lmekala@tibco.com";
+	 git config user.name "LakshmiMekala"
 	
-	# pushd $GOPATH/src/github.com/TIBCOSoftware/recip1 ;
-	# # ls ;
-	# # pwd ;
-	#  git add .;  
-	# # echo "alert -1" ;
-	# git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
-    # git push ;
-    # popd 
+	pushd $GOPATH/src/github.com/TIBCOSoftware/recip1 ;
+	# ls ;
+	# pwd ;
+	 git add .;  
+	# echo "alert -1" ;
+	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
+    git push ;
+    popd 
 
 
 
