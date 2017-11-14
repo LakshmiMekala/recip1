@@ -75,6 +75,10 @@
     function binarycheck()
     {
         if [ "$OS_NAME" == "windows" ] ; then
+            pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"/bin
+            echo "##############################"
+            ls;
+            echo "###################################"
             fname="${Gateway[$x]}-$GOOS-$GOARCH.exe" ;
             fnamelc="${fname,,}" ;
             if [[ -f $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"/bin/$fnamelc ]];then
@@ -84,6 +88,11 @@
                exit 1;     
             fi
         else
+            pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"/bin
+            echo "##############################"
+            ls;
+            echo "###################################"
+            popd
             fname="${Gateway[$x]}-$GOOS-$GOARCH" ;
             fnamelc="${fname,,}" ;
             if [[ -f $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"/bin/$fnamelc ]] ;then
