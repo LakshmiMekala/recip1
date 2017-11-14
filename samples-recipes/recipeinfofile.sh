@@ -164,7 +164,7 @@
         imageURL=...${Gateway[$x]}/$displayImage ;
         macurl=...${Gateway[$x]}/${Gateway[$x]}-osx.zip ;
         linuxurl=...${Gateway[$x]}/${Gateway[$x]}-linux.zip ;
-        windowsUurl=...${Gateway[$x]}/${Gateway[$x]}-windows.zip ;
+        windowsurl=...${Gateway[$x]}/${Gateway[$x]}-windows.zip ;
 
         echo "alert json 2" ;
         jo -p id=$idvalue featured=$featuredvalue repository_url=$sourceURL json_url=$jsonURL image_url=$imageURL binaries=[$(jo  platform=mac url=$macurl),$(jo  platform=linux url=$linuxurl),$(jo  platform=windows url=$windowsurl)] >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp/recipe1-[$x].json ;
