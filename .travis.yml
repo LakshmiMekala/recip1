@@ -20,7 +20,7 @@ install:
   - git clone https://github.com/TIBCOSoftware/mashling-recipes.git
   - git clone -b json https://github.com/LakshmiMekala/recip1.git
   - pushd recip1/samples-recipes
-  - mkdir -p master-builds/latest builds/latest
+  - mkdir -p master-builds/latest/temp builds/latest
   
 script:
    - chmod ugo+x ./f19.sh ./recipeinfofile.sh

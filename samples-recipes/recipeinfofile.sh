@@ -162,6 +162,7 @@
         eval xpath_featured='.recipe_repos[$j].publish[$x].featured' ;
         featuredvalue=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_featured) ;
         sourceURL= https://github.com/TIBCOSoftware/mashling-recipes/tree/master/recipes/${Gateway[$x]} ;
+        echo $sourceURL
         jsonURL=...${Gateway[$x]}/${Gateway[$x]}.mashling.json ;
         imageURL=...${Gateway[$x]}/$displayImage ;
         macurl=...${Gateway[$x]}/${Gateway[$x]}-osx.zip ;
