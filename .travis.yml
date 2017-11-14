@@ -4,11 +4,11 @@ before_install:
   - "echo -e \"machine github.com\n  login ${GITHUB_USER_TOKEN}\" >> ~/.netrc"
 install:
   - go get github.com/constabulary/gb/...
-  - sudo add-apt-repository ppa:duggan/jo
-  - deb http://ppa.launchpad.net/duggan/jo/ubuntu trusty main 
-  - deb-src http://ppa.launchpad.net/duggan/jo/ubuntu trusty main 
+#  - sudo add-apt-repository ppa:duggan/jo
+#  - deb http://ppa.launchpad.net/duggan/jo/ubuntu trusty main 
+#  - deb-src http://ppa.launchpad.net/duggan/jo/ubuntu trusty main 
 #  - sudo apt-get update
-  - sudo apt-add-repository ppa:duggan/jo -qq
+  - sudo apt-add-repository ppa:duggan/jo --yes
   - apt-get update -q
   - apt-get install jo
   - go get -u github.com/tools/godep/...
