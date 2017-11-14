@@ -58,15 +58,12 @@
                     Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;
 
                     if [[ -d  $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes ]]; then
-                       # for (( x = 0; x < ${#Gateway[@]}; x++ ))
-                        #    do
                                 # creating gateway with values from publish
                                 displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json | jq '.gateway.display_image') ;
                                 displayImage=$(echo $displayImage | tr -d '"') ;
-                            #    mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
-                            #    binarycheck ;
-                        #    done    
-                        recipeInfo ;                          
+                                mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
+                                binarycheck ;
+                                recipeInfo ;                          
                     else
                         echo "exiting the build as provider path is not a directory" ;
                         exit 1 ;
@@ -222,17 +219,17 @@
 ############################################################
 
 
-     git config user.email "lmekala@tibco.com";
-	 git config user.name "LakshmiMekala"
+    #  git config user.email "lmekala@tibco.com";
+	#  git config user.name "LakshmiMekala"
 	
-	pushd $GOPATH/src/github.com/TIBCOSoftware/recip1 ;
-	# ls ;
-	# pwd ;
-	 git add .;  
-	# echo "alert -1" ;
-	git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
-    git push ;
-    popd 
+	# pushd $GOPATH/src/github.com/TIBCOSoftware/recip1 ;
+	# # ls ;
+	# # pwd ;
+	#  git add .;  
+	# # echo "alert -1" ;
+	# git commit -m "uploading binaries-${TRAVIS_BUILD_NUMBER}";
+    # git push ;
+    # popd 
 
 
 
