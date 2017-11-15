@@ -61,7 +61,7 @@
                                 # creating gateway with values from publish
                                 displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json | jq '.gateway.display_image') ;
                                 displayImage=$(echo $displayImage | tr -d '"') ;
-                                echo "Start time for creating ${Gateway[$x]} :$(date +"%F %T")" >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/time/time-$(date).log
+                                echo "Start time for creating ${Gateway[$x]} :$(date +"%F %T")" >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/time/time-$TRAVIS_BUILD_NUMBER.log
                                 mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
                                 echo "End time for creating ${Gateway[$x]} :$(date +"%F %T")" >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/time/time-$TRAVIS_BUILD_NUMBER.log
                                 binarycheck ;
@@ -89,9 +89,9 @@
             fname="${Gateway[$x]}-${GOOSystem[$k]}-$GOARCH" ;
             fnamelc="${fname,,}" ;
             if [[ -f $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"/bin/$fnamelc ]] ;then
-                echo "Start time for packing to zip ${Gateway[$x]} :$(date +"%F %T")" >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/time/time-$(date).log
+                echo "Start time for packing to zip ${Gateway[$x]} :$(date +"%F %T")" >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/time/time-$TRAVIS_BUILD_NUMBER.log
                 package_gateway ;
-                echo "End time for packing ${Gateway[$x]} :$(date +"%F %T")" >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/time/time-$(date).log
+                echo "End time for packing ${Gateway[$x]} :$(date +"%F %T")" >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/time/time-$TRAVIS_BUILD_NUMBER.log
             else
                 echo "${Gateway[$x]} binary not found"
                 exit 1;
@@ -211,9 +211,9 @@
         
         pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp ;
         echo "alert json 4" ;
-        echo "Start time for creating recipeinfo.json file :$(date +"%F %T")" >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/time/time-$(date).log
+        echo "Start time for creating recipeinfo.json file :$(date +"%F %T")" >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/time/time-$TRAVIS_BUILD_NUMBER.log
         jq -s '.' recipe-*.json > recipeinfo.json
-        echo "End time for creating recipeinfo.json file :$(date +"%F %T")" >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/time/time-$(date).log
+        echo "End time for creating recipeinfo.json file :$(date +"%F %T")" >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/time/time-$TRAVIS_BUILD_NUMBER.log
         echo "alert json 5" ;
         cp recipeinfo.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest
         cp recipeinfo.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder";
