@@ -63,7 +63,7 @@
                                 displayImage=$(echo $displayImage | tr -d '"') ;
                                 echo "Start time for creating ${Gateway[$x]} :$(date +"%F %T")" >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/time/time.log
                                 mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
-                                echo "End time for creating ${Gateway[$x]} :$(date +"%F %T")" >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/time/time.log
+                                echo "End time for creating ${Gateway[$x]} :$(date +"%F %T")" >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/time/time-$TRAVIS_BUILD_NUMBER.log
                                 binarycheck ;
                                 recipeInfo ;                          
                     else
@@ -91,7 +91,7 @@
             if [[ -f $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"/bin/$fnamelc ]] ;then
                 echo "Start time for packing to zip ${Gateway[$x]} :$(date +"%F %T")" >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/time/time.log
                 package_gateway ;
-                echo "End time for creating ${Gateway[$x]} :$(date +"%F %T")" >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/time/time.log
+                echo "End time for packing ${Gateway[$x]} :$(date +"%F %T")" >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/time/time-$(date).log
             else
                 echo "${Gateway[$x]} binary not found"
                 exit 1;
