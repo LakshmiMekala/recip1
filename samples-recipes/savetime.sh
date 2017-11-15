@@ -79,6 +79,7 @@
             echo "##############################"
             ls;
             echo "###################################"
+            popd
             fname="${Gateway[$x]}-$GOOS-$GOARCH.exe" ;
             fnamelc="${fname,,}" ;
             if [[ -f $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${Gateway[$x]}"/bin/$fnamelc ]];then
@@ -212,7 +213,7 @@
     #     cp $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest;
         
 ############################################end of new code################################################        
-
+    export GOARCH=amd64 ;
     if [[ $TRAVIS_OS_NAME == linux ]]; then
        export GOOS=linux ;
        OS_NAME=linux
