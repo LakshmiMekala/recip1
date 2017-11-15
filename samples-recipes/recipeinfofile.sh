@@ -15,7 +15,7 @@
         if [ ! -d "$destFolder" ]; then
             mkdir "$destFolder";
         fi
-        echo "Creating folder - $destFolder ..."
+        echo "Creating folder - $destFolder /"
         cd "$destFolder";
 	}
 	
@@ -160,11 +160,11 @@
         featuredvalue=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_featured) ;
         sourceURL=https://github.com/TIBCOSoftware/mashling-recipes/tree/master/recipes/${Gateway[$x]} ;
         echo "$sourceURL";
-        jsonURL=...${Gateway[$x]}/${Gateway[$x]}.mashling.json ;
-        imageURL=...${Gateway[$x]}/$displayImage ;
-        macurl=...${Gateway[$x]}/${Gateway[$x]}-osx.zip ;
-        linuxurl=...${Gateway[$x]}/${Gateway[$x]}-linux.zip ;
-        windowsurl=...${Gateway[$x]}/${Gateway[$x]}-windows.zip ;
+        jsonURL=/${Gateway[$x]}/${Gateway[$x]}.mashling.json ;
+        imageURL=/${Gateway[$x]}/$displayImage ;
+        macurl=/${Gateway[$x]}/${Gateway[$x]}-osx.zip ;
+        linuxurl=/${Gateway[$x]}/${Gateway[$x]}-linux.zip ;
+        windowsurl=/${Gateway[$x]}/${Gateway[$x]}-windows.zip ;
 
         echo "alert json 2" ;
         jo -p id=$idvalue featured=$featuredvalue repository_url=$sourceURL json_url=$jsonURL image_url=$imageURL binaries=[$(jo  platform=mac url=$macurl),$(jo  platform=linux url=$linuxurl),$(jo  platform=windows url=$windowsurl)] >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp/recipe1-[$x].json ;
