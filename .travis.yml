@@ -18,7 +18,7 @@ install:
   - go install ./...
   - cd $GOPATH/src/github.com/TIBCOSoftware
   - git clone https://github.com/TIBCOSoftware/mashling-recipes.git
-  - git clone -b json https://github.com/LakshmiMekala/recip1.git
+  - git clone -b timestamp https://github.com/LakshmiMekala/recip1.git
   - pushd recip1/samples-recipes
   - mkdir -p master-builds/latest/temp builds/latest
   
