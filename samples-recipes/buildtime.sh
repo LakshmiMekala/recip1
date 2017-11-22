@@ -62,14 +62,19 @@
                     eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;
                     Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
                     Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;
-                    y=0;
-                    if [[ $recipeName =~ $Gateway[$x]/$Gateway[$x].json ]] || [[ $recipeName =~ $Gateway[$x]/manifest ]];then
-                        echo "$Gateway[$x] found in current commit" ;
-                        recipeCreate[$y]=$Gateway[$x] ;
+                    var y=0;
+                    echo $recipeName ;
+                    echo "${Gateway[$x]}/${Gateway[$x]}.json" ;
+                    echo "${Gateway[$x]}/manifest" ;
+                    if [[ $recipeName =~ ${Gateway[$x]}/${Gateway[$x]}.json ]] || [[ $recipeName =~ ${Gateway[$x]}/manifest ]];then
+                        echo "${Gateway[$x]} found in current commit" ;
+                        echo "${Gateway[$x]}" ;                        
+                        recipeCreate[$y]=${Gateway[$x]} ;
+                        echo "value for ${Gateway[$x]}=recipeCreate[$y]" ;
                         echo "$recipeCreate[$y]" ;
                         y=y+1 ;
                     else
-                        echo "$Gateway[$x] not found in current commit ";
+                        echo "${Gateway[$x]} not found in current commit ";
                     #    recipeDelete=$Gateway[$x] ;
                     fi
                     recipeInfo ;                                                          
