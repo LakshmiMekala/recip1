@@ -11,9 +11,11 @@ cat > ${HOME}/.aws/credentials <<EOL
 aws_access_key_id = ${SITE_KEY}
 aws_secret_access_key = ${SITE_KEY_SECRET}
 EOL
+##################################################################### 
+function awscopytoLocal()
+{
     aws s3 cp s3://test-bucket4569/master-builds/latest  $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/$destFolder --recursive
-
-#####################################################################  
+ 
                 recipeCreate=()
                 y=0; 
                 pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/$destFolder
@@ -25,23 +27,22 @@ EOL
                     recipesInLatest[$i]=${recipesInLatest[$i]}
                 done
                 
-                echo ${recipesInLatest[@]} ;
+                echo "${recipesInLatest[@]}" ;
                 popd
-                recipeDeleteLatest=$(echo ${Gateway[@]} ${recipesInLatest[@]} | tr ' ' '\n' | sort | uniq -u);
-                echo ${recipeDeleteLatest[@]};
+                recipeDeleteLatest=$(echo "${Gateway[@]}" "${recipesInLatest[@]}" | tr ' ' '\n' | sort | uniq -u);
+                echo "${recipeDeleteLatest[@]}";
 
-                for (( p=0; p<${recipeDeleteLatest[@]}; p++ ))
-                do
-                    if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${recipeDeleteLatest[$p]}" ]]; then
-                        rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${recipeDeleteLatest[$p]}" ;
-                        echo deleting "${recipeDeleteLatest[$p]}"
-                    else
-                        recipeCreate[$y]="${recipeDeleteLatest[$p]}";
-                        echo creating gateway "${recipeDeleteLatest[$p]}"
-                        buildgateway;                                
-                    fi
-                done    
-###########################################################################
+                # for (( p=0; p<"${recipeDeleteLatest[@]}"; p++ ))
+                # do
+                #     if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${recipeDeleteLatest[$p]}" ]]; then
+                #         rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${recipeDeleteLatest[$p]}" ;
+                #         echo deleting "${recipeDeleteLatest[$p]}"
+                #     else
+                #         recipeCreate[$y]="${recipeDeleteLatest[$p]}";
+                #         echo creating gateway "${recipeDeleteLatest[$p]}"
+                #         buildgateway;                                
+                #     fi
+                # done
     
 	pushd $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes
     # Fetching short commit id
@@ -52,6 +53,9 @@ EOL
     recipeName=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/info.log) ;
     echo $recipeName
     popd ;
+}    
+###########################################################################
+
 	function create_dest_directory ()
 	{
 		cd master-builds ;
@@ -107,52 +111,7 @@ EOL
                 do  
                     eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;
                     Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
-                    Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;
-####################################################################
-            if [[ "${GOOSystem[$k]}" = linux ]]; then    
-                    if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${Gateway[$x]}" ]] ; then
-                        echo "${Gateway[$x]}" already exists;
-                    else
-                        rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${Gateway[$x]}" ;
-                        echo deleted "${Gateway[$x]}" not available-in recipe_registry.json
-                    fi
-            fi
-# #####################################################################  
-#                 recipeCreate=()
-#                 y=0; 
-#                 pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/$destFolder
-#                 rm -rf recipeinfo.json recipe_registry.json
-#                 recipesInLatest=(*)
-#                 for ((i=0; i<${#recipesInLatest[@]}; i++)); 
-#                 do 
-#                     echo "${recipesInLatest[$i]}"; 
-#                     recipesInLatest[$i]=${recipesInLatest[$i]}
-#                 done
-                
-#                 echo ${recipesInLatest[@]} ;
-#                 popd
-#                 recipeDeleteLatest=$(echo ${Gateway[@]} ${recipesInLatest[@]} | tr ' ' '\n' | sort | uniq -u);
-#                 echo ${recipeDeleteLatest[@]};
-
-#                 for (( p=0; p<${recipeDeleteLatest[@]}; p++ ))
-#                 do
-#                     if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${recipeDeleteLatest[$p]}" ]]; then
-#                         rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${recipeDeleteLatest[$p]}" ;
-#                     else
-#                         recipeCreate[$y]="${recipeDeleteLatest[$p]}";
-#                         buildgateway;                                
-#                     fi
-#                 done
-###############################################################################################################
-
-
-
-
-
-
-
-
-####################################################################                  
+                    Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;                  
                 #    echo $recipeName ;
                 #    echo "${Gateway[$x]}/${Gateway[$x]}.json" ;
                 #    echo "${Gateway[$x]}/manifest" ;
@@ -175,7 +134,18 @@ EOL
                 done
                 echo "${recipeCreate[@]}" ;
                 buildgateway ;
-            done                  	
+            done
+            # for (( p=0; p<"${recipeDeleteLatest[@]}"; p++ ))
+            #     do
+            #         if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${recipeDeleteLatest[$p]}" ]]; then
+            #             rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${recipeDeleteLatest[$p]}" ;
+            #             echo deleting "${recipeDeleteLatest[$p]}"
+            #         else
+            #             recipeCreate[$y]="${recipeDeleteLatest[$p]}";
+            #             echo creating gateway "${recipeDeleteLatest[$p]}"
+            #             buildgateway;                                
+            #         fi
+            #     done                      	
 	}
 
     function buildgateway()
@@ -323,6 +293,9 @@ EOL
                         fi
                         cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
                         create_dest_directory ;
+                        if [[ "${GOOSystem[$k]}" = linux ]]; then
+                            awscopytoLocal;
+                        fi    
                         recipe_registry ;
                     #    buildgateway ; 
                         cp -r $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/* $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp ;
