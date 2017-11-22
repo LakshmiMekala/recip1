@@ -76,7 +76,8 @@
                     #    eval Gateway[$x]=${Gateway[$x]}                       
                         recipeCreate[$y]=${Gateway[$x]} ;
                         echo "$recipeCreate[$y]" ;
-                        y=$y+1 ;
+                        echo value of y=$y
+                        y=$(y+1) ;
                     else
                         echo "${Gateway[$x]} not found in current commit ";
                     #    recipeDelete=$Gateway[$x] ;
