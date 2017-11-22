@@ -26,8 +26,7 @@ function awscopytoLocal()
 {
     aws s3 cp s3://test-bucket4569/master-builds/latest  $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" --recursive
  
-                recipeCreate=()
-                y=0; 
+                
                 pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/$destFolder
                 echo "#########Alert 1#####";
                 ls ;
@@ -58,9 +57,7 @@ function awscopytoLocal()
             do
                 if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${recipeDeleteLatest[$p]}" ]]; then
                     rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${recipeDeleteLatest[$p]}" ;
-                    echo deleting "${recipeDeleteLatest[$p]}"
-                else
-                    recipeCreate[$y]="${recipeDeleteLatest[$p]}";
+                    echo deleting "${recipeDeleteLatest[$p]}"                
                 fi
         done                                       	
 }    
@@ -159,7 +156,7 @@ function awscopytoLocal()
         tLen="${#recipeCreate[@]}" ;
         echo $tlen ;
         echo "#########Alert 9#####";
-        for (( y=0; y<"${#recipeCreate[@]}"; y++ ))
+        for (( y=0; y<${#recipeCreate[@]}; y++ ))
         do
         echo "#########Alert 12#####";
         if [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/${recipeCreate[$y]}.json ]] || [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/manifest ]] ; then
