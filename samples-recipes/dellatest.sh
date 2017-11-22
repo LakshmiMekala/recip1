@@ -127,9 +127,9 @@ function awscopytoLocal()
                     #    reicpetobuild=${Gateway[$x]} 
                     #    eval Gateway[$x]=${Gateway[$x]}
                         recipeCreate[$y]=${Gateway[$x]} ;
-                        if [[ -d $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}" ]] ; then
+                        if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeCreate[$y]}" ]] ; then
                             echo "#########Alert 3#####";
-                            rm -rf $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}";
+                            rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeCreate[$y]}";
                             echo "#########Alert 4#####";
                         fi
                         echo "${recipeCreate[$y]}" ;
@@ -161,8 +161,7 @@ function awscopytoLocal()
         #for (( y=0; y<${#recipeCreate[@]}; y++ ))
         do
         echo "#########Alert 12#####";
-        pushd
-        $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]} ;
+        pushd $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]} ;
         echo "#########Alert 20#####";
         ls;
         echo "#########Alert 21#####";
