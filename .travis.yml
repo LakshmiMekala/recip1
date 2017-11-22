@@ -25,7 +25,7 @@ install:
   
 script:
    - chmod ugo+x ./as2.sh ./buildtime.sh
-   - ./as2.sh
+#   - ./as2.sh
    - ./buildtime.sh
    - popd
 after_script:
