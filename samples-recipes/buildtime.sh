@@ -57,22 +57,22 @@
                     eval xpath_publish='.recipe_repos[$j].publish' ;
 
             publish_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish' | length') ; 
-		    echo "Found $publish_length recipes." ;        
+		    echo "Found $publish_length recipes." ; 
+                y=0;       
 		        for (( x=0; x<$publish_length; x++ ))
                 do  
                     eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;
                     Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
                     Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;
-                    var y=0;
                     echo $recipeName ;
                     echo "${Gateway[$x]}/${Gateway[$x]}.json" ;
                     echo "${Gateway[$x]}/manifest" ;
                     if [[ $recipeName =~ ${Gateway[$x]}/${Gateway[$x]}.json ]] || [[ $recipeName =~ ${Gateway[$x]}/manifest ]];then
                         echo "${Gateway[$x]} found in current commit" ;
                         echo "${Gateway[$x]}" ;                        
-                        recipeCreate[y]=${Gateway[$x]} ;
-                        echo "value for ${Gateway[$x]}=recipeCreate[y]" ;
-                        echo "$recipeCreate[y]" ;
+                        recipeCreate[$y]=${Gateway[$x]} ;
+                        echo "value for ${Gateway[$x]}=recipeCreate[$y]" ;
+                        echo "$recipeCreate[$y]" ;
                         y=y+1 ;
                     else
                         echo "${Gateway[$x]} not found in current commit ";
