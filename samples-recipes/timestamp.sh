@@ -61,9 +61,9 @@
                                 # creating gateway with values from publish
                                 displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json | jq '.gateway.display_image') ;
                                 displayImage=$(echo $displayImage | tr -d '"') ;
-                                echo "Start time for creating ${Gateway[$x]} :$(date +"%F %T")" >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/time/time-$TRAVIS_BUILD_NUMBER.log
-                                mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
-                                echo "End time for creating ${Gateway[$x]} :$(date +"%F %T")" >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/time/time-$TRAVIS_BUILD_NUMBER.log
+                               f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
+                                echo "End time for creati echo "Start time for creating ${Gateway[$x]} :$(date +"%F %T")" >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/time/time-$TRAVIS_BUILD_NUMBER.log
+                                mashling create -ng ${Gateway[$x]} :$(date +"%F %T")" >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/time/time-$TRAVIS_BUILD_NUMBER.log
                                 binarycheck ;
                                 recipeInfo ;                          
                     else
