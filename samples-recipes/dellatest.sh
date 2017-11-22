@@ -154,19 +154,23 @@ function awscopytoLocal()
 
     function buildgateway()
     {
-        echo "#########Alert 8#####";    
+        echo "#########Alert 8#####";
+        echo gateway array is "${recipeCreate[@]}";    
         tLen="${#recipeCreate[@]}" ;
         echo $tlen ;
         echo "#########Alert 9#####";
         for (( y=0; y<"${#recipeCreate[@]}"; y++ ))
         do
+        echo "#########Alert 12#####";
         if [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/${recipeCreate[$y]}.json ]] || [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/manifest ]] ; then
             displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}"/"${recipeCreate[$y]}".json | jq '.gateway.display_image') ;
             displayImage=$(echo $displayImage | tr -d '"') ;
             mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}"/"${recipeCreate[$y]}".json "${recipeCreate[$y]}";
             binarycheck ;
+        echo "#########Alert 13#####";    
         #    recipeInfo ;
         fi
+        echo "#########Alert 14#####";
         done
     }
 
