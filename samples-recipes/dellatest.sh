@@ -152,8 +152,7 @@ function awscopytoLocal()
     function buildgateway()
     {
         echo "#########Alert 8#####";
-        echo gateway array is "${recipeCreate[@]}";    
-        eval tLen="${#recipeCreate[@]}" ;
+        echo gateway array is "${recipeCreate[@]}";
         echo $tlen ;
         echo "#########Alert 9#####";
         for (( y=0; y<${#recipeCreate[@]}; y++ ))
