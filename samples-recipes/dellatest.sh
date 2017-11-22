@@ -166,6 +166,13 @@ function awscopytoLocal()
         echo "#########Alert 20#####";
         ls;
         echo "#########Alert 21#####";
+        cd ..
+        ls
+        echo "#########Alert 22#####";
+        git branch ;
+        echo "#########Alert 21#####";
+        #git checkout feature-mqtt-producer ;
+        echo "#########Alert 21#####";
         popd
         if [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/${recipeCreate[$y]}.json ]] || [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/manifest ]] ; then
             displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}"/"${recipeCreate[$y]}".json | jq '.gateway.display_image') ;
