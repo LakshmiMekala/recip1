@@ -6,9 +6,9 @@
 	pushd $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes
     # Fetching short commit id
     commitId=$(git diff --name-only HEAD~1) ;
-    echo $commitId
+#    echo $commitId
     #Copying files changed in commit to info.log file
-    echo $(git log -m -1 --name-status $commitId) >> $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/info.log ;
+#    echo $(git log -m -1 --name-status $commitId) >> $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/info.log ;
     recipeName=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/info.log) ;
     popd ;
 	function create_dest_directory ()
@@ -65,16 +65,15 @@
                     eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;
                     Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
                     Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;
-                    echo $recipeName ;
-                    echo "${Gateway[$x]}/${Gateway[$x]}.json" ;
-                    echo "${Gateway[$x]}/manifest" ;
+                #    echo $recipeName ;
+                #    echo "${Gateway[$x]}/${Gateway[$x]}.json" ;
+                #    echo "${Gateway[$x]}/manifest" ;
                     if [[ $recipeName =~ ${Gateway[$x]}/${Gateway[$x]}.json ]] || [[ $recipeName =~ ${Gateway[$x]}/manifest ]];then
                         echo "${Gateway[$x]} found in current commit" ;
                         echo "${Gateway[$x]}" ;
                     #    reicpetobuild=${Gateway[$x]} 
-                        eval Gateway[$x]=${Gateway[$x]}                       
+                    #    eval Gateway[$x]=${Gateway[$x]}                       
                         recipeCreate[$y]=${Gateway[$x]} ;
-                        echo "value for ${Gateway[$x]}=recipeCreate[$y]" ;
                         echo "$recipeCreate[$y]" ;
                         y=$y+1 ;
                     else
