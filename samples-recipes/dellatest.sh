@@ -161,6 +161,12 @@ function awscopytoLocal()
         #for (( y=0; y<${#recipeCreate[@]}; y++ ))
         do
         echo "#########Alert 12#####";
+        pushd
+        $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]} ;
+        echo "#########Alert 20#####";
+        ls;
+        echo "#########Alert 21#####";
+        popd
         if [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/${recipeCreate[$y]}.json ]] || [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/manifest ]] ; then
             displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}"/"${recipeCreate[$y]}".json | jq '.gateway.display_image') ;
             displayImage=$(echo $displayImage | tr -d '"') ;
