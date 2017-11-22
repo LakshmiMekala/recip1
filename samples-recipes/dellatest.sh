@@ -306,9 +306,4 @@ function awscopytoLocal()
         cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds
         git add .
         git commit -m "uploading v1"
-        git push    
-
-
-
-    
-
+        git push 
