@@ -153,6 +153,7 @@ function awscopytoLocal()
     {
         echo "#########Alert 8#####";
         echo gateway array is "${recipeCreate[@]}";
+        echo abc=${#recipeCreate[@]} ;
         echo gateway array is "${recipeCreate[0]}";
         echo $tlen ;
         echo "#########Alert 9#####";
