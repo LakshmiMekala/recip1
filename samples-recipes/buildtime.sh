@@ -6,6 +6,7 @@
 	pushd $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes
     # Fetching short commit id
     commitId=$(git diff --name-only HEAD~1) ;
+    echo $commitId
     #Copying files changed in commit to info.log file
     echo $(git log -m -1 --name-status $commitId) >> $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/info.log ;
     recipeName=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/info.log) ;
@@ -69,9 +70,9 @@
                     if [[ $recipeName =~ ${Gateway[$x]}/${Gateway[$x]}.json ]] || [[ $recipeName =~ ${Gateway[$x]}/manifest ]];then
                         echo "${Gateway[$x]} found in current commit" ;
                         echo "${Gateway[$x]}" ;                        
-                        recipeCreate[$y]=${Gateway[$x]} ;
-                        echo "value for ${Gateway[$x]}=recipeCreate[$y]" ;
-                        echo "$recipeCreate[$y]" ;
+                        recipeCreate[y]=${Gateway[$x]} ;
+                        echo "value for ${Gateway[$x]}=recipeCreate[y]" ;
+                        echo "$recipeCreate[y]" ;
                         y=y+1 ;
                     else
                         echo "${Gateway[$x]} not found in current commit ";
@@ -82,7 +83,7 @@
             done                  	
 	}
 
-    function buildgateway ()
+    function buildgateway()
     {
         tLen="${#recipeCreate[@]}" ;
         for (( y=0; y<"${tLen}"; y++ ))
@@ -102,7 +103,7 @@
             displayImage=$(echo $displayImage | tr -d '"') ;
             mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}"/"${recipeCreate[$y]}".json "${recipeCreate[$y]}";
             binarycheck ;
-            recipeInfo ;
+        #    recipeInfo ;
         fi
         done
     }
