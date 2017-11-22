@@ -60,7 +60,9 @@
             publish_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish' | length') ; 
 		    echo "Found $publish_length recipes." ; 
                 recipeCreate=()
-                y=0;       
+                recipeDelete=()
+                y=0;
+                z=0;       
 		        for (( x=0; x<$publish_length; x++ ))
                 do  
                     eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;
@@ -80,7 +82,9 @@
                         y=$y+1;
                     else
                         echo "${Gateway[$x]} not found in current commit ";
-                    #    recipeDelete=$Gateway[$x] ;
+                        recipeDelete=${Gateway[$x]} ;
+                        z=$z+1;
+                        echo "${recipeDelete[$y]}" ;
                     fi
                     recipeInfo ;                                                          
                 done
@@ -145,7 +149,7 @@
              cd "${recipeCreate[$y]}"  ;
                 mv bin "${recipeCreate[$y]}-${OS_NAME[$k]}" ;
                 mv  mashling.json "${recipeCreate[$y]}.mashling.json" ;
-                cp -r "${recipeCreate[$y]}.mashling.json" "${Gateway[$x]}-${OS_NAME[$k]}" ;
+                cp -r "${recipeCreate[$y]}.mashling.json" "${recipeCreate[$y]}-${OS_NAME[$k]}" ;
                 echo $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}"/"$displayImage"
                 if [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}"/"$displayImage" ]]; then
                 cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}"/$displayImage $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeCreate[$y]}"
@@ -246,7 +250,7 @@
         cp $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder";
         cp $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest;
         
-        
+    #    aws s3 cp s3://test-bucket4569/master-builds  $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds --recursive
         
         
         pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp ;
@@ -256,13 +260,14 @@
         cp recipeinfo.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest
         cp recipeinfo.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder";
         echo "alert json 6" ;
-        rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp ;
-        git add .
-        git commit -m "uploading v1"
-        git push
+        rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp ;        
         popd ;
 
 
+        cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds
+        git add .
+        git commit -m "uploading v1"
+        git push    
 
 
 
