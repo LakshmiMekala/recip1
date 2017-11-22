@@ -75,9 +75,9 @@
                     #    reicpetobuild=${Gateway[$x]} 
                     #    eval Gateway[$x]=${Gateway[$x]}                       
                         recipeCreate[$y]=${Gateway[$x]} ;
-                        echo "$recipeCreate[$y]" ;
+                        echo "${recipeCreate[$y]}" ;
                         echo value of y=$y
-                        y=$(y+1) ;
+                        y=$y+1 ;
                     else
                         echo "${Gateway[$x]} not found in current commit ";
                     #    recipeDelete=$Gateway[$x] ;
@@ -90,6 +90,7 @@
     function buildgateway()
     {
         tLen="${#recipeCreate[@]}" ;
+        echo $tlen ;
         for (( y=0; y<"${tLen}"; y++ ))
         # if [[ -d  $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes ]]; then
         #                         # creating gateway with values from publish
