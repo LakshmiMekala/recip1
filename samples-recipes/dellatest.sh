@@ -29,7 +29,9 @@ function awscopytoLocal()
                 recipeCreate=()
                 y=0; 
                 pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/$destFolder
+                echo "#########Alert 1#####";
                 ls ;
+                echo "#########Alert 2#####";
                 rm -rf recipeinfo.json recipe_registry.json
                 recipesInLatest=(*)
                 for ((i=0; i<${#recipesInLatest[@]}; i++)); 
@@ -40,9 +42,9 @@ function awscopytoLocal()
                 
                 echo "${recipesInLatest[@]}" ;
                 popd
-                recipeDeleteLatest=$(echo "${Gateway[@]}" "${recipesInLatest[@]}" | tr ' ' '\n' | sort | uniq -u);
-                echo "${recipeDeleteLatest[@]}";
-
+                #recipeDeleteLatest=$(echo "${Gateway[@]}" "${recipesInLatest[@]}" | tr ' ' '\n' | sort | uniq -u);
+                #echo "${recipeDeleteLatest[@]}";
+                echo "#########Test code#####";
                 recipeDeleteLatest=()
                 for z in "${recipesInLatest[@]}"; do
                     skip=
@@ -129,7 +131,9 @@ function awscopytoLocal()
                     #    eval Gateway[$x]=${Gateway[$x]}
                         recipeCreate[$y]=${Gateway[$x]} ;
                         if [[ -d $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}" ]] ; then
+                            echo "#########Alert 3#####";
                             rm -rf $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}";
+                            echo "#########Alert 4#####";
                         fi
                         echo "${recipeCreate[$y]}" ;
                         echo value of y=$y
@@ -139,16 +143,21 @@ function awscopytoLocal()
                     fi
                     recipeInfo ;                                                          
                 done
+                echo "#########Alert 5#####";
                 echo "${recipeCreate[@]}" ;
+                echo "#########Alert 6#####";
                 buildgateway ;
+                echo "#########Alert 7#####";
             done
                                    	
 	}
 
     function buildgateway()
     {
+        echo "#########Alert 8#####";    
         tLen="${#recipeCreate[@]}" ;
         echo $tlen ;
+        echo "#########Alert 9#####";
         for (( y=0; y<"${tLen}"; y++ ))
         do
         if [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/${recipeCreate[$y]}.json ]] || [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/manifest ]] ; then
@@ -294,8 +303,9 @@ function awscopytoLocal()
 
         cp $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder";
         cp $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest;
+        echo "#########Alert 10#####";
         cp -r $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/* $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest;
-        
+        echo "#########Alert 11#####";
     #    aws s3 cp s3://test-bucket4569/master-builds  $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds --recursive
         
         
