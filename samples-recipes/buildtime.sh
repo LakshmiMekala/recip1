@@ -79,25 +79,26 @@
     function buildgateway ()
     {
         tLen="${#recipeCreate[@]}" ;
-        for (( y=0; y<"${tLen}"; y++ ));
-        if [[ -d  $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes ]]; then
-                                # creating gateway with values from publish
-                                displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json | jq '.gateway.display_image') ;
-                                displayImage=$(echo $displayImage | tr -d '"') ;
-                                mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
-                                binarycheck ;                         
-        else
-                        echo "exiting the build as provider path is not a directory" ;
-                        exit 1 ;
-        fi  
-
-        if [[-f  ($GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/${recipeCreate[$y]}.json | $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/manifest ) ]] ; then
+        for (( y=0; y<"${tLen}"; y++ ))
+        # if [[ -d  $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes ]]; then
+        #                         # creating gateway with values from publish
+        #                         displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json | jq '.gateway.display_image') ;
+        #                         displayImage=$(echo $displayImage | tr -d '"') ;
+        #                         mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
+        #                         binarycheck ;                         
+        # else
+        #                 echo "exiting the build as provider path is not a directory" ;
+        #                 exit 1 ;
+        # fi  
+        do
+        if [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/${recipeCreate[$y]}.json ]] || [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/manifest ]] ; then
             displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}"/"${recipeCreate[$y]}".json | jq '.gateway.display_image') ;
             displayImage=$(echo $displayImage | tr -d '"') ;
             mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}"/"${recipeCreate[$y]}".json "${recipeCreate[$y]}";
             binarycheck ;
             recipeInfo ;
         fi
+        done
     }
 
     function binarycheck()
