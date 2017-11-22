@@ -8,8 +8,9 @@
     commitId=$(git diff --name-only HEAD~1) ;
 #    echo $commitId
     #Copying files changed in commit to info.log file
-#    echo $(git log -m -1 --name-status $commitId) >> $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/info.log ;
+    echo $(git log -m -1 --name-status $commitId) >> $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/info.log ;
     recipeName=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/info.log) ;
+    echo $recipeName
     popd ;
 	function create_dest_directory ()
 	{
