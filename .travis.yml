@@ -18,13 +18,13 @@ install:
   - go install ./...
   - cd $GOPATH/src/github.com/TIBCOSoftware
   - git clone https://github.com/TIBCOSoftware/mashling-recipes.git
-  - git clone -b timestamp https://github.com/LakshmiMekala/recip1.git
+  - git clone -b optimizetime https://github.com/LakshmiMekala/recip1.git
   - pushd recip1/samples-recipes
   - mkdir -p master-builds/latest/temp builds/latest
   
 script:
-   - chmod ugo+x ./f19.sh ./timestamp.sh
-   - ./timestamp.sh
+   - chmod ugo+x ./f19.sh ./buildtime.sh
+   - ./buildtime.sh
    - popd
 after_script:
   - "[ -f \"${HOME}/.netrc\" ] && rm -f ${HOME}/.netrc"
