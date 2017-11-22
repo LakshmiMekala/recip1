@@ -11,6 +11,16 @@ cat > ${HOME}/.aws/credentials <<EOL
 aws_access_key_id = ${SITE_KEY}
 aws_secret_access_key = ${SITE_KEY_SECRET}
 EOL
+
+pushd $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes
+    # Fetching short commit id
+    commitId=$(git diff --name-only HEAD~1) ;
+#    echo $commitId
+    #Copying files changed in commit to info.log file
+    echo $(git log -m -1 --name-status $commitId) >> $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/info.log ;
+    recipeName=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/info.log) ;
+    echo $recipeName
+    popd ;
 ##################################################################### 
 function awscopytoLocal()
 {
@@ -33,7 +43,7 @@ function awscopytoLocal()
                 recipeDeleteLatest=$(echo "${Gateway[@]}" "${recipesInLatest[@]}" | tr ' ' '\n' | sort | uniq -u);
                 echo "${recipeDeleteLatest[@]}";
 
-                for (( p=0; p<"${recipeDeleteLatest[@]}"; p++ ))
+                for (( p=0; p<${#recipeDeleteLatest[@]}; p++ ))
                 do
                     if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${recipeDeleteLatest[$p]}" ]]; then
                         rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${recipeDeleteLatest[$p]}" ;
@@ -43,17 +53,7 @@ function awscopytoLocal()
                         echo creating gateway "${recipeDeleteLatest[$p]}"
                         buildgateway;                                
                     fi
-                done
-    
-	pushd $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes
-    # Fetching short commit id
-    commitId=$(git diff --name-only HEAD~1) ;
-#    echo $commitId
-    #Copying files changed in commit to info.log file
-    echo $(git log -m -1 --name-status $commitId) >> $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/info.log ;
-    recipeName=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/info.log) ;
-    echo $recipeName
-    popd ;
+                done	
 }    
 ###########################################################################
 
@@ -308,7 +308,7 @@ function awscopytoLocal()
 
         cp $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder";
         cp $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest;
-        cp -r $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest;
+        cp -r $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/* $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest;
         
     #    aws s3 cp s3://test-bucket4569/master-builds  $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds --recursive
         
