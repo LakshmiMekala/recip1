@@ -1,5 +1,6 @@
 #!/bin/bash
 	
+#    aws cp -r $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds
 	name="${TRAVIS_REPO_SLUG}" ;
 	namefolder=${name:14} ;
 	pushd $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes
