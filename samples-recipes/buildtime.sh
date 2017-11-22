@@ -58,6 +58,7 @@
 
             publish_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish' | length') ; 
 		    echo "Found $publish_length recipes." ; 
+                recipeCreate=()
                 y=0;       
 		        for (( x=0; x<$publish_length; x++ ))
                 do  
@@ -69,8 +70,9 @@
                     echo "${Gateway[$x]}/manifest" ;
                     if [[ $recipeName =~ ${Gateway[$x]}/${Gateway[$x]}.json ]] || [[ $recipeName =~ ${Gateway[$x]}/manifest ]];then
                         echo "${Gateway[$x]} found in current commit" ;
-                        echo "${Gateway[$x]}" ;                        
-                        recipeCreate[$y]=${Gateway[$x]} ;
+                        echo "${Gateway[$x]}" ;
+                        reicpetobuild=${Gateway[$x]}                        
+                        recipeCreate[$y]=$reicpetobuild ;
                         echo "value for ${Gateway[$x]}=recipeCreate[$y]" ;
                         echo "$recipeCreate[$y]" ;
                         y=y+1 ;
