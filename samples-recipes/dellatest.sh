@@ -153,7 +153,7 @@ function awscopytoLocal()
     {
         echo "#########Alert 8#####";
         echo gateway array is "${recipeCreate[@]}";    
-        tLen="${#recipeCreate[@]}" ;
+        eval tLen="${#recipeCreate[@]}" ;
         echo $tlen ;
         echo "#########Alert 9#####";
         for (( y=0; y<${#recipeCreate[@]}; y++ ))
@@ -295,8 +295,11 @@ function awscopytoLocal()
                         fi    
                         recipe_registry ;
                     #    buildgateway ; 
+                        echo "#########Alert 15#####";
                         cp -r $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/* $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp ;
+                        echo "#########Alert 16#####";
                         rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
+                        echo "#########Alert 17#####";
                 done
 
         mv $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder";    
