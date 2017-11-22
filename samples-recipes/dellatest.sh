@@ -28,9 +28,6 @@ function awscopytoLocal()
  
                 
                 pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/$destFolder
-                echo "#########Alert 1#####";
-                ls ;
-                echo "#########Alert 2#####";
                 rm -rf recipeinfo.json recipe_registry.json
                 recipesInLatest=(*)
                 for ((i=0; i<${#recipesInLatest[@]}; i++)); 
@@ -55,8 +52,8 @@ function awscopytoLocal()
                 declare -p recipeDeleteLatest
         for (( p=0; p<${#recipeDeleteLatest[@]}; p++ ))
             do
-                if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${recipeDeleteLatest[$p]}" ]]; then
-                    rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${recipeDeleteLatest[$p]}" ;
+                if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeDeleteLatest[$p]}" ]]; then
+                    rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeDeleteLatest[$p]}" ;
                     echo deleting "${recipeDeleteLatest[$p]}"                
                 fi
         done                                       	
@@ -128,9 +125,7 @@ function awscopytoLocal()
                     #    eval Gateway[$x]=${Gateway[$x]}
                         recipeCreate[$y]=${Gateway[$x]} ;
                         if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeCreate[$y]}" ]] ; then
-                            echo "#########Alert 3#####";
                             rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeCreate[$y]}";
-                            echo "#########Alert 4#####";
                         fi
                         echo "${recipeCreate[$y]}" ;
                         echo value of y=$y
@@ -140,48 +135,24 @@ function awscopytoLocal()
                     fi
                     recipeInfo ;                                                          
                 done
-                echo "#########Alert 5#####";
                 echo "${recipeCreate[@]}" ;
-                echo "#########Alert 6#####";
                 buildgateway ;
-                echo "#########Alert 7#####";
             done
                                    	
 	}
 
     function buildgateway()
     {
-        echo "#########Alert 8#####";
         echo gateway array is "${recipeCreate[@]}";
-        echo abc=${#recipeCreate[@]} ;
-        echo gateway array is "${recipeCreate[0]}";
-        echo $tlen ;
-        echo "#########Alert 9#####";
         for (( y=0; y < "${#recipeCreate[@]}"; y++ ));
-        #for (( y=0; y<${#recipeCreate[@]}; y++ ))
         do
-        echo "#########Alert 12#####";
-        pushd $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]} ;
-        echo "#########Alert 20#####";
-        ls;
-        echo "#########Alert 21#####";
-        cd ..
-        ls
-        echo "#########Alert 22#####";
-        git branch ;
-        echo "#########Alert 21#####";
-        #git checkout feature-mqtt-producer ;
-        echo "#########Alert 21#####";
-        popd
         if [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/${recipeCreate[$y]}.json ]] || [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/manifest ]] ; then
             displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}"/"${recipeCreate[$y]}".json | jq '.gateway.display_image') ;
             displayImage=$(echo $displayImage | tr -d '"') ;
+            echo "creating ${recipeCreate[$y]} gateway"
             mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}"/"${recipeCreate[$y]}".json "${recipeCreate[$y]}";
             binarycheck ;
-        echo "#########Alert 13#####";    
-        #    recipeInfo ;
         fi
-        echo "#########Alert 14#####";
         done
     }
 
@@ -219,9 +190,7 @@ function awscopytoLocal()
                 echo $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}"/"$displayImage"
                 if [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}"/"$displayImage" ]]; then
                 cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}"/$displayImage $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeCreate[$y]}"
-                echo "alert test";
                 fi
-                echo "test 123"
                 echo "$displayImage";
                 rm -r src vendor pkg ;
                     # Changing directory to  binary containing folder
@@ -267,7 +236,6 @@ function awscopytoLocal()
     {
         if [[ "${GOOSystem[$k]}" == windows ]]; then      
 
-        echo "alert json 1" ; 
         idvalue="${Gateway[$x]}" ;   
         eval xpath_featured='.recipe_repos[$j].publish[$x].featured' ;
         featuredvalue=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_featured) ;
@@ -279,7 +247,6 @@ function awscopytoLocal()
         linuxurl=/${Gateway[$x]}/${Gateway[$x]}-linux.zip ;
         windowsurl=/${Gateway[$x]}/${Gateway[$x]}-windows.zip ;
 
-        echo "alert json 2" ;
         jo -p id=$idvalue featured=$featuredvalue repository_url=$sourceURL json_url=$jsonURL image_url=$imageURL binaries=[$(jo  platform=mac url=$macurl),$(jo  platform=linux url=$linuxurl),$(jo  platform=windows url=$windowsurl)] >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp/recipe1-[$x].json ;
         echo "alert json 3" ;
         jq -s '.[0] * .[1]' $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp/recipe1-[$x].json >> $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp/recipe-[$x].json ;
@@ -308,7 +275,6 @@ function awscopytoLocal()
                             awscopytoLocal;
                         fi    
                         recipe_registry ;
-                    #    buildgateway ; 
                         echo "#########Alert 15#####";
                         pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder";
                         ls ;
@@ -324,12 +290,8 @@ function awscopytoLocal()
 
         cp $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder";
         cp $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest;
-        echo "#########Alert 10#####";
         cp -r $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/* $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest;
-        echo "#########Alert 11#####";
-    #    aws s3 cp s3://test-bucket4569/master-builds  $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds --recursive
-        
-        
+                
         pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/temp ;
         echo "alert json 4" ;
         jq -s '.' recipe-*.json > recipeinfo.json
