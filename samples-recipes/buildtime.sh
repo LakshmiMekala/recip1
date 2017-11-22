@@ -77,13 +77,14 @@
                         recipeCreate[$y]=${Gateway[$x]} ;
                         echo "${recipeCreate[$y]}" ;
                         echo value of y=$y
-                        y=$y++;
+                        y=$y+1;
                     else
                         echo "${Gateway[$x]} not found in current commit ";
                     #    recipeDelete=$Gateway[$x] ;
                     fi
                     recipeInfo ;                                                          
                 done
+                echo "${recipeCreate[@]}" ;
                 buildgateway ;
             done                  	
 	}
