@@ -84,6 +84,7 @@
                     fi
                     recipeInfo ;                                                          
                 done
+                buildgateway ;
             done                  	
 	}
 
@@ -233,7 +234,7 @@
                         cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
                         create_dest_directory ;
                         recipe_registry ;
-                        buildgateway ; 
+                    #    buildgateway ; 
                         cp -r $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/* $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp ;
                         rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
                 done
