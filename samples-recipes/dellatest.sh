@@ -43,17 +43,24 @@ function awscopytoLocal()
                 recipeDeleteLatest=$(echo "${Gateway[@]}" "${recipesInLatest[@]}" | tr ' ' '\n' | sort | uniq -u);
                 echo "${recipeDeleteLatest[@]}";
 
-                for (( p=0; p<${#recipeDeleteLatest[@]}; p++ ))
-                do
-                    if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${recipeDeleteLatest[$p]}" ]]; then
-                        rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${recipeDeleteLatest[$p]}" ;
-                        echo deleting "${recipeDeleteLatest[$p]}"
-                    else
-                        recipeCreate[$y]="${recipeDeleteLatest[$p]}";
-                        echo creating gateway "${recipeDeleteLatest[$p]}"
-                        buildgateway;                                
-                    fi
-                done	
+                recipeDeleteLatest=()
+                for z in "${recipesInLatest[@]}"; do
+                    skip=
+                    for l in "${Gateway[@]}"; do
+                        [[ $z == $l ]] && { skip=1; break; }
+                    done
+                    [[ -n $skip ]] || recipeDeleteLatest+=("$z")
+                done
+                declare -p recipeDeleteLatest
+        for (( p=0; p<${#recipeDeleteLatest[@]}; p++ ))
+            do
+                if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${recipeDeleteLatest[$p]}" ]]; then
+                    rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${recipeDeleteLatest[$p]}" ;
+                    echo deleting "${recipeDeleteLatest[$p]}"
+                else
+                    recipeCreate[$y]="${recipeDeleteLatest[$p]}";
+                fi
+        done                                       	
 }    
 ###########################################################################
 
@@ -89,8 +96,9 @@ function awscopytoLocal()
     }
     
 	function recipe_registry()
-	{
-		#Extracting publish binaries from recipe_registry.json
+	{          
+    
+    	#Extracting publish binaries from recipe_registry.json
     	#array_length=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
         array_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
 
@@ -105,9 +113,7 @@ function awscopytoLocal()
             publish_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish' | length') ; 
 		    echo "Found $publish_length recipes." ; 
                 recipeCreate=()
-                recipeDelete=()
-                y=0;
-                z=0;       
+                y=0;       
 		        for (( x=0; x<$publish_length; x++ ))
                 do  
                     eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;
@@ -120,33 +126,23 @@ function awscopytoLocal()
                         echo "${Gateway[$x]} found in current commit" ;
                         echo "${Gateway[$x]}" ;
                     #    reicpetobuild=${Gateway[$x]} 
-                    #    eval Gateway[$x]=${Gateway[$x]}                       
+                    #    eval Gateway[$x]=${Gateway[$x]}
                         recipeCreate[$y]=${Gateway[$x]} ;
+                        if [[ -d $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}" ]] ; then
+                            rm -rf $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}";
+                        fi
                         echo "${recipeCreate[$y]}" ;
                         echo value of y=$y
                         y=$y+1;
                     else
                         echo "${Gateway[$x]} not found in current commit ";
-                        recipeDelete=${Gateway[$x]} ;
-                        z=$z+1;
-                        echo "${recipeDelete[$y]}" ;
                     fi
                     recipeInfo ;                                                          
                 done
                 echo "${recipeCreate[@]}" ;
                 buildgateway ;
             done
-            # for (( p=0; p<"${recipeDeleteLatest[@]}"; p++ ))
-            #     do
-            #         if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${recipeDeleteLatest[$p]}" ]]; then
-            #             rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/latest/"${recipeDeleteLatest[$p]}" ;
-            #             echo deleting "${recipeDeleteLatest[$p]}"
-            #         else
-            #             recipeCreate[$y]="${recipeDeleteLatest[$p]}";
-            #             echo creating gateway "${recipeDeleteLatest[$p]}"
-            #             buildgateway;                                
-            #         fi
-            #     done                      	
+                                   	
 	}
 
     function buildgateway()
@@ -154,16 +150,6 @@ function awscopytoLocal()
         tLen="${#recipeCreate[@]}" ;
         echo $tlen ;
         for (( y=0; y<"${tLen}"; y++ ))
-        # if [[ -d  $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes ]]; then
-        #                         # creating gateway with values from publish
-        #                         displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json | jq '.gateway.display_image') ;
-        #                         displayImage=$(echo $displayImage | tr -d '"') ;
-        #                         mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${Gateway[$x]}"/"${Gateway[$x]}".json "${Gateway[$x]}";
-        #                         binarycheck ;                         
-        # else
-        #                 echo "exiting the build as provider path is not a directory" ;
-        #                 exit 1 ;
-        # fi  
         do
         if [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/${recipeCreate[$y]}.json ]] || [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/manifest ]] ; then
             displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}"/"${recipeCreate[$y]}".json | jq '.gateway.display_image') ;
