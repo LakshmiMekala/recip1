@@ -41,6 +41,33 @@ function awscopytoLocal()
                 #recipeDeleteLatest=$(echo "${Gateway[@]}" "${recipesInLatest[@]}" | tr ' ' '\n' | sort | uniq -u);
                 #echo "${recipeDeleteLatest[@]}";
                 echo "#########Test code#####";
+                echo ##########################################################
+                echo "${recipesInLatest[@]}" ;
+                echo ##########################################################
+        
+                array_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
+
+		echo "Found $array_length recipe providers." ;        
+		    for (( j = 0; j < $array_length; j++ ))
+                do
+                    echo "value of j=$j" ;
+                    #eval provider and publish
+                   
+                    eval xpath_publish='.recipe_repos[$j].publish' ;
+
+            publish_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish' | length') ; 
+		    echo "Found $publish_length recipes." ; 
+                recipeCreate=()
+                y=0;       
+		        for (( x=0; x<$publish_length; x++ ))
+                do  
+                    eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;
+                    Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
+                    Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;      
+                done
+                echo "${Gateway[@]}" ;
+                echo ##########################################################
+
                 recipeDeleteLatest=()
                 for z in "${recipesInLatest[@]}"; do
                     skip=
@@ -50,13 +77,21 @@ function awscopytoLocal()
                     [[ -n $skip ]] || recipeDeleteLatest+=("$z")
                 done
                 declare -p recipeDeleteLatest
-        for (( p=0; p<${#recipeDeleteLatest[@]}; p++ ))
-            do
+            for (( p=0; p<${#recipeDeleteLatest[@]}; p++ ))
+                do
                 if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeDeleteLatest[$p]}" ]]; then
                     rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeDeleteLatest[$p]}" ;
                     echo deleting "${recipeDeleteLatest[$p]}"                
                 fi
-        done                                       	
+                done    
+            done               
+        
+        
+        
+        
+        
+        
+                                                   	
 }    
 ###########################################################################
 
@@ -114,7 +149,7 @@ function awscopytoLocal()
                 do  
                     eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;
                     Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
-                    Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;                  
+                    Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;
                 #    echo $recipeName ;
                 #    echo "${Gateway[$x]}/${Gateway[$x]}.json" ;
                 #    echo "${Gateway[$x]}/manifest" ;
