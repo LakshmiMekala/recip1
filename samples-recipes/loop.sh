@@ -38,6 +38,7 @@ function publisharray()
                     Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
                     Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;      
                 done
+                done
 }
 
 function awscopytoLocal()
@@ -77,8 +78,7 @@ function awscopytoLocal()
             rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeDeleteLatest[$p]}" ;
             echo deleting "${recipeDeleteLatest[$p]}"                
         fi
-        done    
-    done                                   	
+        done                               	
 }    
 ###########################################################################
 
@@ -136,9 +136,7 @@ function awscopytoLocal()
             recipeInfo ;                                                          
         done
         echo "${recipeCreate[@]}" ;
-        buildgateway ;
-    done
-                                   	
+        buildgateway ;                                   	
 	}
 
     function buildgateway()
