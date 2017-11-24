@@ -22,6 +22,31 @@ pushd $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes
     echo $recipeName
     popd ;
 ##################################################################### 
+
+function publisharray()
+{
+    array_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
+
+		echo "Found $array_length recipe providers." ;        
+		    for (( j = 0; j < $array_length; j++ ))
+                do
+                    echo "value of j=$j" ;
+                    #eval provider and publish
+                   
+                    eval xpath_publish='.recipe_repos[$j].publish' ;
+
+            publish_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish' | length') ; 
+		    echo "Found $publish_length recipes." ; 
+                recipeCreate=()
+                y=0;       
+		        for (( x=0; x<$publish_length; x++ ))
+                do  
+                    eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;
+                    Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
+                    Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;      
+                done
+}
+
 function awscopytoLocal()
 {
     aws s3 cp s3://test-bucket4569/master-builds/latest  $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" --recursive
@@ -45,29 +70,10 @@ function awscopytoLocal()
                 echo "${recipesInLatest[@]}" ;
                 echo ##########################################################
         
-                array_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
-
-		echo "Found $array_length recipe providers." ;        
-		    for (( j = 0; j < $array_length; j++ ))
-                do
-                    echo "value of j=$j" ;
-                    #eval provider and publish
-                   
-                    eval xpath_publish='.recipe_repos[$j].publish' ;
-
-            publish_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish' | length') ; 
-		    echo "Found $publish_length recipes." ; 
-                recipeCreate=()
-                y=0;       
-		        for (( x=0; x<$publish_length; x++ ))
-                do  
-                    eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;
-                    Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
-                    Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;      
-                done
+        
                 echo "${Gateway[@]}" ;
                 echo ##########################################################
-
+                publisharray ;    
                 recipeDeleteLatest=()
                 for z in "${recipesInLatest[@]}"; do
                     skip=
@@ -129,22 +135,23 @@ function awscopytoLocal()
 	function recipe_registry()
 	{          
     
-    	#Extracting publish binaries from recipe_registry.json
-    	#array_length=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
-        array_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
+    	# #Extracting publish binaries from recipe_registry.json
+    	# #array_length=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
+        # array_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
 
-		echo "Found $array_length recipe providers." ;        
-		    for (( j = 0; j < $array_length; j++ ))
-                do
-                    echo "value of j=$j" ;
-                    #eval provider and publish
+		# echo "Found $array_length recipe providers." ;        
+		#     for (( j = 0; j < $array_length; j++ ))
+        #         do
+        #             echo "value of j=$j" ;
+        #             #eval provider and publish
                    
-                    eval xpath_publish='.recipe_repos[$j].publish' ;
+        #             eval xpath_publish='.recipe_repos[$j].publish' ;
 
-            publish_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish' | length') ; 
-		    echo "Found $publish_length recipes." ; 
-                recipeCreate=()
-                y=0;       
+        #     publish_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish' | length') ; 
+		#     echo "Found $publish_length recipes." ; 
+        #         recipeCreate=()
+        #         y=0;
+                publisharray ;       
 		        for (( x=0; x<$publish_length; x++ ))
                 do  
                     eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;

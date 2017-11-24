@@ -21,7 +21,7 @@ install:
   - git clone -b feature-add-basic-auth-to-registry https://github.com/TIBCOSoftware/mashling-recipes.git
   - git clone -b optimizetime https://github.com/LakshmiMekala/recip1.git
   - pushd recip1/samples-recipes
-  - rmdir -rf master-builds/latest 
+  - rm -rf master-builds/latest 
   - mkdir -p master-builds/latest/temp builds/latest
   
 script:
