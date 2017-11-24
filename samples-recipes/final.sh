@@ -1,8 +1,8 @@
 #!/bin/bash
+
+
 name="${TRAVIS_REPO_SLUG}" ;
 namefolder=${name:14} ;
-############################################################################
-mkdir ${HOME}/.aws
 cat > ${HOME}/.aws/credentials <<EOL
 [default]
 aws_access_key_id = ${SITE_KEY}
@@ -17,28 +17,6 @@ EOL
     recipeName=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/info.log) ;
     echo $recipeName
     popd ;
-##################################################################### 
-
-#function publisharray()
-# {
-#     array_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ;
-#     echo "Found $array_length recipe providers." ;        
-#     for (( j = 0; j < $array_length; j++ ))
-#     do
-#         echo "value of j=$j" ;
-#         #eval provider and publish                   
-#         eval xpath_publish='.recipe_repos[$j].publish' ;
-#         publish_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish' | length') ; 
-#         echo "Found $publish_length recipes." ;
-#         for (( x=0; x<$publish_length; x++ ))
-#         do  
-#             eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;
-#             Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
-#             Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;      
-#         done
-#         deleteLatest ;  
-#     done
-# }
 
 function deleteLatest()
 {
@@ -60,7 +38,7 @@ function deleteLatest()
                 done
 }
 
-function awscopytoLocal()
+function S3copytoLocal()
 {
     aws s3 cp s3://test-bucket4569/master-builds/latest  $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" --recursive
     pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/$destFolder
@@ -118,7 +96,6 @@ function recipe_registry()
                 eval xpath_publish='.recipe_repos[$j].publish' ;
                 publish_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish' | length') ; 
                 echo "Found $publish_length recipes." ;
-echo "=========================================================================="
                 if [[ "${GOOSystem[$k]}" = linux ]]; then
                     for (( x=0; x<$publish_length; x++ ))
                     do  
@@ -126,10 +103,9 @@ echo "==========================================================================
                         Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
                         Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;      
                     done
-                    echo "alertA" ;
+                    echo "${Gateway[@]}" ;
                     deleteLatest ;   
                 fi
-echo "=========================================================================="
                 recipeCreate=()
                 y=0; 
                 for (( x=0; x<$publish_length; x++ ))
@@ -285,7 +261,7 @@ function recipeInfo()
                     cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
                     create_dest_directory ;
                     if [[ "${GOOSystem[$k]}" = linux ]]; then
-                        awscopytoLocal;
+                        S3copytoLocal;
                     fi    
                     recipe_registry ;
                     echo "#########Alert 15#####";
