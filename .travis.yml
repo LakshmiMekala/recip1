@@ -25,8 +25,9 @@ install:
   - mkdir -p master-builds/latest/temp builds/latest
   
 script:
-   - chmod ugo+x ./as2.sh ./buildtime.sh ./dellatest.sh
-   - ./dellatest.sh
+   - chmod ugo+x ./as2.sh ./buildtime.sh ./dellatest.sh ./loop.sh
+   - ./loop.sh
+#   - ./dellatest.sh
 #   - ./as2.sh
 #   - ./buildtime.sh
    - popd

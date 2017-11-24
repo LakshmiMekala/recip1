@@ -1,11 +1,8 @@
 #!/bin/bash
-	
-#    aws cp -r $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds
-	name="${TRAVIS_REPO_SLUG}" ;
-	namefolder=${name:14} ;
+name="${TRAVIS_REPO_SLUG}" ;
+namefolder=${name:14} ;
 ############################################################################
-    mkdir ${HOME}/.aws
-
+mkdir ${HOME}/.aws
 cat > ${HOME}/.aws/credentials <<EOL
 [default]
 aws_access_key_id = ${SITE_KEY}
@@ -13,9 +10,9 @@ aws_secret_access_key = ${SITE_KEY_SECRET}
 EOL
 
 pushd $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes
-    # Fetching short commit id
+    #Fetching short commit id
     commitId=$(git diff --name-only HEAD~1) ;
-#    echo $commitId
+    #echo $commitId
     #Copying files changed in commit to info.log file
     echo $(git log -m -1 --name-status $commitId) >> $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/info.log ;
     recipeName=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/info.log) ;
@@ -31,14 +28,10 @@ function publisharray()
 		    for (( j = 0; j < $array_length; j++ ))
                 do
                     echo "value of j=$j" ;
-                    #eval provider and publish
-                   
+                    #eval provider and publish                   
                     eval xpath_publish='.recipe_repos[$j].publish' ;
-
             publish_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish' | length') ; 
-		    echo "Found $publish_length recipes." ; 
-                recipeCreate=()
-                y=0;       
+		    echo "Found $publish_length recipes." ;
 		        for (( x=0; x<$publish_length; x++ ))
                 do  
                     eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;
@@ -50,54 +43,42 @@ function publisharray()
 function awscopytoLocal()
 {
     aws s3 cp s3://test-bucket4569/master-builds/latest  $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" --recursive
- 
-                
-                pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/$destFolder
-                rm -rf recipeinfo.json recipe_registry.json
-                recipesInLatest=(*)
-                for ((i=0; i<${#recipesInLatest[@]}; i++)); 
-                do 
-                    echo "${recipesInLatest[$i]}"; 
-                    recipesInLatest[$i]=${recipesInLatest[$i]}
-                done
-                
-                echo "${recipesInLatest[@]}" ;
-                popd
-                #recipeDeleteLatest=$(echo "${Gateway[@]}" "${recipesInLatest[@]}" | tr ' ' '\n' | sort | uniq -u);
-                #echo "${recipeDeleteLatest[@]}";
-                echo "#########Test code#####";
-                echo ##########################################################
-                echo "${recipesInLatest[@]}" ;
-                echo ##########################################################
-        
-        
-                echo "${Gateway[@]}" ;
-                echo ##########################################################
-                publisharray ;    
-                recipeDeleteLatest=()
-                for z in "${recipesInLatest[@]}"; do
-                    skip=
-                    for l in "${Gateway[@]}"; do
-                        [[ $z == $l ]] && { skip=1; break; }
-                    done
-                    [[ -n $skip ]] || recipeDeleteLatest+=("$z")
-                done
-                declare -p recipeDeleteLatest
-            for (( p=0; p<${#recipeDeleteLatest[@]}; p++ ))
-                do
-                if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeDeleteLatest[$p]}" ]]; then
-                    rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeDeleteLatest[$p]}" ;
-                    echo deleting "${recipeDeleteLatest[$p]}"                
-                fi
-                done    
-            done               
-        
-        
-        
-        
-        
-        
-                                                   	
+        pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/$destFolder
+        rm -rf recipeinfo.json recipe_registry.json
+        recipesInLatest=(*)
+        for ((i=0; i<${#recipesInLatest[@]}; i++)); 
+        do 
+            echo "${recipesInLatest[$i]}"; 
+            recipesInLatest[$i]=${recipesInLatest[$i]}
+        done                
+        echo "${recipesInLatest[@]}" ;
+        popd
+        #recipeDeleteLatest=$(echo "${Gateway[@]}" "${recipesInLatest[@]}" | tr ' ' '\n' | sort | uniq -u);
+        #echo "${recipeDeleteLatest[@]}";
+        echo "#########Test code#####";
+        echo ##########################################################
+        echo "${recipesInLatest[@]}" ;
+        echo ##########################################################        
+        echo "${Gateway[@]}" ;
+        echo ##########################################################
+        publisharray ;    
+        recipeDeleteLatest=()
+        for z in "${recipesInLatest[@]}"; do
+            skip=
+            for l in "${Gateway[@]}"; do
+                [[ $z == $l ]] && { skip=1; break; }
+            done
+            [[ -n $skip ]] || recipeDeleteLatest+=("$z")
+        done
+        declare -p recipeDeleteLatest
+        for (( p=0; p<${#recipeDeleteLatest[@]}; p++ ))
+        do
+        if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeDeleteLatest[$p]}" ]]; then
+            rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeDeleteLatest[$p]}" ;
+            echo deleting "${recipeDeleteLatest[$p]}"                
+        fi
+        done    
+    done                                   	
 }    
 ###########################################################################
 
@@ -133,53 +114,30 @@ function awscopytoLocal()
     }
     
 	function recipe_registry()
-	{          
-    
-    	# #Extracting publish binaries from recipe_registry.json
-    	# #array_length=$(cat ../../../../mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
-        # array_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ; 
-
-		# echo "Found $array_length recipe providers." ;        
-		#     for (( j = 0; j < $array_length; j++ ))
-        #         do
-        #             echo "value of j=$j" ;
-        #             #eval provider and publish
-                   
-        #             eval xpath_publish='.recipe_repos[$j].publish' ;
-
-        #     publish_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish' | length') ; 
-		#     echo "Found $publish_length recipes." ; 
-        #         recipeCreate=()
-        #         y=0;
-                publisharray ;       
-		        for (( x=0; x<$publish_length; x++ ))
-                do  
-                    eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;
-                    Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
-                    Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;
-                #    echo $recipeName ;
-                #    echo "${Gateway[$x]}/${Gateway[$x]}.json" ;
-                #    echo "${Gateway[$x]}/manifest" ;
-                    if [[ $recipeName =~ ${Gateway[$x]}/${Gateway[$x]}.json ]] || [[ $recipeName =~ ${Gateway[$x]}/manifest ]];then
-                        echo "${Gateway[$x]} found in current commit" ;
-                        echo "${Gateway[$x]}" ;
-                    #    reicpetobuild=${Gateway[$x]} 
-                    #    eval Gateway[$x]=${Gateway[$x]}
-                        recipeCreate[$y]=${Gateway[$x]} ;
-                        if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeCreate[$y]}" ]] ; then
-                            rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeCreate[$y]}";
-                        fi
-                        echo "${recipeCreate[$y]}" ;
-                        echo value of y=$y
-                        y=$y+1;
-                    else
-                        echo "${Gateway[$x]} not found in current commit ";
-                    fi
-                    recipeInfo ;                                                          
-                done
-                echo "${recipeCreate[@]}" ;
-                buildgateway ;
-            done
+	{
+        publisharray ;
+        recipeCreate=()
+        y=0;       
+        for (( x=0; x<$publish_length; x++ ))
+        do
+        if [[ $recipeName =~ ${Gateway[$x]}/${Gateway[$x]}.json ]] || [[ $recipeName =~ ${Gateway[$x]}/manifest ]];then
+            echo "${Gateway[$x]} found in current commit" ;
+            echo "${Gateway[$x]}" ;
+                recipeCreate[$y]=${Gateway[$x]} ;
+                if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeCreate[$y]}" ]] ; then
+                    rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeCreate[$y]}";
+                fi
+                echo "${recipeCreate[$y]}" ;
+                echo value of y=$y
+                y=$y+1;
+            else
+                echo "${Gateway[$x]} not found in current commit ";
+            fi
+            recipeInfo ;                                                          
+        done
+        echo "${recipeCreate[@]}" ;
+        buildgateway ;
+    done
                                    	
 	}
 
