@@ -62,7 +62,7 @@
     "featured": true,
     "repository_url": "https://github.com/TIBCOSoftware/mashling-recipes/tree/master/recipes/event-dispatcher-router-mashling",
     "json_url": "/event-dispatcher-router-mashling/event-dispatcher-router-mashling.mashling.json",
-    "image_url": "/event-dispatcher-router-mashling/displayImage.svg",
+    "image_url": "/event-dispatcher-router-mashling/",
     "binaries": [
       {
         "platform": "mac",
@@ -177,7 +177,7 @@
     "featured": false,
     "repository_url": "https://github.com/TIBCOSoftware/mashling-recipes/tree/master/recipes/rest-conditional-gateway",
     "json_url": "/rest-conditional-gateway/rest-conditional-gateway.mashling.json",
-    "image_url": "/rest-conditional-gateway/displayImage.svg",
+    "image_url": "/rest-conditional-gateway/",
     "binaries": [
       {
         "platform": "mac",
@@ -250,7 +250,7 @@
     "featured": false,
     "repository_url": "https://github.com/TIBCOSoftware/mashling-recipes/tree/master/recipes/rest-gateway-with-tracing",
     "json_url": "/rest-gateway-with-tracing/rest-gateway-with-tracing.mashling.json",
-    "image_url": "/rest-gateway-with-tracing/displayImage.svg",
+    "image_url": "/rest-gateway-with-tracing/",
     "binaries": [
       {
         "platform": "mac",
@@ -336,7 +336,7 @@
     "featured": true,
     "repository_url": "https://github.com/TIBCOSoftware/mashling-recipes/tree/master/recipes/mqtt-lambda-tci",
     "json_url": "/mqtt-lambda-tci/mqtt-lambda-tci.mashling.json",
-    "image_url": "/mqtt-lambda-tci/displayImage.svg",
+    "image_url": "/mqtt-lambda-tci/",
     "binaries": [
       {
         "platform": "mac",
@@ -412,7 +412,7 @@
     "featured": true,
     "repository_url": "https://github.com/TIBCOSoftware/mashling-recipes/tree/master/recipes/secure-rest-gateway",
     "json_url": "/secure-rest-gateway/secure-rest-gateway.mashling.json",
-    "image_url": "/secure-rest-gateway/displayImage.svg",
+    "image_url": "/secure-rest-gateway/",
     "binaries": [
       {
         "platform": "mac",
@@ -561,7 +561,7 @@
     "featured": false,
     "repository_url": "https://github.com/TIBCOSoftware/mashling-recipes/tree/master/recipes/mqtt-gateway",
     "json_url": "/mqtt-gateway/mqtt-gateway.mashling.json",
-    "image_url": "/mqtt-gateway/displayImage.svg",
+    "image_url": "/mqtt-gateway/",
     "binaries": [
       {
         "platform": "mac",
@@ -636,7 +636,7 @@
     "featured": false,
     "repository_url": "https://github.com/TIBCOSoftware/mashling-recipes/tree/master/recipes/RestTrigger-To-KafkaPublisher",
     "json_url": "/RestTrigger-To-KafkaPublisher/RestTrigger-To-KafkaPublisher.mashling.json",
-    "image_url": "/RestTrigger-To-KafkaPublisher/displayImage.svg",
+    "image_url": "/RestTrigger-To-KafkaPublisher/",
     "binaries": [
       {
         "platform": "mac",
@@ -649,77 +649,6 @@
       {
         "platform": "windows",
         "url": "/RestTrigger-To-KafkaPublisher/RestTrigger-To-KafkaPublisher-windows.zip"
-      }
-    ]
-  },
-  {
-    "mashling_schema": "0.2",
-    "gateway": {
-      "name": "demoMQTTProducer",
-      "version": "1.0.0",
-      "display_name": "MQTT Producer",
-      "display_image": "displayImage.svg",
-      "description": "A HTTP to MQTT adapter",
-      "configurations": [
-        {
-          "name": "restConfig",
-          "type": "github.com/TIBCOSoftware/mashling/ext/flogo/trigger/gorillamuxtrigger",
-          "description": "Configuration for rest trigger",
-          "settings": {
-            "port": "9096"
-          }
-        }
-      ],
-      "triggers": [
-        {
-          "name": "rest_trigger",
-          "description": "Rest trigger",
-          "type": "github.com/TIBCOSoftware/mashling/ext/flogo/trigger/gorillamuxtrigger",
-          "settings": {
-            "config": "${configurations.restConfig}",
-            "method": "POST",
-            "path": "/test",
-            "optimize": "true"
-          }
-        }
-      ],
-      "event_handlers": [
-        {
-          "name": "mqtt_handler",
-          "description": "Send the MQTT message",
-          "reference": "github.com/TIBCOSoftware/mashling/lib/flow/MQTTProducer.json"
-        }
-      ],
-      "event_links": [
-        {
-          "triggers": [
-            "rest_trigger"
-          ],
-          "dispatches": [
-            {
-              "handler": "mqtt_handler"
-            }
-          ]
-        }
-      ]
-    },
-    "id": "mqtt-producer",
-    "featured": false,
-    "repository_url": "https://github.com/TIBCOSoftware/mashling-recipes/tree/master/recipes/mqtt-producer",
-    "json_url": "/mqtt-producer/mqtt-producer.mashling.json",
-    "image_url": "/mqtt-producer/displayImage.svg",
-    "binaries": [
-      {
-        "platform": "mac",
-        "url": "/mqtt-producer/mqtt-producer-osx.zip"
-      },
-      {
-        "platform": "linux",
-        "url": "/mqtt-producer/mqtt-producer-linux.zip"
-      },
-      {
-        "platform": "windows",
-        "url": "/mqtt-producer/mqtt-producer-windows.zip"
       }
     ]
   }
