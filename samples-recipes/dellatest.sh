@@ -150,14 +150,9 @@ function awscopytoLocal()
                     eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;
                     Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
                     Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;
-                #    echo $recipeName ;
-                #    echo "${Gateway[$x]}/${Gateway[$x]}.json" ;
-                #    echo "${Gateway[$x]}/manifest" ;
                     if [[ $recipeName =~ ${Gateway[$x]}/${Gateway[$x]}.json ]] || [[ $recipeName =~ ${Gateway[$x]}/manifest ]];then
                         echo "${Gateway[$x]} found in current commit" ;
                         echo "${Gateway[$x]}" ;
-                    #    reicpetobuild=${Gateway[$x]} 
-                    #    eval Gateway[$x]=${Gateway[$x]}
                         recipeCreate[$y]=${Gateway[$x]} ;
                         if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeCreate[$y]}" ]] ; then
                             rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeCreate[$y]}";
