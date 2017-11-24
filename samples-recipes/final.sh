@@ -50,7 +50,6 @@ function deleteLatest()
                     done
                     [[ -n $skip ]] || recipeDeleteLatest+=("$z")
                 done
-
                 #declare -p recipeDeleteLatest                
                 for (( p=0; p<${#recipeDeleteLatest[@]}; p++ ))
                 do
@@ -72,7 +71,7 @@ function awscopytoLocal()
         echo "${recipesInLatest[$i]}"; 
         recipesInLatest[$i]=${recipesInLatest[$i]}
     done                
-    echo "Recipes available in latest folder : ${recipesInLatest[@]}" ;
+    echo Recipes available-in latest folder : "${recipesInLatest[@]}" ;
     popd                                    	
 }    
 ###########################################################################
