@@ -133,6 +133,10 @@ function recipe_registry()
                     Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
                     Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;
                     recipeCreate[$y]=${Gateway[$x]} ;
+                    echo #################################
+                    echo "${Gateway[$x]}" ;
+                    echo "recipeCreate[$y]";
+                    echo #################################
                     if [[ $OPTIMIZE_BUILD_TIME = TRUE ]] ; then
                         if [[ $recipeName =~ ${Gateway[$x]}/${Gateway[$x]}.json ]] || [[ $recipeName =~ ${Gateway[$x]}/manifest ]];then
                             echo "${Gateway[$x]} found in current commit" ;
@@ -151,7 +155,8 @@ function recipe_registry()
                     fi                                    
                 done
                 echo "${recipeCreate[@]}" ;
-                buildgateway ;
+                echo #################################
+                #buildgateway ;
             done                                    	
 }
 
@@ -209,7 +214,7 @@ function package_gateway()
             rm -r src vendor pkg ;
                 # Changing directory to  binary containing folder
                 cd "${recipeCreate[$y]}-${OS_NAME[$k]}";
-                    if [ "${OS_NAME[$k]}" == "windows" ] ; then
+                    if [ "${OS_NAME[$k]}" == windows ] ; then
                         fname="${recipeCreate[$y]}-${GOOSystem[$k]}-$GOARCH.exe" ;
                         echo "$fname" ;
                         fnamelc="${fname,,}" ;
@@ -281,8 +286,8 @@ function recipeInfo()
                     fi
                     cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
                     create_dest_directory ;
-                    if [[ "${GOOSystem[$k]}" = linux ]]; then
-                        if [[ $OPTIMIZE_BUILD_TIME = TRUE ]] ; then
+                    if [[ "${GOOSystem[$k]}" == linux ]]; then
+                        if [[ $OPTIMIZE_BUILD_TIME == TRUE ]] ; then
                             S3copytoLocal;
                         fi    
                     fi    
