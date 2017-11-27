@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 name="${TRAVIS_REPO_SLUG}" ;
 namefolder=${name:14} ;
 cat > ${HOME}/.aws/credentials <<EOL
