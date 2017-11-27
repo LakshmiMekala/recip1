@@ -136,7 +136,6 @@ function recipe_registry()
                     echo #################################
                     echo "${Gateway[$x]}" ;
                     echo "recipeCreate[$y]";
-                    y=$y+1;
                     echo #################################
                     if [[ $OPTIMIZE_BUILD_TIME = TRUE ]] ; then
                         if [[ $recipeName =~ ${Gateway[$x]}/${Gateway[$x]}.json ]] || [[ $recipeName =~ ${Gateway[$x]}/manifest ]];then
@@ -152,7 +151,9 @@ function recipe_registry()
                         else
                             echo "${Gateway[$x]} not found in current commit ";
                         fi
-                        recipeInfo ;                          
+                        recipeInfo ;
+                    else
+                        y=$y+1;                                                  
                     fi                                    
                 done
                 echo "${recipeCreate[@]}" ;
