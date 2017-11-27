@@ -114,7 +114,7 @@ function recipe_registry()
                 publish_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish' | length') ; 
                 echo "Found $publish_length recipes." ;
                 if [[ "${GOOSystem[$k]}" = linux ]]; then
-                    if [[ OPTIMIZE_BUILD_TIME = TRUE ]] ; then
+                    if [[ $OPTIMIZE_BUILD_TIME = TRUE ]] ; then
                         for (( x=0; x<$publish_length; x++ ))
                         do  
                             eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;
@@ -133,7 +133,7 @@ function recipe_registry()
                     Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
                     Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;
                     recipeCreate[$y]=${Gateway[$x]} ;
-                    if [[ OPTIMIZE_BUILD_TIME = TRUE ]] ; then
+                    if [[ $OPTIMIZE_BUILD_TIME = TRUE ]] ; then
                         if [[ $recipeName =~ ${Gateway[$x]}/${Gateway[$x]}.json ]] || [[ $recipeName =~ ${Gateway[$x]}/manifest ]];then
                             echo "${Gateway[$x]} found in current commit" ;
                             echo "${Gateway[$x]}" ;
@@ -282,7 +282,7 @@ function recipeInfo()
                     cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
                     create_dest_directory ;
                     if [[ "${GOOSystem[$k]}" = linux ]]; then
-                        if [[ OPTIMIZE_BUILD_TIME = TRUE ]] ; then
+                        if [[ $OPTIMIZE_BUILD_TIME = TRUE ]] ; then
                             S3copytoLocal;
                         fi    
                     fi    
