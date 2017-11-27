@@ -160,7 +160,7 @@ function recipe_registry()
                 done
                 echo "${recipeCreate[@]}" ;
                 echo #################################
-                #buildgateway ;
+                buildgateway ;
             done                                    	
 }
 
