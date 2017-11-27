@@ -145,9 +145,11 @@ function recipe_registry()
                         if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeCreate[$y]}" ]] ; then
                             rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeCreate[$y]}";
                         fi
+                            echo #################################
                             echo "${recipeCreate[$y]}" ;
-                            echo value of y=$y
+                            echo "value of y=$y"
                             y=$y+1;
+                            echo #################################
                         else
                             echo "${Gateway[$x]} not found in current commit ";
                         fi
