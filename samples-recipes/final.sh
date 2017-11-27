@@ -2,6 +2,8 @@
 
 name="${TRAVIS_REPO_SLUG}" ;
 namefolder=${name:14} ;
+
+mkdir ${HOME}/.aws
 cat > ${HOME}/.aws/credentials <<EOL
 [default]
 aws_access_key_id = ${SITE_KEY}

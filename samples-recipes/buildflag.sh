@@ -1,7 +1,24 @@
 #!/bin/bash
+
 name="${TRAVIS_REPO_SLUG}" ;
 namefolder=${name:14} ;
-############################################################################
+
+for ARGUMENT in "$@"
+do
+    KEY=$(echo $ARGUMENT | cut -f1 -d=)
+    VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
+
+    case "$KEY" in
+            OPTIMIZE_BUILD_TIME)
+			OPTIMIZE_BUILD_TIME=${VALUE} ;;
+            *)   
+    esac
+done
+
+echo "OPTIMIZE_BUILD_TIME = $OPTIMIZE_BUILD_TIME"
+
+
+
 mkdir ${HOME}/.aws
 cat > ${HOME}/.aws/credentials <<EOL
 [default]
@@ -17,28 +34,6 @@ EOL
     recipeName=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/info.log) ;
     echo $recipeName
     popd ;
-##################################################################### 
-
-function publisharray()
-{
-    array_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq '.recipe_repos | length') ;
-    echo "Found $array_length recipe providers." ;        
-    for (( j = 0; j < $array_length; j++ ))
-    do
-    echo "value of j=$j" ;
-    #eval provider and publish                   
-    eval xpath_publish='.recipe_repos[$j].publish' ;
-    publish_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish' | length') ; 
-    echo "Found $publish_length recipes." ;
-        for (( x=0; x<$publish_length; x++ ))
-        do  
-        eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;
-        Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
-        Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;      
-        done
-        deleteLatest ;  
-    done
-}
 
 function deleteLatest()
 {
@@ -50,7 +45,6 @@ function deleteLatest()
                     done
                     [[ -n $skip ]] || recipeDeleteLatest+=("$z")
                 done
-
                 #declare -p recipeDeleteLatest                
                 for (( p=0; p<${#recipeDeleteLatest[@]}; p++ ))
                 do
@@ -61,7 +55,7 @@ function deleteLatest()
                 done
 }
 
-function awscopytoLocal()
+function S3copytoLocal()
 {
     aws s3 cp s3://test-bucket4569/master-builds/latest  $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" --recursive
     pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/$destFolder
@@ -72,10 +66,8 @@ function awscopytoLocal()
         echo "${recipesInLatest[$i]}"; 
         recipesInLatest[$i]=${recipesInLatest[$i]}
     done                
-    echo "Recipes available in latest folder : ${recipesInLatest[@]}" ;
-    popd
-    echo ##########################################################        
-    publisharray ;                                     	
+    echo Recipes available-in latest folder : "${recipesInLatest[@]}" ;
+    popd                                    	
 }    
 ###########################################################################
 
@@ -121,6 +113,18 @@ function recipe_registry()
                 eval xpath_publish='.recipe_repos[$j].publish' ;
                 publish_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish' | length') ; 
                 echo "Found $publish_length recipes." ;
+                if [[ "${GOOSystem[$k]}" = linux ]]; then
+                    if [[ OPTIMIZE_BUILD_TIME = TRUE ]] ; then
+                        for (( x=0; x<$publish_length; x++ ))
+                        do  
+                            eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;
+                            Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
+                            Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;      
+                        done
+                        echo "${Gateway[@]}" ;
+                        deleteLatest ;   
+                    fi
+                fi
                 recipeCreate=()
                 y=0; 
                 for (( x=0; x<$publish_length; x++ ))
@@ -128,20 +132,23 @@ function recipe_registry()
                     eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;
                     Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
                     Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;
-                    if [[ $recipeName =~ ${Gateway[$x]}/${Gateway[$x]}.json ]] || [[ $recipeName =~ ${Gateway[$x]}/manifest ]];then
-                        echo "${Gateway[$x]} found in current commit" ;
-                        echo "${Gateway[$x]}" ;
-                        recipeCreate[$y]=${Gateway[$x]} ;
-                    if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeCreate[$y]}" ]] ; then
-                        rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeCreate[$y]}";
-                    fi
-                        echo "${recipeCreate[$y]}" ;
-                        echo value of y=$y
-                        y=$y+1;
-                    else
-                        echo "${Gateway[$x]} not found in current commit ";
-                    fi
-                    recipeInfo ;                                                          
+                    recipeCreate[$y]=${Gateway[$x]} ;
+                    if [[ OPTIMIZE_BUILD_TIME = TRUE ]] ; then
+                        if [[ $recipeName =~ ${Gateway[$x]}/${Gateway[$x]}.json ]] || [[ $recipeName =~ ${Gateway[$x]}/manifest ]];then
+                            echo "${Gateway[$x]} found in current commit" ;
+                            echo "${Gateway[$x]}" ;
+                            recipeCreate[$y]=${Gateway[$x]} ;
+                        if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeCreate[$y]}" ]] ; then
+                            rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeCreate[$y]}";
+                        fi
+                            echo "${recipeCreate[$y]}" ;
+                            echo value of y=$y
+                            y=$y+1;
+                        else
+                            echo "${Gateway[$x]} not found in current commit ";
+                        fi
+                        recipeInfo ;                          
+                    fi                                    
                 done
                 echo "${recipeCreate[@]}" ;
                 buildgateway ;
@@ -165,7 +172,7 @@ function buildgateway()
 
 function binarycheck()
 {
-    if [ "${OS_NAME[$k]}" == "windows" ] ; then
+    if [[ "${OS_NAME[$k]}" == "windows" ]] ; then
         fname="${recipeCreate[$y]}-${GOOSystem[$k]}-$GOARCH.exe" ;
         fnamelc="${fname,,}" ;
         if [[ -f $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeCreate[$y]}"/bin/$fnamelc ]];then
@@ -240,8 +247,7 @@ function package_gateway()
 
 function recipeInfo()
 {
-    if [[ "${GOOSystem[$k]}" == windows ]]; then      
-
+    if [[ "${GOOSystem[$k]}" == windows ]]; then
     idvalue="${Gateway[$x]}" ;   
     eval xpath_featured='.recipe_repos[$j].publish[$x].featured' ;
     featuredvalue=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_featured) ;
@@ -276,7 +282,9 @@ function recipeInfo()
                     cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
                     create_dest_directory ;
                     if [[ "${GOOSystem[$k]}" = linux ]]; then
-                        awscopytoLocal;
+                        if [[ OPTIMIZE_BUILD_TIME = TRUE ]] ; then
+                            S3copytoLocal;
+                        fi    
                     fi    
                     recipe_registry ;
                     echo "#########Alert 15#####";
