@@ -3,15 +3,6 @@
 name="${TRAVIS_REPO_SLUG}" ;
 namefolder=${name:14} ;
 
-####Adding AWS credentials to download latest recipes folder from S3
-echo "credentails"
-mkdir ${HOME}/.aws
-cat > ${HOME}/.aws/credentials <<EOL
-[default]
-aws_access_key_id = ${SITE_KEY}
-aws_secret_access_key = ${SITE_KEY_SECRET}
-EOL
-echo "credentails-2"
 ###Fetching argument values passed along with build file
 
 for ARGUMENT in "$@"
@@ -28,6 +19,14 @@ done
 
 echo "OPTIMIZE = $OPTIMIZE"
 
+####Adding AWS credentials to download latest recipes folder from S3
+
+mkdir ${HOME}/.aws
+cat > ${HOME}/.aws/credentials <<EOL
+[default]
+aws_access_key_id = ${SITE_KEY}
+aws_secret_access_key = ${SITE_KEY_SECRET}
+EOL
 
     pushd $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes
     #Fetching short commit id
@@ -39,7 +38,7 @@ echo "OPTIMIZE = $OPTIMIZE"
     popd ;
 
 ###Deleting receipes removed from recipe_registry.json
-function RecipesToBeDeleted()
+function deleteLatest()
 {
     recipeDeleteLatest=()
                 for z in "${recipesInLatest[@]}"; do
@@ -127,7 +126,7 @@ function recipe_registry()
                             Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;
                         done
                         echo "${Gateway[@]}" ;
-                        RecipesToBeDeleted ;
+                        deleteLatest ;
                     fi
                 fi
                 recipeCreate=()
@@ -137,6 +136,11 @@ function recipe_registry()
                     eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;
                     Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
                     Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;
+                    #recipeCreate[$y]=${Gateway[$x]} ;
+                    echo #################################
+                    echo "${Gateway[$x]}" ;
+                    echo "recipeCreate[$y]";
+                    echo #################################
                     if [[ $OPTIMIZE = TRUE ]] ; then
                         if [[ $recipeName =~ ${Gateway[$x]}/${Gateway[$x]}.json ]] || [[ $recipeName =~ ${Gateway[$x]}/manifest ]];then
                             echo "${Gateway[$x]} found in current commit" ;
@@ -154,22 +158,21 @@ function recipe_registry()
                             echo "${Gateway[$x]} not found in current commit ";
                         fi
                         recipeInfo ;
-                    else                        
+                    else
                         recipeCreate[$y]=${Gateway[$x]} ;
-                        echo #################################
                         echo "${Gateway[$x]}" ;
-                        echo "recipeCreate[$y]";
-                        echo #################################
+                    echo "recipeCreate[$y]";
+                    echo #################################
                         y=$y+1;
                     fi
                 done
                 echo "${recipeCreate[@]}" ;
                 echo #################################
-                RecipesToBeBuild ;
+                buildgateway ;
             done
 }
 
-function RecipesToBeBuild()
+function buildgateway()
 {
     echo gateway array is "${recipeCreate[@]}";
     for (( y=0; y < "${#recipeCreate[@]}"; y++ ));
