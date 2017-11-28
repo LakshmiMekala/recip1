@@ -19,7 +19,6 @@ install:
   - go install ./...
   - cd $GOPATH/src/github.com/TIBCOSoftware
   - git clone https://github.com/TIBCOSoftware/mashling-recipes.git
-  - cp -r $GOPATH/src/github.com/LakshmiMekala $GOPATH/src/github.com/TIBCOSoftware
   - git clone -b buildflag https://github.com/LakshmiMekala/recip1.git
   - pushd recip1/samples-recipes
   - rm -rf master-builds 
@@ -27,7 +26,7 @@ install:
   
 script:
    - chmod ugo+x ./buildflag.sh
-   - ./buildflag.sh OPTIMIZE=FALSE
+   - ./buildflag.sh OPTIMIZE=TRUE
    - popd
 after_script:
   - "[ -f \"${HOME}/.netrc\" ] && rm -f ${HOME}/.netrc"

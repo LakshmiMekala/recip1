@@ -3,6 +3,15 @@
 name="${TRAVIS_REPO_SLUG}" ;
 namefolder=${name:14} ;
 
+####Adding AWS credentials to download latest recipes folder from S3
+echo "credentails"
+mkdir ${HOME}/.aws
+cat > ${HOME}/.aws/credentials <<EOL
+[default]
+aws_access_key_id = ${SITE_KEY}
+aws_secret_access_key = ${SITE_KEY_SECRET}
+EOL
+echo "credentails-2"
 ###Fetching argument values passed along with build file
 
 for ARGUMENT in "$@"
@@ -19,14 +28,6 @@ done
 
 echo "OPTIMIZE = $OPTIMIZE"
 
-####Adding AWS credentials to download latest recipes folder from S3
-
-mkdir ${HOME}/.aws
-cat > ${HOME}/.aws/credentials <<EOL
-[default]
-aws_access_key_id = ${SITE_KEY}
-aws_secret_access_key = ${SITE_KEY_SECRET}
-EOL
 
     pushd $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes
     #Fetching short commit id
@@ -38,7 +39,7 @@ EOL
     popd ;
 
 ###Deleting receipes removed from recipe_registry.json
-function deleteLatest()
+function RecipesToBeDeleted()
 {
     recipeDeleteLatest=()
                 for z in "${recipesInLatest[@]}"; do
@@ -126,7 +127,7 @@ function recipe_registry()
                             Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;
                         done
                         echo "${Gateway[@]}" ;
-                        deleteLatest ;
+                        RecipesToBeDeleted ;
                     fi
                 fi
                 recipeCreate=()
@@ -164,11 +165,11 @@ function recipe_registry()
                 done
                 echo "${recipeCreate[@]}" ;
                 echo #################################
-                buildgateway ;
+                RecipesToBeBuild ;
             done
 }
 
-function buildgateway()
+function RecipesToBeBuild()
 {
     echo gateway array is "${recipeCreate[@]}";
     for (( y=0; y < "${#recipeCreate[@]}"; y++ ));
