@@ -137,10 +137,6 @@ function recipe_registry()
                     Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
                     Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;
                     #recipeCreate[$y]=${Gateway[$x]} ;
-                    echo #################################
-                    echo "${Gateway[$x]}" ;
-                    echo "recipeCreate[$y]";
-                    echo #################################
                     if [[ $OPTIMIZE = TRUE ]] ; then
                         if [[ $recipeName =~ ${Gateway[$x]}/${Gateway[$x]}.json ]] || [[ $recipeName =~ ${Gateway[$x]}/manifest ]];then
                             echo "${Gateway[$x]} found in current commit" ;
