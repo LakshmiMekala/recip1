@@ -11,13 +11,13 @@ do
     VALUE=$(echo $ARGUMENT | cut -f2 -d=)
 
     case "$KEY" in
-            OPTIMIZE_BUILD_TIME)
-			OPTIMIZE_BUILD_TIME=${VALUE} ;;
+            OPTIMIZE)
+			OPTIMIZE=${VALUE} ;;
             *)
     esac
 done
 
-echo "OPTIMIZE_BUILD_TIME = $OPTIMIZE_BUILD_TIME"
+echo "OPTIMIZE = $OPTIMIZE"
 
 ####Adding AWS credentials to download latest recipes folder from S3
 
@@ -38,7 +38,7 @@ EOL
     popd ;
 
 ###Deleting receipes removed from recipe_registry.json
-function deleteLatest()
+function RecipesToBeDeleted()
 {
     recipeDeleteLatest=()
                 for z in "${recipesInLatest[@]}"; do
@@ -118,7 +118,7 @@ function recipe_registry()
                 publish_length=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_publish' | length') ;
                 echo "Found $publish_length recipes." ;
                 if [[ "${GOOSystem[$k]}" = linux ]]; then
-                    if [[ $OPTIMIZE_BUILD_TIME = TRUE ]] ; then
+                    if [[ $OPTIMIZE = TRUE ]] ; then
                         for (( x=0; x<$publish_length; x++ ))
                         do
                             eval xpath_recipe='.recipe_repos[$j].publish[$x].recipe' ;
@@ -126,7 +126,7 @@ function recipe_registry()
                             Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;
                         done
                         echo "${Gateway[@]}" ;
-                        deleteLatest ;
+                        RecipesToBeDeleted ;
                     fi
                 fi
                 recipeCreate=()
@@ -141,7 +141,7 @@ function recipe_registry()
                     echo "${Gateway[$x]}" ;
                     echo "${recipeCreate[$y]}";
                     echo #################################
-                    if [[ $OPTIMIZE_BUILD_TIME = TRUE ]] ; then
+                    if [[ $OPTIMIZE = TRUE ]] ; then
                         if [[ $recipeName =~ ${Gateway[$x]}/${Gateway[$x]}.json ]] || [[ $recipeName =~ ${Gateway[$x]}/manifest ]];then
                             echo "${Gateway[$x]} found in current commit" ;
                             echo "${Gateway[$x]}" ;
@@ -165,11 +165,11 @@ function recipe_registry()
                 done
                 echo "${recipeCreate[@]}" ;
                 echo #################################
-                buildgateway ;
+                RecipesToBeCreated ;
             done
 }
 
-function buildgateway()
+function RecipesToBeCreated()
 {
     echo gateway array is "${recipeCreate[@]}";
     for (( y=0; y < "${#recipeCreate[@]}"; y++ ));
@@ -296,7 +296,7 @@ function recipeInfo()
                     cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes
                     create_dest_directory ;
                     if [[ "${GOOSystem[$k]}" == linux ]]; then
-                        if [[ $OPTIMIZE_BUILD_TIME == TRUE ]] ; then
+                        if [[ $OPTIMIZE == TRUE ]] ; then
                             S3copytoLocal;
                         fi
                     fi
