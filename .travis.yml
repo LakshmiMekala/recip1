@@ -18,7 +18,7 @@ install:
   - godep restore
   - go install ./...
   - cd $GOPATH/src/github.com/TIBCOSoftware
-  - git clone -b feature-mqtt-producer https://github.com/TIBCOSoftware/mashling-recipes.git
+  - git clone https://github.com/TIBCOSoftware/mashling-recipes.git
   - git clone -b buildflag https://github.com/LakshmiMekala/recip1.git
   - pushd recip1/samples-recipes
   - rm -rf master-builds 
@@ -26,20 +26,20 @@ install:
   
 script:
    - chmod ugo+x ./buildflag.sh
-   - ./buildflag.sh OPTIMIZE=FALSE
+   - ./buildflag.sh OPTIMIZE=TRUE
    - popd
 after_script:
   - "[ -f \"${HOME}/.netrc\" ] && rm -f ${HOME}/.netrc"
   - "[ -f \"${HOME}/.aws\" ] && rm -f ${HOME}/.aws"
-deploy:
-  provider: s3
-  access_key_id: $SITE_KEY
-  secret_access_key: $SITE_KEY_SECRET
-  bucket: $AWS_BUCKET
-  region: $AWS_REGION
-  skip_cleanup: true
-  on:
-    all_branches: true
-  local_dir: $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds
-  upload-dir: master-builds
+# deploy:
+#   provider: s3
+#   access_key_id: $SITE_KEY
+#   secret_access_key: $SITE_KEY_SECRET
+#   bucket: $AWS_BUCKET
+#   region: $AWS_REGION
+#   skip_cleanup: true
+#   on:
+#     all_branches: true
+#   local_dir: $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds
+#   upload-dir: master-builds
   
