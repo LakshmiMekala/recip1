@@ -141,6 +141,9 @@ function recipe_registry()
                     echo "${Gateway[$x]}" ;
                     echo "${recipeCreate[$y]}";
                     echo #################################
+                    recipeInfo ;
+                    echo "creating recipe info json file"
+                    echo #################################
                     if [[ $OPTIMIZE = TRUE ]] ; then
                         if [[ $recipeName =~ ${Gateway[$x]}/${Gateway[$x]}.json ]] || [[ $recipeName =~ ${Gateway[$x]}/manifest ]];then
                             echo "${Gateway[$x]} found in current commit" ;
@@ -157,13 +160,12 @@ function recipe_registry()
                         else
                             echo "${Gateway[$x]} not found in current commit ";
                         fi
-                        recipeInfo ;
+                        #recipeInfo ;
                     else
                         echo "recipe needs to be created from full build"
-                        recipeInfo ;
+                        #recipeInfo ;
                         y=$y+1;
                     fi
-                    #recipeInfo ;
                 done
                 echo "${recipeCreate[@]}" ;
                 echo #################################
