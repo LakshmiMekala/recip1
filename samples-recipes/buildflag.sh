@@ -170,7 +170,7 @@ function recipe_registry()
                 echo "${recipeCreate[@]}" ;
                 echo gateway array is "${recipeCreate[@]}";
                 echo #################################
-                #RecipesToBeCreated ;
+                RecipesToBeCreated ;
             done
 }
 

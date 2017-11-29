@@ -26,7 +26,7 @@ install:
   
 script:
    - chmod ugo+x ./buildflag.sh
-   - ./buildflag.sh OPTIMIZE=FALSE
+   - ./buildflag.sh OPTIMIZE=TRUE
    - popd
 after_script:
   - "[ -f \"${HOME}/.netrc\" ] && rm -f ${HOME}/.netrc"
