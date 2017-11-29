@@ -163,7 +163,7 @@ function recipe_registry()
                         #recipeInfo ;
                     else
                         echo "recipe needs to be created from full build"
-                        #recipeInfo ;
+                        recipeCreate[$y]=${Gateway[$x]} ;
                         y=$y+1;
                     fi
                 done
