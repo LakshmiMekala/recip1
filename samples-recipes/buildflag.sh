@@ -169,7 +169,7 @@ function recipe_registry()
                 done
                 echo "${recipeCreate[@]}" ;
                 echo #################################
-                RecipesToBeCreated ;
+                #RecipesToBeCreated ;
             done
 }
 
