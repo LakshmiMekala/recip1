@@ -160,13 +160,14 @@ function recipe_registry()
                         recipeInfo ;
                     else
                         echo "recipe needs to be created from full build"
+                        recipeInfo ;
                         y=$y+1;
                     fi
-                    recipeInfo ;
+                    #recipeInfo ;
                 done
                 echo "${recipeCreate[@]}" ;
                 echo #################################
-                RecipesToBeCreated ;
+                #RecipesToBeCreated ;
             done
 }
 
