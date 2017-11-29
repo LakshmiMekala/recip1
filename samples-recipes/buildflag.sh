@@ -168,6 +168,7 @@ function recipe_registry()
                     fi
                 done
                 echo "${recipeCreate[@]}" ;
+                echo gateway array is "${recipeCreate[@]}";
                 echo #################################
                 #RecipesToBeCreated ;
             done
@@ -336,4 +337,4 @@ function recipeInfo()
         cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds
         git add .
         git commit -m "uploading v1"
-        git push
+        #git push
