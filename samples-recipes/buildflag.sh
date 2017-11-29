@@ -161,7 +161,7 @@ function recipe_registry()
                     else
                         echo "recipe needs to be created from full build"
                         y=$y+1;
-                        recipeInfo ;
+                        #recipeInfo ;
                     fi
                 done
                 echo "${recipeCreate[@]}" ;
