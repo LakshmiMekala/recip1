@@ -2,6 +2,7 @@ language : go
 
 before_install:
   - "echo -e \"machine github.com\n  login ${GITHUB_USER_TOKEN}\" >> ~/.netrc"
+  - "docker login -u=\"${DOCKER_USERNAME}\" -p=\"${DOCKER_PASSWORD}\" tibdocker.tibco.com"
 #  - pip install --user awscli
 install:
   - go get github.com/constabulary/gb/...
@@ -17,7 +18,7 @@ install:
   - cd $GOPATH/src/github.com/TIBCOSoftware/mashling
   - godep restore
   - go install ./...
-  - make all
+  #- make all
   # - mashling version
   # # - cd $GOPATH/src/github.com/TIBCOSoftware
   # # - git clone https://github.com/TIBCOSoftware/mashling-recipes.git
