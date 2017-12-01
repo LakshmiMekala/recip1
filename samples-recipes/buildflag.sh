@@ -209,8 +209,23 @@ function RecipesToBeCreated()
     if [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/${recipeCreate[$y]}.json ]] || [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/manifest ]] ; then
         displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}"/"${recipeCreate[$y]}".json | jq '.gateway.display_image') ;
         displayImage=$(echo $displayImage | tr -d '"') ;
-        echo "creating ${recipeCreate[$y]} gateway"
+        echo "creating ${recipeCreate[$y]} gateway" ;
+        cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/manifest $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
+        pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
+        echo "manifest file check"
+        ls;
+        echo "manifest file available"
+        popd
         mashling create -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}"/"${recipeCreate[$y]}".json "${recipeCreate[$y]}";
+        #rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/manifest; 
+        pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
+        echo "manifest file to be deleted"
+        ls;
+        rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/manifest; 
+        echo "delete manifest"
+        ls;
+        echo "manifest file deleted"
+        popd
         binarycheck ;
     fi
     done
@@ -361,7 +376,7 @@ function recipeInfo()
         popd ;
 
 
-        cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds
-        git add .
-        git commit -m "uploading builds" ;
-        git push ;
+        # cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds
+        # git add .
+        # git commit -m "uploading builds" ;
+        # git push ;
