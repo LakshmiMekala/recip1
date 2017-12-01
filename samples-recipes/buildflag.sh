@@ -215,7 +215,7 @@ function RecipesToBeCreated()
         displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}"/"${recipeCreate[$y]}".json | jq '.gateway.display_image') ;
         displayImage=$(echo $displayImage | tr -d '"') ;
         echo "creating ${recipeCreate[$y]} gateway" ;
-        cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/manifest $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
+        #cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/manifest $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
         pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
         echo "manifest file check"
         ls;
@@ -226,7 +226,7 @@ function RecipesToBeCreated()
         pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"
         echo "manifest file to be deleted"
         ls;
-        rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/manifest; 
+        #rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/manifest; 
         echo "delete manifest"
         ls;
         echo "manifest file deleted"
