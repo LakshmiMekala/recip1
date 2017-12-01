@@ -70,7 +70,7 @@ function RecipesNewlyAdded()
                     [[ -n $skip ]] || recipeadded+=("$z")
                 done
                 #declare -p recipeDeleteLatest
-		echo "newly added recipe is"${recipeCreate[@]}" ;
+		echo "newly added recipe is ${recipeCreate[@]}" ;
 		RecipesToBeCreated ;                
 }
 
