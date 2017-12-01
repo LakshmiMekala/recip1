@@ -23,6 +23,7 @@ script:
   - git clone https://github.com/TIBCOSoftware/mashling-cicd.git mashling-cicd
   - cp -r $GOPATH/src/github.com/TIBCOSoftware/mashling-cicd/dependency-config/* $GOPATH/src/github.com/TIBCOSoftware/mashling
   - cd mashling
+  - git branch
   - godep restore
   - go install ./...
   - make all
