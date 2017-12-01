@@ -76,7 +76,8 @@ function RecipesNewlyAdded()
                 y=0;
                 for (( x=0; x<${#recipeAdded[@]}; x++ ))
                 do
-                    recipeCreate[$y]=${recipeAdded[$x]} ;   
+                    recipeCreate[$y]=${recipeAdded[$x]} ;
+                    y=$y+1;   
                 done
                 echo "abcaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                 #echo newly added recipe is "${recipeAdded[@]}" ;
