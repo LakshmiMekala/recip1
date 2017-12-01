@@ -79,7 +79,7 @@ function RecipesNewlyAdded()
                     recipeCreate[$y]=${recipeAdded[$x]} ;   
                 done
                 echo "abcaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                echo newly added recipe is "${recipeAdded[@]}" ;
+                #echo newly added recipe is "${recipeAdded[@]}" ;
                 echo "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
                 echo newly added recipe is "${recipeCreate[@]}" ;
                 echo "dddddddddddddddddddddddddddddddddddddd"
