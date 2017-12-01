@@ -80,8 +80,10 @@ function RecipesNewlyAdded()
                 done
                 echo "abcaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                 echo newly added recipe is "${recipeAdded[@]}" ;
+                echo "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+                echo newly added recipe is "${recipeCreate[@]}" ;
                 echo "dddddddddddddddddddddddddddddddddddddd"
-                #RecipesToBeCreated ;
+                RecipesToBeCreated ;
 }
 
 ##Function to copy recipes from S3 to Local for optimized build
