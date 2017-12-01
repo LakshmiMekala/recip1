@@ -8,11 +8,6 @@ before_install:
 os: 
   - linux
 
-branches:
-  only:
-    - master
-    - /^v\d+\.\d+\.\d+(\.\d+)?(-\S*)?$/
-
 install:
   - go get github.com/constabulary/gb/...
   - go get -u github.com/tools/godep/...
