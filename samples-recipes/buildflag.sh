@@ -67,7 +67,7 @@ function RecipesNewlyAdded()
                     for l in "${recipesInLatest[@]}"; do
                         [[ $z == $l ]] && { skip=1; break; }
                     done
-                    [[ -n $skip ]] || recipeadded+=("$z")
+                    [[ -n $skip ]] || recipeCreate+=("$z")
                 done
                 #declare -p recipeDeleteLatest
 		echo "newly added recipe is ${recipeCreate[@]}" ;
