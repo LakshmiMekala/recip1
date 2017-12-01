@@ -56,6 +56,22 @@ function RecipesToBeDeleted()
                     echo deleting "${recipeDeleteLatest[$p]}"
                 fi
                 done
+		RecipesNewlyAdded ;
+}
+
+function RecipesNewlyAdded()
+{
+    recipeCreate=()
+                for z in "${Gateway[@]}"; do
+                    skip=
+                    for l in "${recipesInLatest[@]}"; do
+                        [[ $z == $l ]] && { skip=1; break; }
+                    done
+                    [[ -n $skip ]] || recipeadded+=("$z")
+                done
+                #declare -p recipeDeleteLatest
+		echo "newly added recipe is"${recipeCreate[@]}" ;
+		RecipesToBeCreated ;                
 }
 
 ##Function to copy recipes from S3 to Local for optimized build
@@ -337,4 +353,4 @@ function recipeInfo()
         cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds
         git add .
         git commit -m "uploading v1"
-        #git push
+        git push
