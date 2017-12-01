@@ -25,6 +25,9 @@ script:
   - cd mashling
   - git branch
   - godep restore
+  - git branch
+  - pwd
+  - git status
   - go install ./...
   - make all
   - mashling version
