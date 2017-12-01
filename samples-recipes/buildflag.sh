@@ -56,7 +56,7 @@ function RecipesToBeDeleted()
                     echo deleting "${recipeDeleteLatest[$p]}"
                 fi
                 done
-		RecipesNewlyAdded ;
+		#RecipesNewlyAdded ;
 }
 
 function RecipesNewlyAdded()
@@ -197,7 +197,7 @@ function recipe_registry()
             done
         
         if [[ $OPTIMIZE = TRUE ]] ; then
-            RecipesToBeCreated ; 
+            RecipesNewlyAdded ; 
         fi     
 }
 
