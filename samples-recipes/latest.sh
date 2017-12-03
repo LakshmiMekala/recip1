@@ -74,7 +74,7 @@ function RecipesNewlyAdded()
 		#RecipesToBeCreated ;
 echo ============================================================
 
-        recipeTOCreate=("${recipeAdded[@]}" "${recipeCreate[@]}" "${recipeTOCreate[@]}" | sort -u);
+        recipeTOCreate=("${recipeAdded[@]}" "${recipeCreate[@]}" "${recipeTOCreate[@]}");
         recipeTOCreate= "${recipeTOCreate[@]}" | sort -u;
         #echo "${recipeTOCreate[@]}" ;
         recipeCreate=()
