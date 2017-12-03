@@ -74,10 +74,10 @@ function RecipesNewlyAdded()
 		#RecipesToBeCreated ;
 echo ============================================================
 
-        recipeTOCreate=("${recipeAdded[@]}" "${recipeCreate[@]}");
+        recipeTOCreate=("${recipeAdded[@]}" "${recipeCreate[@]}" "${recipeTOCreate[@]}");
         recipeTOCreate= "${recipeTOCreate[@]}" | sort -u;
         echo "${recipeTOCreate[@]}" ;
-        recipeCreateNew=()
+        recipeCreate=()
                 y=0;
                 for (( x=0; x<${#recipeTOCreate[@]}; x++ ))
                 do
@@ -206,8 +206,8 @@ function recipe_registry()
                     fi                    
                 done
                 RecipesNewlyAdded ;
-                echo "${recipeCreate[@]}" ;
-                echo gateway array is "${recipeCreate[@]}";
+                #echo "${recipeCreate[@]}" ;
+                #echo gateway array is "${recipeCreate[@]}";
                 echo #################################
                 #RecipesToBeCreated ;
             done
