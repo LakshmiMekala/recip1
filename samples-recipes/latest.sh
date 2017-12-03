@@ -87,7 +87,7 @@ echo ============================================================
                 echo "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
                 echo newly added recipe is "${recipeCreate[@]}" ;
                 echo "dddddddddddddddddddddddddddddddddddddd"
-                RecipesToBeCreated ;
+                #RecipesToBeCreated ;
 echo ===========================================================                        
         # recipeCreateNew=()
         #         y=0;
@@ -212,9 +212,9 @@ function recipe_registry()
                         echo "recipe needs to be created from full build"
                         recipeCreate[$y]=${Gateway[$x]} ;
                         y=$y+1;
-                    fi
-                    RecipesNewlyAdded ;
+                    fi                    
                 done
+                RecipesNewlyAdded ;
                 echo "${recipeCreate[@]}" ;
                 echo gateway array is "${recipeCreate[@]}";
                 echo #################################
