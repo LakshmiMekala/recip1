@@ -71,20 +71,38 @@ function RecipesNewlyAdded()
                 done
                 #declare -p recipeDeleteLatest
 		echo newly added recipe is "${recipeAdded[@]}" ;
-		#RecipesToBeCreated ;                
+		#RecipesToBeCreated ;
+echo ============================================================
+
+        recipeTOCreate=("${recipeTOCreate[@]}" "${recipeAdded[@]}" "${recipeCreate[@]}");
+        recipeTOCreate= "${recipeTOCreate[@]}" | sort -u;
+        echo "${recipeTOCreate[@]}" ;
         recipeCreateNew=()
                 y=0;
-                for (( x=0; x<${#recipeAdded[@]}; x++ ))
+                for (( x=0; x<${#recipeTOCreate[@]}; x++ ))
                 do
-                    recipeCreateNew[$y]=${recipeAdded[$x]} ;
+                    recipeCreate[$y]=${recipeTOCreate[$x]} ;
                     y=$y+1;   
                 done
-                echo "abcaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                #echo newly added recipe is "${recipeAdded[@]}" ;
                 echo "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
-                echo newly added recipe is "${recipeCreateNew[@]}" ;
+                echo newly added recipe is "${recipeCreate[@]}" ;
                 echo "dddddddddddddddddddddddddddddddddddddd"
                 RecipesToBeCreated ;
+echo ===========================================================                        
+        # recipeCreateNew=()
+        #         y=0;
+        #         for (( x=0; x<${#recipeAdded[@]}; x++ ))
+        #         do
+        #             recipeCreateNew[$y]=${recipeAdded[$x]} ;
+        #             y=$y+1;   
+        #         done
+        #         echo "abcaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        #         #echo newly added recipe is "${recipeAdded[@]}" ;
+        #         echo "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+        #         echo newly added recipe is "${recipeCreateNew[@]}" ;
+        #         echo "dddddddddddddddddddddddddddddddddddddd"
+        #         RecipesToBeCreated ;
+echo ===========================================================                
 }
 
 ##Function to copy recipes from S3 to Local for optimized build
@@ -195,16 +213,17 @@ function recipe_registry()
                         recipeCreate[$y]=${Gateway[$x]} ;
                         y=$y+1;
                     fi
+                    RecipesNewlyAdded ;
                 done
                 echo "${recipeCreate[@]}" ;
                 echo gateway array is "${recipeCreate[@]}";
                 echo #################################
-                RecipesToBeCreated ;
+                #RecipesToBeCreated ;
             done
-        
-        if [[ $OPTIMIZE = TRUE ]] ; then
-            RecipesNewlyAdded ; 
-        fi     
+        #    RecipesToBeCreated ;
+        # if [[ $OPTIMIZE = TRUE ]] ; then
+        #     RecipesNewlyAdded ; 
+        # fi     
 }
 
 function RecipesToBeCreated()
@@ -369,7 +388,7 @@ function recipeInfo()
         popd ;
 
 
-        # cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds
-        # git add .
-        # git commit -m "uploading builds" ;
+        cd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds
+        git add .
+        git commit -m "uploading builds" ;
         # git push ;
