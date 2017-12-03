@@ -70,7 +70,7 @@ function RecipesNewlyAdded()
                     [[ -n $skip ]] || recipeAdded+=("$z")
                 done
                 #declare -p recipeDeleteLatest
-		echo newly added recipe is "${recipeAdded[@]}" ;
+		echo newly added recipe in recipe_registry is "${recipeAdded[@]}" ;
 		#RecipesToBeCreated ;
 echo ============================================================
 
@@ -184,24 +184,15 @@ function recipe_registry()
                     Gateway[$x]=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipe_registry.json | jq $xpath_recipe) ;
                     Gateway[$x]=$(echo ${Gateway[$x]} | tr -d '"') ;
                     #recipeCreate[$y]=${Gateway[$x]} ;
-                    echo #################################
-                    echo "${Gateway[$x]}" ;
-                    echo "${recipeCreate[$y]}";
-                    echo #################################
                     recipeInfo ;
-                    echo "creating recipe info json file"
-                    echo #################################
                     if [[ $OPTIMIZE = TRUE ]] ; then
                         if [[ $recipeName =~ ${Gateway[$x]}/${Gateway[$x]}.json ]] || [[ $recipeName =~ ${Gateway[$x]}/manifest ]];then
                             echo "${Gateway[$x]} found in current commit" ;
-                            echo "${Gateway[$x]}" ;
                             recipeCreate[$y]=${Gateway[$x]} ;
                             if [[ -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeCreate[$y]}" ]] ; then
                                 rm -rf $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder"/"${recipeCreate[$y]}";
                             fi
                             echo #################################
-                            echo "${recipeCreate[$y]}" ;
-                            echo "value of y=$y"
                             y=$y+1;
                             echo #################################
                         else
