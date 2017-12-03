@@ -74,11 +74,12 @@ function RecipesNewlyAdded()
 		#RecipesToBeCreated ;
 echo ============================================================
 
-        recipeTOCreate=("${recipeAdded[@]}" "${recipeCreate[@]}" "${recipeTOCreate[@]}");
-        recipeTOCreate= "${recipeTOCreate[@]}" | sort -u;
-        echo Alert 1 "${recipeTOCreate[@]}" ;
-        recipeTOCreate=$(echo "${recipeTOCreate[@]}" | xargs -n1 | sort -u | xargs) ;
-        echo Alert 2 "${recipeTOCreate[@]}" ;
+        #recipeTOCreate=("${recipeAdded[@]}" "${recipeCreate[@]}" "${recipeTOCreate[@]}");
+        #recipeTOCreate= "${recipeTOCreate[@]}" | sort -u;
+        recipeTOCreate=$(echo "${recipeAdded[@]}" "${recipeCreate[@]}" "${recipeTOCreate[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' ')
+        #echo Alert 1 "${recipeTOCreate[@]}" ;
+        #recipeTOCreate=$(echo "${recipeTOCreate[@]}" | xargs -n1 | sort -u | xargs) ;
+        #echo Alert 2 "${recipeTOCreate[@]}" ;
         recipeCreate=()
                 y=0;
                 for (( x=0; x<${#recipeTOCreate[@]}; x++ ))
