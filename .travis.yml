@@ -18,7 +18,7 @@ install:
   - godep restore
   - go install ./...
   - cd $GOPATH/src/github.com/TIBCOSoftware
-  - git clone https://github.com/TIBCOSoftware/mashling-recipes.git
+  - git clone https://github.com/LakshmiMekala/sampleabc.git mashling-recipes
   - git clone -b buildflag https://github.com/LakshmiMekala/recip1.git
   - pushd recip1/samples-recipes
   - rm -rf master-builds 
