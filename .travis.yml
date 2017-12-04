@@ -25,7 +25,7 @@ install:
   - mkdir -p master-builds/latest/temp builds/latest
   
 script:
-   - chmod ugo+x ./latest.sh
+   - chmod ugo+x ./latest.sh ./as2.sh
    - ./latest.sh OPTIMIZE=${BUILDFLAGVALUE}
    - ./as2.sh
    - popd
