@@ -92,7 +92,7 @@ function S3copytoLocal()
     aws s3 cp s3://test-bucket4569/master-builds/latest  $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/"$destFolder" --recursive
     pushd $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/$destFolder
     rm -rf recipeinfo.json recipe_registry.json
-    recipesInLatest=(*)
+    recipesInLatest=()
     for ((i=0; i<${#recipesInLatest[@]}; i++));
     do
         echo "${recipesInLatest[$i]}";
