@@ -62,23 +62,27 @@ function RecipesToBeDeleted()
 function RecipesNewlyAdded()
 {
     recipeAdded=()
-                for z in "${Gateway[@]}"; do
-                    skip=
-                    for l in "${recipesInLatest[@]}"; do
-                        [[ $z == $l ]] && { skip=1; break; }
-                    done
-                    [[ -n $skip ]] || recipeAdded+=("$z")
+            for z in "${Gateway[@]}"; do
+                skip=
+                for l in "${recipesInLatest[@]}"; do
+                    [[ $z == $l ]] && { skip=1; break; }
                 done
+                [[ -n $skip ]] || recipeAdded+=("$z")
+            done
 		echo newly added recipe in recipe_registry is "${recipeAdded[@]}" ;
-        recipeTOCreate=$(echo "${recipeAdded[@]}" "${recipeCreate[@]}" "${recipeTOCreate[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' ')
-        recipeCreate=()
-                y=0;
-                for (( x=0; x<${#recipeTOCreate[@]}; x++ ))
-                do
-                    recipeCreate[$y]=${recipeTOCreate[$x]} ;
-                    y=$y+1;   
-                done
-                echo newly added recipe is "${recipeCreate[@]}" ;           
+        recipeTOCreate=$(echo "${recipeAdded[@]}" "${recipeCreate[@]}" "${recipeTOCreate[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' ') ;        
+        IFS=\  read -a recipeCreate <<<"$recipeTOCreate" ;
+        set | grep ^IFS= ;
+        #separating arrays ny line
+        IFS=$' \t\n' ;
+        #fetching Gateway
+        set | grep ^recipeCreate=\\\|^recipeTOCreate= ;
+            for (( x=0; x<${#recipeTOCreate[@]}; x++ ))
+            do
+                recipeCreate[$y]=${recipeTOCreate[$x]} ;
+                y=$y+1;   
+            done
+            echo newly added recipe is "${recipeCreate[@]}" ;           
 }
 
 ##Function to copy recipes from S3 to Local for optimized build
