@@ -77,10 +77,9 @@ function RecipesNewlyAdded()
         IFS=$' \t\n' ;
         #fetching Gateway
         set | grep ^recipeCreate=\\\|^recipeTOCreate= ;
-            for (( x=0; x<${#recipeTOCreate[@]}; x++ ))
+            for (( x=0; x<${#recipeCreate[@]}; x++ ))
             do
-                recipeCreate[$y]=${recipeTOCreate[$x]} ;
-                y=$y+1;   
+                recipeCreate[$y] ;
             done
             echo newly added recipe is "${recipeCreate[@]}" ;           
 }
@@ -198,11 +197,6 @@ function RecipesToBeCreated()
     do
     echo length of gateway array is "${#recipeCreate[@]}";
     echo "${recipeCreate[$y]}";
-    pushd $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]} ;
-    echo "123"
-    ls;
-    echo "456"
-    popd
     if [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/${recipeCreate[$y]}.json ]] || [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/manifest ]] ; then
         displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}"/"${recipeCreate[$y]}".json | jq '.gateway.display_image') ;
         displayImage=$(echo $displayImage | tr -d '"') ;
