@@ -63,6 +63,7 @@ function RecipesNewlyAdded()
 {
     recipeAdded=()
     echo Gateway arrays are "${Gateway[@]}";
+    echo recipes in latest are "${recipesInLatest[@]}"
             for z in "${Gateway[@]}"; do
                 skip=
                 for l in "${recipesInLatest[@]}"; do
@@ -70,7 +71,7 @@ function RecipesNewlyAdded()
                 done
                 [[ -n $skip ]] || recipeAdded+=("$z")
             done
-		echo newly added recipe in recipe_registry is "${recipeAdded[@]}" ;
+		echo newly added recipe-in recipe_registry is "${recipeAdded[@]}" ;
         recipeTOCreate=$(echo "${recipeAdded[@]}" "${recipeCreate[@]}" "${recipeTOCreate[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' ') ;        
         IFS=\  read -a recipeCreate <<<"$recipeTOCreate" ;
         set | grep ^IFS= ;
