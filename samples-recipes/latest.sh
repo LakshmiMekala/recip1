@@ -62,8 +62,8 @@ function RecipesToBeDeleted()
 function RecipesNewlyAdded()
 {
     recipeAdded=()
-    echo Gateway arrays are "${Gateway[@]}";
-    echo recipes in latest are "${recipesInLatest[@]}"
+    #echo Gateway arrays are "${Gateway[@]}";
+    #echo recipes-in latest are "${recipesInLatest[@]}"
             for z in "${Gateway[@]}"; do
                 skip=
                 for l in "${recipesInLatest[@]}"; do
@@ -81,7 +81,7 @@ function RecipesNewlyAdded()
         set | grep ^recipeCreate=\\\|^recipeTOCreate= ;
             for (( x=0; x<${#recipeCreate[@]}; x++ ))
             do
-                echo "recipeCreate[$x]" ;
+                echo "${recipeCreate[$x]}" ;
             done
             echo newly added recipe is "${recipeCreate[@]}" ;           
 }
