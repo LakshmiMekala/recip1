@@ -71,9 +71,13 @@ function RecipesNewlyAdded()
                 done
                 [[ -n $skip ]] || recipeAdded+=("$z")
             done
+        echo #####################################################
 		echo newly added recipe-in recipe_registry is "${recipeAdded[@]}" ;
+        echo recipeCreate="${recipeCreate[@]}";
+        echo recipeTOCreate="${recipeTOCreate[@]}"
+        echo #####################################################
         ###"${recipeTOCreate[@]}"
-        recipeTOCreate=$(echo "${recipeAdded[@]}" "${recipeCreate[@]}"  | tr ' ' '\n' | sort -u | tr '\n' ' ') ;        
+        recipeTOCreate=$(echo "${recipeAdded[@]}" "${recipeCreate[@]}" "${recipeTOCreate[@]}"  | tr ' ' '\n' | sort -u | tr '\n' ' ') ;        
         IFS=\  read -a recipeCreate <<<"$recipeTOCreate" ;
         set | grep ^IFS= ;
         #separating array by line
@@ -189,7 +193,7 @@ function recipe_registry()
                 done
                 RecipesNewlyAdded ;
             done
-            RecipesToBeCreated ;
+            #RecipesToBeCreated ;
 }
 
 function RecipesToBeCreated()
