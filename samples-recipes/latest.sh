@@ -62,6 +62,7 @@ function RecipesToBeDeleted()
 function RecipesNewlyAdded()
 {
     recipeAdded=()
+    echo Gateway arrays are "${Gateway[@]}";
             for z in "${Gateway[@]}"; do
                 skip=
                 for l in "${recipesInLatest[@]}"; do
