@@ -193,6 +193,7 @@ function RecipesToBeCreated()
     for (( y=0; y < "${#recipeCreate[@]}"; y++ ));
     do
     echo length of gateway array is "${#recipeCreate[@]}";
+    echo "${recipeCreate[$y]}";
     pushd $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]} ;
     echo "123"
     ls;
@@ -314,8 +315,8 @@ function recipeInfo()
             do
                 export GOOS="${GOOSystem[$k]}" ;
                 echo $GOOS ;
-                echo $GOARCH ;
                 export GOARCH=amd64 ;
+                echo $GOARCH ;
                     if [[ ! -d $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp ]]; then
                     mkdir -p $GOPATH/src/github.com/TIBCOSoftware/recip1/samples-recipes/master-builds/tmp
                     fi
