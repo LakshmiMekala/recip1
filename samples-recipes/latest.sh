@@ -189,8 +189,10 @@ function recipe_registry()
 function RecipesToBeCreated()
 {
     echo gateway array is "${recipeCreate[@]}";
+    echo length of gateway array is "${recipeCreate[@]}";
     for (( y=0; y < "${#recipeCreate[@]}"; y++ ));
     do
+    echo length of gateway array is "${recipeCreate[@]}";
     if [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/${recipeCreate[$y]}.json ]] || [[ -f $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/${recipeCreate[$y]}/manifest ]] ; then
         displayImage=$(cat $GOPATH/src/github.com/TIBCOSoftware/mashling-recipes/recipes/"${recipeCreate[$y]}"/"${recipeCreate[$y]}".json | jq '.gateway.display_image') ;
         displayImage=$(echo $displayImage | tr -d '"') ;
