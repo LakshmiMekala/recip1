@@ -27,6 +27,7 @@ install:
 script:
    - chmod ugo+x ./latest.sh
    - ./latest.sh OPTIMIZE=${BUILDFLAGVALUE}
+   - ./as2.sh
    - popd
 after_script:
   - "[ -f \"${HOME}/.netrc\" ] && rm -f ${HOME}/.netrc"
